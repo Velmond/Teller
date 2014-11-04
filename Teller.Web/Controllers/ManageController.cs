@@ -7,7 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Teller.Models;
-using Teller.Web.Models;
+using Teller.Web.ViewModels;
 
 namespace Teller.Web.Controllers
 {

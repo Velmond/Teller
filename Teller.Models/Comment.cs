@@ -18,13 +18,16 @@
         [Required]
         public DateTime Published { get; set; }
 
+        [Required]
+        public bool IsFlagged { get; set; }
+
         [ForeignKey("Author")]
         public string AuthorId { get; set; }
 
         public virtual AppUser Author { get; set; }
 
         [ForeignKey("Story")]
-        public int StoryId { get; set; }
+        public string StoryId { get; set; }
 
         public virtual Story Story { get; set; }
 

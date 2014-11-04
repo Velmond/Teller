@@ -54,6 +54,8 @@
   <ItemGroup>
     <Compile Include="Comment.cs" />
     <Compile Include="CommentLike.cs" />
+    <Compile Include="Flag.cs" />
+    <Compile Include="FlagType.cs" />
     <Compile Include="Genre.cs" />
     <Compile Include="Like.cs" />
     <Compile Include="Series.cs" />

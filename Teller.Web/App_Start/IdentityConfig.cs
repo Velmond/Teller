@@ -12,7 +12,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Teller.Data;
 using Teller.Models;
-using Teller.Web.Models;
+using Teller.Web.ViewModels;
 
 namespace Teller.Web
 {

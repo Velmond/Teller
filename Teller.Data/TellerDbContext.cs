@@ -23,6 +23,8 @@
 
         public IDbSet<CommentLike> CommentLikes { get; set; }
 
+        public IDbSet<Flag> Flags { get; set; }
+
         public IDbSet<Genre> Genres { get; set; }
 
         public IDbSet<Like> Likes { get; set; }
@@ -58,6 +60,17 @@
                    m.MapLeftKey("UserId");
                    m.MapRightKey("StoryId");
                    m.ToTable("ReadLaterStories");
+               });
+
+            modelBuilder.Entity<AppUser>()
+              .HasMany(u => u.Subscribers)
+              .WithMany(u => u.SubscribedTo)
+              .Map(
+               m =>
+               {
+                   m.MapLeftKey("UserId");
+                   m.MapRightKey("SubscriberId");
+                   m.ToTable("UserSubscripitons");
                });
 
             base.OnModelCreating(modelBuilder);

@@ -1,9 +1,11 @@
 ﻿namespace Teller.Models
 {
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Security.Claims;
     using System.Threading.Tasks;
+
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -18,6 +20,8 @@
             this.Series = new HashSet<Series>();
             this.Likes = new HashSet<Like>();
             this.Comments = new HashSet<Comment>();
+            this.Subscribers = new HashSet<AppUser>();
+            this.SubscribedTo = new HashSet<AppUser>();
         }
 
         [MaxLength(100)]
@@ -28,6 +32,17 @@
         [MinLength(2)]
         public string Description { get; set; }
 
+        [Required]
+        public DateTime RegisteredOn { get; set; }
+
+        public string AvatarPath { get; set; }
+
+        [Required]
+        public byte StoryViolations { get; set; }
+
+        [Required]
+        public int CommentViolations { get; set; }
+
         public virtual ICollection<Story> Stories { get; set; }
 
         public virtual ICollection<Story> Favourites { get; set; }
@@ -37,8 +52,12 @@
         public virtual ICollection<Series> Series { get; set; }
         
         public virtual ICollection<Like> Likes { get; set; }
-        
+
         public virtual ICollection<Comment> Comments { get; set; }
+
+        public virtual ICollection<AppUser> Subscribers { get; set; }
+
+        public virtual ICollection<AppUser> SubscribedTo { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<AppUser> manager)
         {

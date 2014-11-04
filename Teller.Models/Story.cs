@@ -9,14 +9,16 @@
     {
         public Story()
         {
+            this.Id = Guid.NewGuid();
             this.Likes = new HashSet<Like>();
             this.Comments = new HashSet<Comment>();
             this.FavouritedBy = new HashSet<AppUser>();
             this.ToBeReadBy = new HashSet<AppUser>();
+            this.Flags = new HashSet<Flag>();
         }
 
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [MaxLength(100)]
         [MinLength(2)]
@@ -29,6 +31,12 @@
 
         [Required]
         public DateTime DatePublished { get; set; }
+
+        [Required]
+        public string PicturePath { get; set; }
+
+        [Required]
+        public long ViewsCount { get; set; }
 
         [ForeignKey("Author")]
         public string AuthorId { get; set; }
@@ -52,5 +60,7 @@
         public virtual ICollection<AppUser> FavouritedBy { get; set; }
 
         public virtual ICollection<AppUser> ToBeReadBy { get; set; }
+
+        public virtual ICollection<Flag> Flags { get; set; }
     }
 }

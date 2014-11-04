@@ -20,8 +20,8 @@
         [MinLength(2)]
         public string Name { get; set; }
 
-        public ICollection<Story> Stories { get; set; }
+        public virtual ICollection<Story> Stories { get; set; }
 
-        public ICollection<Series> Series { get; set; }
+        public virtual ICollection<Series> Series { get; set; }
     }
 }

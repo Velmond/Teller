@@ -15,17 +15,56 @@ namespace Teller.Data.Migrations
         protected override void Seed(Teller.Data.TellerDbContext context)
         {
             //  This method will be called after migrating to the latest version.
-
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data. E.g.
-            //
             //    context.People.AddOrUpdate(
             //      p => p.FullName,
             //      new Person { FullName = "Andrew Peters" },
             //      new Person { FullName = "Brice Lambson" },
             //      new Person { FullName = "Rowan Miller" }
             //    );
-            //
+
+            // ROLES:
+            // User
+            // Admin
+            // Banned
+            // Restricted
+
+            // GENRES:
+            // Adventure
+            // Airport novel
+            // Allegory
+            // Bildungsroman
+            // Black comedy
+            // Blog
+            // Comedy
+            // Comedy-drama
+            // Farce
+            // Crime
+            // Detective
+            // Epic
+            // Epistolary
+            // Fantasy
+            // Fictional autobiography
+            // Fictional biography
+            // Genre
+            // Gothic
+            // Horror
+            // Melodrama
+            // Mystery
+            // Pastiche
+            // Picaresque
+            // Parody
+            // Romance
+            // Romantic comedy
+            // Romp
+            // Satire
+            // Science fiction
+            // Swashbuckler
+            // Thriller
+            // Tragedy
+            // Tragicomedy
+            // Travelogue
         }
     }
 }

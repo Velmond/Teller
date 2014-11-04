@@ -33,6 +33,11 @@
             get { return this.GetRepository<CommentLike>(); }
         }
 
+        public IRepository<Flag> Flags
+        {
+            get { return this.GetRepository<Flag>(); }
+        }
+
         public IRepository<Genre> Genres
         {
             get { return this.GetRepository<Genre>(); }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
-namespace Teller.Web.Models
+namespace Teller.Web.ViewModels
 {
     public class IndexViewModel
     {
