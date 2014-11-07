@@ -1,0 +1,13 @@
+﻿@model Teller.Web.ViewModels.Search.SearchSeriesViewModel
+@using Teller.Web.Helpers
+@{
+    var urlGenerator = new UrlGenerator();
+}
+
+<div>
+    <h4>
+        @Html.ActionLink(Model.Title, "Index", "Series", new { id = urlGenerator.GenerateUrlId(Model.Id, Model.Title) }, new { })
+        <small> (@Model.Genre)</small>
+    </h4>
+    <small>@Html.ActionLink(Model.Author, "Series", "Profile", new { Area = "User", username = Model.Author }, new { Area = "User" })</small>
+</div>

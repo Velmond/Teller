@@ -1,22 +1,22 @@
 ﻿using System.Web.Mvc;
 
-namespace Teller.Web.Areas.Admin
+namespace Teller.Web.Areas.Administration
 {
-    public class AdminAreaRegistration : AreaRegistration
+    public class AdministrationAreaRegistration : AreaRegistration
     {
         public override string AreaName
         {
             get
             {
-                return "Admin";
+                return "Administration";
             }
         }
 
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
-                "Admin_default",
-                "Admin/{controller}/{action}",
+                "Administration_default",
+                "Administration/{controller}/{action}",
                 new
                 {
                     Controller = "Admin",

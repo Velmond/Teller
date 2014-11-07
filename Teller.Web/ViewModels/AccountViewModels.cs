@@ -50,7 +50,7 @@ namespace Teller.Web.ViewModels
     {
         [Required]
         [Display(Name = "Userame")]
-        [EmailAddress]
+        //[EmailAddress]
         public string Userame { get; set; }
 
         [Required]

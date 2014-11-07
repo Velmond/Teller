@@ -1,0 +1,14 @@
+﻿@model Teller.Web.ViewModels.ErrorViewModel
+@{
+    ViewBag.Title = "Server Error";
+}
+
+<div class="jumbotron">
+    <h1>A server error occurred!</h1>
+    <p class="lead">We are extremely sorry for the inconvenience.</p>
+    <p>
+        @Html.ActionLink("« Go Home", "Index", "Home", null, new { @class = "btn btn-primary btn-lg" })
+    </p>
+    @*<p>@Model.Message</p>
+    <p>@Model.StackTrace</p>*@
+</div>

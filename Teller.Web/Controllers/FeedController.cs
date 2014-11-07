@@ -1,18 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-
-namespace Teller.Web.Controllers
+﻿namespace Teller.Web.Controllers
 {
-    public class FeedController : Controller
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web;
+    using System.Web.Mvc;
+
+    using Teller.Web.ViewModels;
+
+    public class FeedController : BaseController
     {
-        // ~/feed/{id}
-        public ActionResult Index(string id)
+        [Authorize]
+        public ActionResult Index(string username)
         {
-            // Get user's subscription feed
-            return View();
+            var feedStoriesCollections = this.User.SubscribedTo.Select(s => s.Stories);
+            var feedStories = new List<UserFeedStory>();
+
+            foreach(var collection in feedStoriesCollections)
+            {
+                feedStories.AddRange(collection.Select(UserFeedStory.FromStory));
+            }
+
+            feedStories = feedStories.OrderByDescending(s => s.DatePublished).ToList();
+
+            return View(feedStories);
         }
     }
 }

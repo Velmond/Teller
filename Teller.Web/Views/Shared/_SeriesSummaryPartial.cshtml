@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Teller.Web.ViewModels.Search.SearchSeriesViewModel>
+
+<div class="row">
+    @if(Model.Count() == 0)
+    {
+        <h3 class="lead text-center">
+            No series were found
+        </h3>
+    }
+    else
+    {
+        int counter = 0;
+        foreach(var series in Model)
+        {
+            counter++;
+
+            @*<div class="col-md-4">*@
+                @Html.DisplayFor(m => series)
+            @*</div>
+        
+            if(counter % 3 == 0)
+            {
+                @Html.Raw("</div><p></p><div class=\"row\">")
+            }*@
+        }
+    }
+</div>

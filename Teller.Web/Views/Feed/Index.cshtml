@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Teller.Web.ViewModels.UserFeedStory>
+@{
+    ViewBag.Title = "Subscription feed";
+}
+
+<div class="row">
+    <div class="col-md-offset-1 col-md-10">
+        <div class="well-sm">
+            <h3 class="lead">Subscription feed</h3>
+        </div>
+
+        <div class="row">
+            <div class="well">
+                <h5 class="lead">Stories</h5>
+                <div>
+                    @Html.Partial("_FeedStories", Model)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

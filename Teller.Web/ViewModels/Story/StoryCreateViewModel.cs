@@ -1,9 +1,8 @@
-﻿namespace Teller.Web.ViewModels
+﻿namespace Teller.Web.ViewModels.Story
 {
-    using System;
     using System.ComponentModel.DataAnnotations;
 
-    public class StoryViewModel
+    public class StoryCreateViewModel
     {
         [MaxLength(100)]
         [MinLength(2)]
@@ -15,12 +14,9 @@
         public string Content { get; set; }
 
         [Required]
-        public DateTime DatePublished { get; set; }
-
-        [Required]
-        public string PicturePath { get; set; }
-
         public int GenreId { get; set; }
+
+        public string PicturePath { get; set; }
 
         public int? SeriesId { get; set; }
     }

@@ -1,0 +1,12 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Profile Layout</h2>
+
+@Html.ActionLink("Info", "Info", "Profile", new { Area = "User", username = ViewBag.Username }, new { @class = "btn btn-default" })
+@Html.ActionLink("Series", "Series", "Profile", new { Area = "User", username = ViewBag.Username }, new { @class = "btn btn-default" })
+@Html.ActionLink("Stories", "Stories", "Profile", new { Area = "User", username = ViewBag.Username }, new { @class = "btn btn-default" })
+
+@RenderBody()
