@@ -1,0 +1,14 @@
+﻿@model Teller.Web.ViewModels.ErrorViewModel
+@{
+    ViewBag.Title = "Oops";
+}
+
+<div class="jumbotron">
+    <h1>Oops! An error occurred</h1>
+    <p class="lead">It seems we have misplaced the content you are looking for... Either that or you're looking for the one thing we cannot give you.</p>
+    <p>
+        @Html.ActionLink("« Go Home", "Index", "Home", null, new { @class = "btn btn-primary btn-lg" })
+    </p>
+    @*<p>@Model.Message</p>
+    <p>@Model.StackTrace</p>*@
+</div>

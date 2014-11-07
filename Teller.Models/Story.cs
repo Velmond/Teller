@@ -9,7 +9,6 @@
     {
         public Story()
         {
-            this.Id = Guid.NewGuid();
             this.Likes = new HashSet<Like>();
             this.Comments = new HashSet<Comment>();
             this.FavouritedBy = new HashSet<AppUser>();
@@ -18,7 +17,7 @@
         }
 
         [Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         [MaxLength(100)]
         [MinLength(2)]

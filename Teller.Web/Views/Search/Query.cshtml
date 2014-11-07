@@ -1,0 +1,41 @@
+﻿@model Teller.Web.ViewModels.Search.SearchViewModel
+@{
+    ViewBag.Title = "Query";
+}
+
+<div class="row">
+    <div class="col-md-offset-1 col-md-10">
+        <div class="well-sm">
+            <h3 class="lead">Search results for "@ViewBag.Pattern"</h3>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="well">
+                    <h5 class="lead">Stories</h5>
+                    <div>
+                        @Html.Partial("_StorySummaryPartial", Model.Stories)
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="well">
+                        <h5 class="lead">Series</h5>
+                        <div>
+                            @Html.Partial("_SeriesSummaryPartial", Model.Series)
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="well">
+                        <h5 class="lead">Users</h5>
+                        <div>
+                            @Html.Partial("_UsersSummaryPartial", Model.Users)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

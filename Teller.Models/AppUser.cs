@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Security.Claims;
     using System.Threading.Tasks;
 
@@ -24,24 +25,13 @@
             this.SubscribedTo = new HashSet<AppUser>();
         }
 
-        [MaxLength(100)]
-        [MinLength(2)]
-        public string Motto { get; set; }
-
-        [MaxLength(500)]
-        [MinLength(2)]
-        public string Description { get; set; }
-
         [Required]
         public DateTime RegisteredOn { get; set; }
 
-        public string AvatarPath { get; set; }
+        [ForeignKey("UserInfo")]
+        public int? UserInfoId { get; set; }
 
-        [Required]
-        public byte StoryViolations { get; set; }
-
-        [Required]
-        public int CommentViolations { get; set; }
+        public virtual UserInfo UserInfo { get; set; }
 
         public virtual ICollection<Story> Stories { get; set; }
 

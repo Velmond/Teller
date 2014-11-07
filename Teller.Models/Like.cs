@@ -10,7 +10,7 @@
         public string AuthorId { get; set; }
 
         [Key, Column(Order = 1)]
-        public string StoryId { get; set; }
+        public int StoryId { get; set; }
 
         public bool? Value { get; set; }
 

@@ -195,12 +195,16 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
+    <Compile Include="Areas\Administration\Controllers\AdminController.cs" />
     <Compile Include="Areas\User\Controllers\ProfileController.cs" />
     <Compile Include="Areas\User\UserAreaRegistration.cs" />
+    <Compile Include="Areas\User\ViewModels\EditUserProfileViewModel.cs" />
+    <Compile Include="Areas\User\ViewModels\UserInfoViewModel.cs" />
+    <Compile Include="Areas\User\ViewModels\UserViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\FeedController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -211,11 +215,23 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\IUrlGenerator.cs" />
+    <Compile Include="Helpers\UrlGenerator.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
+    <Compile Include="ViewModels\ErrorViewModel.cs" />
+    <Compile Include="ViewModels\HomePageViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ViewModels\StoryViewModel.cs" />
+    <Compile Include="ViewModels\Search\SearchSeriesViewModel.cs" />
+    <Compile Include="ViewModels\Search\SearchStoryViewModel.cs" />
+    <Compile Include="ViewModels\Search\SearchUserViewModel.cs" />
+    <Compile Include="ViewModels\Search\SearchViewModel.cs" />
+    <Compile Include="ViewModels\SelectViewModel.cs" />
+    <Compile Include="ViewModels\Story\StoryFormViewModel.cs" />
+    <Compile Include="ViewModels\Story\StoryViewModel.cs" />
+    <Compile Include="ViewModels\Story\StoryCreateViewModel.cs" />
+    <Compile Include="ViewModels\UserFeedStory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -226,9 +242,17 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Administration\Views\web.config" />
     <Content Include="Areas\User\Views\web.config" />
-    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Administration\Views\Admin\_ViewStart.cshtml" />
+    <Content Include="Areas\User\Views\Profile\Info.cshtml" />
+    <Content Include="Areas\User\Views\Profile\_ViewStart.cshtml" />
+    <Content Include="Areas\User\Views\Profile\Stories.cshtml" />
+    <Content Include="Areas\User\Views\Profile\Series.cshtml" />
+    <Content Include="Areas\User\Views\Shared\_ProfileLayout.cshtml" />
+    <Content Include="Areas\User\Views\Profile\Edit.cshtml" />
+    <Content Include="Areas\Administration\Views\Admin\Index.cshtml" />
+    <Content Include="Areas\Administration\Views\Shared\_AdminLayout.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -279,22 +303,32 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Areas\User\Views\_ViewStart.cshtml" />
+    <Content Include="Views\Story\Create.cshtml" />
+    <Content Include="Views\Search\Query.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Error\Oops.cshtml" />
+    <Content Include="Views\Shared\_StorySummaryPartial.cshtml" />
+    <Content Include="Views\Shared\_SeriesSummaryPartial.cshtml" />
+    <Content Include="Views\Shared\_UsersSummaryPartial.cshtml" />
+    <Content Include="Views\Error\ServerError.cshtml" />
+    <Content Include="Views\Feed\Index.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Int32.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Int64.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\String.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\SearchStoryViewModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\SearchSeriesViewModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\SearchUserViewModel.cshtml" />
+    <Content Include="Views\Feed\_FeedStories.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\UserFeedStory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\Admin\" />
-    <Folder Include="Areas\Admin\Views\Shared\" />
-    <Folder Include="Areas\User\Models\" />
-    <Folder Include="Areas\User\Views\Profile\" />
-    <Folder Include="Areas\User\Views\Shared\" />
+    <Folder Include="Areas\Administration\Models\" />
     <Folder Include="Images\StoryPictures\" />
     <Folder Include="Images\UserPictures\" />
-    <Folder Include="Views\Feed\" />
-    <Folder Include="Views\Search\" />
     <Folder Include="Views\Series\" />
-    <Folder Include="Views\Story\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

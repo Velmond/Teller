@@ -174,7 +174,9 @@ namespace Teller.Web.Controllers
                     Email = model.Email,
                     RegisteredOn = DateTime.Now
                 };
+
                 var result = await UserManager.CreateAsync(user, model.Password);
+
                 if(result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);

@@ -13,10 +13,20 @@ namespace Teller.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            //routes.MapRoute(
+            //    name: "StaicPages",
+            //    url: "{action}",
+            //    defaults: new { controller = "Home" }
+            //);
+
             routes.MapRoute(
-                name: "StaicPages",
-                url: "{action}",
-                defaults: new { controller = "Home" }
+                name: "Feed",
+                url: "{controller}/{action}/{username}",
+                defaults: new
+                {
+                    controller = "Feed",
+                    action = "Index"
+                }
             );
 
             routes.MapRoute(
@@ -27,6 +37,18 @@ namespace Teller.Web
                     controller = "Home",
                     action = "Index",
                     id = UrlParameter.Optional
+                }
+            );
+
+            routes.MapRoute(
+                name: "Profile",
+                url: "{area}/{controller}/{action}/{username}",
+                defaults: new
+                {
+                    area = "User",
+                    controller = "Profile",
+                    action = "Stories",
+                    username = UrlParameter.Optional
                 }
             );
         }
