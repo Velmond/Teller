@@ -15,7 +15,7 @@
         {
         }
 
-        public ActionResult Query(string pattern)
+        public ActionResult Index(string pattern)
         {
             if(string.IsNullOrEmpty(pattern))
             {
@@ -53,9 +53,6 @@
                 .Select(SearchUserViewModel.FromUser)
                 .ToList();
 
-            //model.Series = null;
-            //model.Users = null;
-
             return View(model);
         }
 
@@ -72,6 +69,12 @@
                 .Select(SearchStoryViewModel.FromStory)
                 .Union(this.Data.Stories.All()
                     .Where(s => s.Content.ToLower().IndexOf(pattern) >= 0)
+                    .Select(SearchStoryViewModel.FromStory))
+                .Union(this.Data.Stories.All()
+                    .Where(s => s.Series.Title.ToLower().IndexOf(pattern) >= 0)
+                    .Select(SearchStoryViewModel.FromStory))
+                .Union(this.Data.Stories.All()
+                    .Where(s => s.Author.UserName.ToLower() == pattern)
                     .Select(SearchStoryViewModel.FromStory));
 
             model.Stories = storiresByContent.ToList();

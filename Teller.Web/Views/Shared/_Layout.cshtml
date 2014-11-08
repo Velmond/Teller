@@ -9,7 +9,7 @@
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -22,7 +22,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="navbar-collapse collapse">
-                        @using(Html.BeginForm("Query", "Search", null, FormMethod.Post, new { @class = "navbar-form" }))
+                        @using(Html.BeginForm("Index", "Search", null, FormMethod.Post, new { @class = "navbar-form" }))
                         {
                             <div class="form-group">
                                 <div class="input-group">
@@ -46,8 +46,8 @@
                 <small>&copy; 2014 - Mitko Nikolov</small>
                 <div>
                     <small>
-                        @Html.ActionLink("About", "About", "Home", null, new { @class = "btn btn-sm btn-default" })
-                        @Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "btn btn-sm btn-default" })
+                        @Html.RouteLink("About", new { Area = "", Controller = "Home", Action = "About" }, new { @class = "btn btn-sm btn-default" })
+                        @Html.RouteLink("Contact", new { Area = "", Controller = "Home", Action = "Contact" }, new { @class = "btn btn-sm btn-default" })
                     </small>
                 </div>
             </div>

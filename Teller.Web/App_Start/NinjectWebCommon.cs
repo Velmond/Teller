@@ -10,6 +10,7 @@ namespace Teller.Web.App_Start
     using Ninject;
     using Ninject.Web.Common;
     using Teller.Data;
+    using Teller.Data.Repositories;
 
     public static class NinjectWebCommon 
     {
@@ -63,6 +64,9 @@ namespace Teller.Web.App_Start
         {
             kernel.Bind<DbContext>()
                 .To<TellerDbContext>();
+
+            kernel.Bind(typeof(IRepository<>))
+                .To(typeof(Repository<>));
 
             kernel.Bind<ITellerData>()
                 .To<TellerData>()

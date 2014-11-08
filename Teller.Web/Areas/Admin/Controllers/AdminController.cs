@@ -1,10 +1,7 @@
-﻿namespace Teller.Web.Areas.Administration.Controllers
+﻿namespace Teller.Web.Areas.Admin.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web;
     using System.Web.Mvc;
+
     using Teller.Data;
     using Teller.Web.Controllers;
 
@@ -14,12 +11,6 @@
         public AdminController(ITellerData data)
             : base(data)
         {
-        }
-
-        // GET: Admin/Admin
-        public ActionResult Index()
-        {
-            return View();
         }
     }
 }

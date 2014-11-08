@@ -6,10 +6,16 @@
     using System.Web;
     using System.Web.Mvc;
 
+    using Teller.Data;
     using Teller.Web.ViewModels;
 
     public class FeedController : BaseController
     {
+        public FeedController(ITellerData data)
+            : base(data)
+        {
+        }
+
         [Authorize]
         public ActionResult Index(string username)
         {

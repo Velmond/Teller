@@ -19,8 +19,33 @@ namespace Teller.Web
             //    defaults: new { controller = "Home" }
             //);
 
+            //routes.MapRoute(
+            //    name: "Feed",
+            //    url: "{controller}/{username}",
+            //    defaults: new
+            //    {
+            //        controller = "Feed",
+            //        action = "Index"
+            //    }
+            //);
+
+            //routes.MapRoute(
+            //    name: "CreateStory",
+            //    url: "Story/Create",
+            //    defaults: new
+            //    {
+            //        controller = "Story",
+            //        action = "Create"
+            //    }
+            //);
+
+            //routes.MapRoute(
+            //    name: "Search",
+            //    url: "{controller}/{action}"
+            //);
+
             routes.MapRoute(
-                name: "Feed",
+                name: "WithUsername",
                 url: "{controller}/{action}/{username}",
                 defaults: new
                 {
@@ -40,17 +65,17 @@ namespace Teller.Web
                 }
             );
 
-            routes.MapRoute(
-                name: "Profile",
-                url: "{area}/{controller}/{action}/{username}",
-                defaults: new
-                {
-                    area = "User",
-                    controller = "Profile",
-                    action = "Stories",
-                    username = UrlParameter.Optional
-                }
-            );
+            //routes.MapRoute(
+            //    name: "Profile",
+            //    url: "{area}/{controller}/{action}/{username}",
+            //    defaults: new
+            //    {
+            //        area = "User",
+            //        controller = "Profile",
+            //        action = "Stories",
+            //        username = UrlParameter.Optional
+            //    }
+            //);
         }
     }
 }

@@ -5,7 +5,7 @@
 
     public class ErrorController : Controller
     {
-        public ActionResult Oops(/*string message, string stack*/)
+        public ActionResult Index(/*string message, string stack*/)
         {
             //var error = new ErrorViewModel()
             //{

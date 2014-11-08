@@ -6,25 +6,25 @@
         @Html.AntiForgeryToken()
 
         <ul class="nav navbar-nav navbar-right">
-            <li>@Html.ActionLink("Tell Story", "Create", "Story", new { Area = "" }, null)</li>
-            <li>@Html.ActionLink("User Feed", "Index", "Feed", new { username = User.Identity.GetUserName() }, new { })</li>
+            <li>@Html.RouteLink("Tell Story", new { Area = "", Controller = "Story", Action = "Create" }, null)</li>
+            <li>@Html.RouteLink("User Feed", new { Area = "", Controller = "Feed", Action = "Index", username = User.Identity.GetUserName() }, new { })</li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">@User.Identity.GetUserName()<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li>
-                        @Html.ActionLink("Public profile", "Info", "Profile", new { Area = "User", username = User.Identity.GetUserName() }, new { })
+                        @Html.RouteLink("Public profile", new { Area = "User", Controller = "Info", Action = "Index", username = User.Identity.GetUserName() }, new { })
                     </li>
                     <li>
-                        @Html.ActionLink("Edit public profile", "Edit", "Profile", new { Area = "User", username = User.Identity.GetUserName() }, new { })
+                        @Html.RouteLink("Edit public profile", new { Area = "User", Controller = "Profile", Action = "Edit", username = User.Identity.GetUserName() }, new { })
                     </li>
                     <li>
-                        @Html.ActionLink("Manage account", "Index", "Manage", new { Area = "" }, htmlAttributes: new { title = "Manage" })
+                        @Html.RouteLink("Manage account", new { Area = "", Controller = "Manage", Action = "Index" }, new { })
                     </li>
                     <li class="divider"></li>
                     @if(User.IsInRole("Admin"))
                     {
                         <li>
-                            @Html.ActionLink("Admin panel", "Index", "Admin", new { Area = "Administration" }, new { })
+                            @Html.RouteLink("Administration", new { Area = "Admin", Controller = "Users", Action = "Index" }, new { })
                         </li>
                         <li class="divider"></li>
                     }

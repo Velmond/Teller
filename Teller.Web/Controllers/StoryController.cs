@@ -19,14 +19,14 @@
         {
         }
 
-        // ~/story/{id}
         public ActionResult Index(string id)
         {
             // get story with id = {id}
-            var storyId = id.Substring(id.LastIndexOf('-') + 1);
-            var story = this.Data.Stories.Find(storyId);
+            //var storyId = id.Substring(id.LastIndexOf('-') + 1);
+            //var story = this.Data.Stories.Find(storyId);
 
-            return View(story);
+            //return View(story);
+            return View();
         }
 
         [Authorize]

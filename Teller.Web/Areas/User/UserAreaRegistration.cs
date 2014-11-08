@@ -15,12 +15,22 @@ namespace Teller.Web.Areas.User
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
+                "User_NoAction",
+                "User/{controller}/{username}",
+                new
+                {
+                    controller = "Users",
+                    action = "Index"
+                }
+            );
+
+            context.MapRoute(
                 "User_default",
                 "User/{controller}/{action}/{username}",
                 new
                 {
-                    controller = "profile",
-                    action = "stories"
+                    controller = "Profile",
+                    action = "Edit"
                 }
             );
         }
