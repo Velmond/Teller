@@ -234,6 +234,9 @@
     <Compile Include="ViewModels\Search\SearchUserViewModel.cs" />
     <Compile Include="ViewModels\Search\SearchViewModel.cs" />
     <Compile Include="ViewModels\SelectViewModel.cs" />
+    <Compile Include="ViewModels\Story\CommentViewModel.cs" />
+    <Compile Include="ViewModels\Story\SeriesViewModel.cs" />
+    <Compile Include="ViewModels\Story\StoryCompleteViewModel.cs" />
     <Compile Include="ViewModels\Story\StoryFormViewModel.cs" />
     <Compile Include="ViewModels\Story\StoryViewModel.cs" />
     <Compile Include="ViewModels\Story\StoryCreateViewModel.cs" />
@@ -336,13 +339,13 @@
     <Content Include="Views\Feed\_FeedStories.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\UserFeedStory.cshtml" />
     <Content Include="Views\Story\Index.cshtml" />
+    <Content Include="Views\Series\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Images\StoryPictures\" />
     <Folder Include="Images\UserPictures\" />
-    <Folder Include="Views\Series\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

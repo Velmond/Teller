@@ -1,7 +1,37 @@
-﻿
+﻿@model Teller.Web.ViewModels.Story.StoryCompleteViewModel
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Story";
 }
 
-<h2>Story page</h2>
+<h2>Title: @Model.Title</h2>
+<p>Author: @Model.Author</p>
+<p>ContentL: @Model.Content</p>
+<p>DatePublished: @Model.DatePublished</p>
+<p>DislikesCount: @Model.DislikesCount</p>
+<p>FavouritedByCount: @Model.FavouritedByCount</p>
+<p>Genre: @Model.Genre</p>
+<p>IsFlagged:@Model.IsFlagged</p>
+<p>Id: @Model.Id</p>
+<p>LikesCount: @Model.LikesCount</p>
+<p>PicturePath: @Model.PicturePath</p>
+<p>ViewsCount: @Model.ViewsCount</p>
+<img src="@Model.PicturePath" alt="@Model.Title" style="height: 10%" />
 
+@if(Model.Series != null)
+{
+    <p>Series.Author: @Model.Series.Author</p>
+    <p>Series.Genre: @Model.Series.Genre</p>
+    <p>Series.Title: @Model.Series.Title</p>
+    <p>Series.Id: @Model.Series.Id</p>
+}
+
+@foreach(var comment in Model.Comments)
+{
+    <p>Comment.Id: @comment.Id</p>
+    <p>Comment.Author: @comment.Author</p>
+    <p>Comment.Content: @comment.Content</p>
+    <p>Comment.DislikesCount: @comment.DislikesCount</p>
+    <p>Comment.LikesCount: @comment.LikesCount</p>
+    <p>Comment.IsFlagged: @comment.IsFlagged</p>
+    <p>Comment.Published: @comment.Published</p>
+}

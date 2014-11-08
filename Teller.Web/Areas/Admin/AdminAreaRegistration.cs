@@ -15,9 +15,13 @@ namespace Teller.Web.Areas.Admin
         public override void RegisterArea(AreaRegistrationContext context) 
         {
             context.MapRoute(
-                "Admin_default",
-                "Admin/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                name: "Admin_default",
+                url: "Admin/{controller}/{action}/{id}",
+                namespaces: new string[] { "Teller.Web.Areas.Admin.Controllers" },
+                defaults: new {
+                    action = "Index",
+                    id = UrlParameter.Optional
+                }
             );
         }
     }

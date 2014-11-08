@@ -14,13 +14,6 @@
         {
         }
 
-        // ~/series
-        public ActionResult Index()
-        {
-            // Get top 5-10 most popular series for each genre
-            return View();
-        }
-
         // ~/series/{id}
         public ActionResult Index(string id)
         {

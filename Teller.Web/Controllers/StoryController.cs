@@ -9,6 +9,7 @@
     using System.Web.Mvc;
     using Teller.Data;
     using Teller.Models;
+    using Teller.Web.Helpers;
     using Teller.Web.ViewModels;
     using Teller.Web.ViewModels.Story;
 
@@ -19,14 +20,65 @@
         {
         }
 
-        public ActionResult Index(string id)
+        public ActionResult Index(string username)
         {
-            // get story with id = {id}
-            //var storyId = id.Substring(id.LastIndexOf('-') + 1);
-            //var story = this.Data.Stories.Find(storyId);
+            if(string.IsNullOrEmpty(username) || string.IsNullOrWhiteSpace(username) || username.IndexOf('-') < 0)
+            {
+                return RedirectToAction("Index", "Error", new { Area = "" });
+            }
 
-            //return View(story);
-            return View();
+            int idInUrl;
+            if(!int.TryParse(username.Substring(username.LastIndexOf('-') + 1), out idInUrl))
+            {
+                return RedirectToAction("Index", "Error", new { Area = "" });
+            }
+
+            var foundStory = this.Data.Stories.Find(idInUrl);
+            var url = new UrlGenerator();
+            var foundStoryId = url.GenerateUrlId(foundStory.Id, foundStory.Title);
+
+            if(foundStoryId != username)
+            {
+                return RedirectToAction("NotFound", "Error", new { Area = "" });
+            }
+
+            var story = new StoryCompleteViewModel()
+            {
+                Id = foundStory.Id,
+                Title = foundStory.Title,
+                Content = foundStory.Content,
+                DatePublished = foundStory.DatePublished,
+                PicturePath = foundStory.PicturePath,
+                ViewsCount = foundStory.ViewsCount,
+                Author = foundStory.Author.UserName,
+                Genre = foundStory.Genre.Name,
+                LikesCount = foundStory.Likes.Count(l => l.Value == true),
+                DislikesCount = foundStory.Likes.Count(l => l.Value == false),
+                FavouritedByCount = foundStory.FavouritedBy.Count(),
+                IsFlagged = foundStory.Flags.Any(f => !f.IsResolved),
+                Comments = foundStory.Comments.Select(CommentViewModel.FromComment),
+            };
+
+            if(story.Series != null)
+            {
+                story.Series = new SeriesViewModel()
+                {
+                    Id = foundStory.Series.Id,
+                    Title = foundStory.Series.Title,
+                    Genre = foundStory.Series.Genre.Name,
+                    Author = foundStory.Series.Author.UserName
+                };
+            }
+
+
+
+
+            //var story = this.Data.Stories.All()
+            //    .Where(s => s.Id == idInUrl)
+            //    .Select(StoryCompleteViewModel.FromStory)
+            //    .FirstOrDefault();
+
+            return View(story);
         }
 
         [Authorize]
