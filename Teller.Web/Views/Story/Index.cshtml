@@ -1,8 +1,8 @@
 ﻿@model Teller.Web.ViewModels.Story.StoryCompleteViewModel
 @{
     ViewBag.Title = "Story";
+    var url = new Teller.Web.Helpers.UrlGenerator();
 }
-@{var url = new Teller.Web.Helpers.UrlGenerator();}
 
 <div class="container">
     <div class="row">
@@ -10,13 +10,13 @@
             <div class="jumbotron">
                 <h2 class="lead">
                     @Model.Title
-                    @if(!Model.IsFlagged && User.Identity.IsAuthenticated)
+                    @if(!Model.IsFlagged && User.Identity.IsAuthenticated && Model.Author != User.Identity.Name)
                     {
                         <small class="pull-right">
-                            @Ajax.ActionLink("Flag", "Flag", "Story",
+                            @Ajax.ActionLink(" ", "Flag", "Story",
                                 new { Area = "", id = url.GenerateUrlId(Model.Id, Model.Title) },
                                 new AjaxOptions() { HttpMethod = "Post" },
-                                new { @class = "btn btn-sm btn-default" })
+                                new { @class = "glyphicon glyphicon-flag btn btn-sm btn-default" })
                         </small>
                     }
                 </h2>
@@ -40,8 +40,8 @@
                                 @Html.ValidationSummary()
                             </div>
                             <div class="col-md-12">
-                                @using(Ajax.BeginForm("PostComment",
-                                new { Area = "", Controller = "Story", Action = "PostComment" },
+                                @using(Ajax.BeginForm("Post",
+                                new { Area = "", Controller = "StoryComments", Action = "Post" },
                                 new AjaxOptions() { HttpMethod = "Post", InsertionMode = InsertionMode.InsertBefore, UpdateTargetId = "comments-container" },
                                 new { @class = "form-horizontal col-md-12" }))
                                 {
@@ -67,89 +67,116 @@
                     </div>
                 </div>
             }
-            
+
         </div>
         <div class="col-md-3">
             <div class="well">
                 <div class="row">
                     <div class="col-md-12">
-                        <img src="@Model.PicturePath" alt="@Model.Title" class="img-responsive img-thumbnail" />
+                        <p>
+                            <img src="@Model.PicturePath" alt="@Model.Title" class="img-responsive img-thumbnail" />
+                        </p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <strong>Genre:</strong> @Model.Genre
+                        <p>
+                            <strong>Genre:</strong> <em>@Model.Genre</em>
+                        </p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <strong>Author:</strong> @Html.RouteLink(Model.Author, new { Area = "User", Controller = "UserStories", Action = "Index", id = Model.Author })
+                        <p>
+                            <strong>Author:</strong> <em>@Html.RouteLink(Model.Author, new { Area = "User", Controller = "UserStories", Action = "Index", id = Model.Author })</em>
+                        </p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <strong>Published on:</strong> @Html.DisplayFor(m => Model.DatePublished)
-                    </div>
-                </div>
-                <div id="likesCount" class="row">
-                    <div class="col-md-12">
-                        <strong>Likes/Dislikes: </strong>@Model.LikesCount / @Model.DislikesCount
+                        <p>
+                            <strong>Series: </strong>
+                            @if(Model.Series != null)
+                            {
+                                <em>@Html.RouteLink(Model.Series.Title, new { Area = "", Controller = "Series", Action = "Index", id = url.GenerateUrlId(Model.Series.Id, Model.Series.Title) })</em>
+                            }
+                            else
+                            {
+                                <em>none</em>
+                            }
+                        </p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="progress">
-                            @{int numbedOfLikes = (Model.LikesCount + Model.DislikesCount == 0 ? 1 : Model.LikesCount + Model.DislikesCount); }
-                            <div class="progress-bar" style="width: @(Math.Min(Model.LikesCount / numbedOfLikes, 0))%;"></div>
-                        </div>
-                        @if(User.Identity.IsAuthenticated)
-                        {
-                            <div class="row">
-                                @using(Ajax.BeginForm("Like",
-                                    new { Area = "", Controller = "Stories", id = url.GenerateUrlId(Model.Id, Model.Title) },
-                                    new AjaxOptions() { InsertionMode = InsertionMode.Replace, HttpMethod = "Post", UpdateTargetId = "likesCount" },
-                                    new { @class = "col-md-6" }))
-                                {
-                                    <input type="hidden" name="likeValue" value="false" />
-                                    <input type="submit" value="Dislike" class="btn btn-sm btn-danger btn-block" />
-                                }
+                        <p>
+                            <strong>Published on:</strong> <em>@Html.DisplayFor(m => Model.DatePublished)</em>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>
+                            <strong>Favorited by:</strong> <em>@Model.FavouritedByCount users</em>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>
+                            <strong>Seen:</strong> <em>@Model.ViewsCount times</em>
+                        </p>
+                    </div>
+                </div>
+                <div id="likes-container">
+                    <div class="row">
+                        <p>
+                            @if(User.Identity.IsAuthenticated && !Model.UserHasLiked && Model.Author != User.Identity.Name)
+                            {
+                                <div class="col-md-6">
+                                    @Ajax.ActionLink(" ", "Like",
+                                        new { Area = "", Controller = "StoryLike", id = url.GenerateUrlId(Model.Id, Model.Title), like = false },
+                                        new AjaxOptions() { HttpMethod = "Post", InsertionMode = InsertionMode.Replace, UpdateTargetId = "likes-container" },
+                                        new { @class = "glyphicon glyphicon-thumbs-down btn btn-sm btn-danger btn-block" })
+                                </div>
+                                <div class="col-md-6">
+                                    @Ajax.ActionLink(" ", "Like",
+                                        new { Area = "", Controller = "StoryLike", id = url.GenerateUrlId(Model.Id, Model.Title), like = true },
+                                        new AjaxOptions() { HttpMethod = "Post", InsertionMode = InsertionMode.Replace, UpdateTargetId = "likes-container" },
+                                        new { @class = "glyphicon glyphicon-thumbs-up btn btn-sm btn-success btn-block" })
+                                </div>
+                            }
+                        </p>
+                    </div>
 
-                                @using(Ajax.BeginForm("Like",
-                                    new { Area = "", Controller = "Stories", id = url.GenerateUrlId(Model.Id, Model.Title) },
-                                    new AjaxOptions() { InsertionMode = InsertionMode.Replace, HttpMethod = "Post", UpdateTargetId = "likesCount" },
-                                    new { @class = "col-md-6" }))
-                                {
-                                    <input type="hidden" name="likeValue" value="true" />
-                                    <input type="submit" value="Like" class="btn btn-sm btn-success btn-block" />
-                                }
-                            </div>
-                        }
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        Favored by <strong>@Model.FavouritedByCount</strong> users
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        Seen by <strong>@Model.ViewsCount</strong> users
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <strong>Series: </strong>
-                        @if(Model.Series != null)
+                    @{
+                        int numbedOfLikes = (Model.LikesCount + Model.DislikesCount == 0 ? 1 : Model.LikesCount + Model.DislikesCount);
+                        var likes = new Teller.Web.ViewModels.Like.StoryLikeViewModel()
                         {
-                            <em>
-                                @Html.RouteLink(Model.Series.Title, new { Area = "", Controller = "Series", Action = "Index", id = url.GenerateUrlId(Model.Series.Id, Model.Series.Title) })
-                            </em>
-                        }
-                        else
-                        {
-                            <em>none</em>
-                        }
-                    </div>
+                            LikesCount = Model.LikesCount,
+                            DislikesCount = Model.DislikesCount,
+                            LikesPersentage = ((double)Model.LikesCount / numbedOfLikes * 100)
+                        };
+                    }
+
+                    @Html.Partial("_StoryLikes", likes)
+                </div>
+                <div class="row">
+                    @if(User.Identity.IsAuthenticated && Model.Author != User.Identity.Name)
+                    {
+                        <div class="col-md-12">
+                            @Ajax.ActionLink(" Favorite", "Favorite",
+                                new { Area = "", Controller = "Story", id = url.GenerateUrlId(Model.Id, Model.Title) },
+                                new AjaxOptions() { HttpMethod = "Post", InsertionMode = InsertionMode.Replace, UpdateTargetId = "likes-container" },
+                                new { @class = "glyphicon glyphicon-heart-empty btn btn-sm btn-default btn-block" })
+                        </div>
+                        <div class="col-md-12">
+                            @Ajax.ActionLink(" Save", "ReadLater",
+                                new { Area = "", Controller = "Story", id = url.GenerateUrlId(Model.Id, Model.Title) },
+                                new AjaxOptions() { HttpMethod = "Post", InsertionMode = InsertionMode.Replace, UpdateTargetId = "likes-container" },
+                                new { @class = "glyphicon glyphicon-book btn btn-sm btn-default btn-block" })
+                        </div>
+                    }
                 </div>
             </div>
         </div>

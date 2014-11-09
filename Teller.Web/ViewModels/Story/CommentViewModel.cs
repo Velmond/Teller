@@ -1,9 +1,11 @@
 ﻿namespace Teller.Web.ViewModels.Story
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
 
     using Teller.Models;
+    using Teller.Web.ViewModels.Like;
 
     public class CommentViewModel
     {
@@ -19,7 +21,8 @@
                     IsFlagged = comment.IsFlagged,
                     Author = comment.Author.UserName,
                     LikesCount = comment.Likes.Count(l => l.Value == true),
-                    DislikesCount = comment.Likes.Count(l => l.Value == false)
+                    DislikesCount = comment.Likes.Count(l => l.Value == false),
+                    AllLikes = comment.Likes.Select(CommentLikeViewModel.FromComment)
                 };
             }
         }
@@ -37,5 +40,7 @@
         public int LikesCount { get; set; }
 
         public int DislikesCount { get; set; }
+
+        public IEnumerable<CommentLikeViewModel> AllLikes { get; set; }
     }
 }

@@ -2,8 +2,8 @@
 {
     using System;
     using System.Linq;
+    using System.Web.Caching;
     using System.Web.Mvc;
-
     using Teller.Data;
     using Teller.Web.ViewModels.Search;
 
@@ -11,7 +11,7 @@
     {
         private const int StoriesPageSize = 9;
         private const int SeriesPageSize = 6;
-        private const int UsersPageSize = 4;
+        private const int UsersPageSize = 8;
 
         public SearchController(ITellerData data)
             : base(data)
@@ -20,41 +20,83 @@
 
         public IQueryable<SearchStoryViewModel> GetAllStories(string pattern)
         {
-            var data = this.Data.Stories.All()
-                .Where(s => s.Title.ToLower().IndexOf(pattern) >= 0)
-                .Select(SearchStoryViewModel.FromStory)
-                .Union(this.Data.Stories.All()
-                    .Where(s => s.Content.ToLower().IndexOf(pattern) >= 0)
-                    .Select(SearchStoryViewModel.FromStory))
-                .Union(this.Data.Stories.All()
-                    .Where(s => s.Series.Title.ToLower().IndexOf(pattern) >= 0)
-                    .Select(SearchStoryViewModel.FromStory))
-                .Union(this.Data.Stories.All()
-                    .Where(s => s.Author.UserName.ToLower() == pattern)
-                    .Select(SearchStoryViewModel.FromStory))
-                .OrderBy(s => s.Title);
+            var data = this.HttpContext.Cache["home-stories-cache-" + pattern];
 
-            return data;
+            if(data == null)
+            {
+                data = this.Data.Stories.All()
+                    .Where(s => s.Title.ToLower().IndexOf(pattern) >= 0)
+                    .Select(SearchStoryViewModel.FromStory)
+                    .Union(this.Data.Stories.All()
+                        .Where(s => s.Content.ToLower().IndexOf(pattern) >= 0)
+                        .Select(SearchStoryViewModel.FromStory))
+                    .Union(this.Data.Stories.All()
+                        .Where(s => s.Series.Title.ToLower().IndexOf(pattern) >= 0)
+                        .Select(SearchStoryViewModel.FromStory))
+                    .Union(this.Data.Stories.All()
+                        .Where(s => s.Author.UserName.ToLower() == pattern)
+                        .Select(SearchStoryViewModel.FromStory))
+                    .OrderBy(s => s.Title);
+
+                this.HttpContext.Cache.Add(
+                    "home-stories-cache-" + pattern,
+                    data,
+                    null,
+                    DateTime.Now.AddMinutes(5),
+                    Cache.NoSlidingExpiration,
+                    CacheItemPriority.AboveNormal,
+                    null);
+            }
+
+            return (data as IQueryable<SearchStoryViewModel>);
         }
 
         public IQueryable<SearchSeriesViewModel> GetAllSeries(string pattern)
         {
-            var data = this.Data.Series.All()
-                .Where(s => s.Title.ToLower().IndexOf(pattern) >= 0)
-                .Select(SearchSeriesViewModel.FromSeries)
-                .OrderBy(s => s.Title);
+            var data = this.HttpContext.Cache["home-series-cache-" + pattern];
 
-            return data;
+            if(data == null)
+            {
+                data = this.Data.Series.All()
+                    .Where(s => s.Title.ToLower().IndexOf(pattern) >= 0)
+                    .Select(SearchSeriesViewModel.FromSeries)
+                    .OrderBy(s => s.Title);
+
+                this.HttpContext.Cache.Add(
+                    "home-series-cache-" + pattern,
+                    data,
+                    null,
+                    DateTime.Now.AddMinutes(5),
+                    Cache.NoSlidingExpiration,
+                    CacheItemPriority.AboveNormal,
+                    null);
+            }
+
+            return (data as IQueryable<SearchSeriesViewModel>);
         }
 
         public IQueryable<SearchUserViewModel> GetAllUsers(string pattern)
         {
-            var data = this.Data.Users.All()
-                .Where(u => u.UserName.ToLower().IndexOf(pattern) >= 0)
-                .Select(SearchUserViewModel.FromUser)
-                .OrderBy(u => u.Username);
+            var data = this.HttpContext.Cache["home-users-cache-" + pattern];
 
-            return data;
+            if(data == null)
+            {
+                data = this.Data.Users.All()
+                    .Where(u => u.UserName.ToLower().IndexOf(pattern) >= 0)
+                    .Select(SearchUserViewModel.FromUser)
+                    .OrderBy(u => u.Username);
+
+                this.HttpContext.Cache.Add(
+                    "home-users-cache-" + pattern,
+                    data,
+                    null,
+                    DateTime.Now.AddMinutes(5),
+                    Cache.NoSlidingExpiration,
+                    CacheItemPriority.AboveNormal,
+                    null);
+            }
+
+            return (data as IQueryable<SearchUserViewModel>);
         }
 
         public ActionResult Index(string pattern, int? page)

@@ -54,6 +54,8 @@
 
         public int DislikesCount { get; set; }
 
+        public bool UserHasLiked { get; set; }
+
         public IEnumerable<CommentViewModel> Comments { get; set; }
 
         public int FavouritedByCount { get; set; }

@@ -9,6 +9,7 @@
     using System.Net;
     using System.Web;
     using System.Web.Mvc;
+
     using Teller.Data;
     using Teller.Models;
     using Teller.Web.Helpers;
@@ -65,6 +66,7 @@
                 DislikesCount = foundStory.Likes.Count(l => l.Value == false),
                 FavouritedByCount = foundStory.FavouritedBy.Count(),
                 IsFlagged = foundStory.Flags.Any(f => !f.IsResolved),
+                UserHasLiked = this.User != null ? foundStory.Likes.Any(l => l.AuthorId == this.User.Id) : true,
                 Comments = foundStory.Comments
                     .Select(CommentViewModel.FromComment)
                     .OrderByDescending(c => c.Published)
@@ -143,91 +145,6 @@
 
         [Authorize]
         [HttpPost]
-        public ActionResult Like(string id, string like)
-        {
-            if(string.IsNullOrEmpty(id) || string.IsNullOrWhiteSpace(id) || id.IndexOf('-') < 0)
-            {
-                return RedirectToAction("Index", "Error", new { Area = "" });
-            }
-
-            int storyId;
-            if(!int.TryParse(id.Substring(id.LastIndexOf('-') + 1), out storyId))
-            {
-                return RedirectToAction("Index", "Error", new { Area = "" });
-            }
-
-            var story = this.Data.Stories.Find(storyId);
-
-            if(story == null)
-            {
-                return RedirectToAction("NotFound", "Error", new { Area = "" });
-            }
-
-            var url = new UrlGenerator();
-            var encodedStoryId = url.GenerateUrlId(story.Id, story.Title);
-
-            if(encodedStoryId != id)
-            {
-                return RedirectToAction("NotFound", "Error", new { Area = "" });
-            }
-
-            var likeValue = (like == "true");
-
-            this.Data.Likes.Add(new Like()
-            {
-                Value = likeValue,
-                Author = this.User,
-                Story = story
-            });
-
-            this.Data.SaveChanges();
-
-            var likesModel = new LikesViewModel()
-            {
-                LikesCount = story.Likes.Count(l => l.Value == true),
-                DislikesCount = story.Likes.Count(l => l.Value == false)
-            };
-
-            return PartialView("_StoryLikes", likesModel);
-        }
-
-        [Authorize]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult PostComment(PostComment newComment)
-        {
-            if(!ModelState.IsValid)
-            {
-                return Redirect("~/Error");
-            }
-
-            var comment = new Comment()
-            {
-                AuthorId = this.User.Id,
-                Content = newComment.CommentContent,
-                StoryId = newComment.StoryId,
-                Published = DateTime.Now
-            };
-
-            this.Data.Comments.Add(comment);
-            this.Data.SaveChanges();
-
-            var commentModel = new CommentViewModel()
-            {
-                Author = comment.Author.UserName,
-                Content = comment.Content,
-                DislikesCount = 0,
-                LikesCount = 0,
-                Published = comment.Published,
-                IsFlagged = false,
-                Id = comment.Id
-            };
-
-            return PartialView("_CommentPartial", commentModel);
-        }
-
-        [Authorize]
-        [HttpPost]
         public ActionResult Flag(string id)
         {
             if(string.IsNullOrEmpty(id) || string.IsNullOrWhiteSpace(id) || id.IndexOf('-') < 0)
@@ -272,19 +189,85 @@
 
         [Authorize]
         [HttpPost]
-        public ActionResult FlagComment(int id)
+        public ActionResult Favorite(string id)
         {
-            var comment = this.Data.Comments.Find(id);
-
-            if(comment == null)
+            if(string.IsNullOrEmpty(id) || string.IsNullOrWhiteSpace(id) || id.IndexOf('-') < 0)
             {
                 return RedirectToAction("Index", "Error", new { Area = "" });
             }
 
-            comment.IsFlagged = true;
+            int storyId;
+            if(!int.TryParse(id.Substring(id.LastIndexOf('-') + 1), out storyId))
+            {
+                return RedirectToAction("Index", "Error", new { Area = "" });
+            }
+
+            var story = this.Data.Stories.Find(storyId);
+
+            if(story == null)
+            {
+                return RedirectToAction("NotFound", "Error", new { Area = "" });
+            }
+
+            var url = new UrlGenerator();
+            var encodedStoryId = url.GenerateUrlId(story.Id, story.Title);
+
+            if(encodedStoryId != id)
+            {
+                return RedirectToAction("NotFound", "Error", new { Area = "" });
+            }
+
+            if(this.User.Favourites.Any(s => s == story))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.OK, "Story is already in your favorites list");
+            }
+
+            this.User.Favourites.Add(story);
             this.Data.SaveChanges();
 
-            return new HttpStatusCodeResult(HttpStatusCode.OK, "Comment was successfully flagged");
+            return new HttpStatusCodeResult(HttpStatusCode.OK, "Story added to favorites list");
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult ReadLater(string id)
+        {
+
+            if(string.IsNullOrEmpty(id) || string.IsNullOrWhiteSpace(id) || id.IndexOf('-') < 0)
+            {
+                return RedirectToAction("Index", "Error", new { Area = "" });
+            }
+
+            int storyId;
+            if(!int.TryParse(id.Substring(id.LastIndexOf('-') + 1), out storyId))
+            {
+                return RedirectToAction("Index", "Error", new { Area = "" });
+            }
+
+            var story = this.Data.Stories.Find(storyId);
+
+            if(story == null)
+            {
+                return RedirectToAction("NotFound", "Error", new { Area = "" });
+            }
+
+            var url = new UrlGenerator();
+            var encodedStoryId = url.GenerateUrlId(story.Id, story.Title);
+
+            if(encodedStoryId != id)
+            {
+                return RedirectToAction("NotFound", "Error", new { Area = "" });
+            }
+
+            if(this.User.ReadLater.Any(s => s == story))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.OK, "Story is already in your 'Read later' list");
+            }
+
+            this.User.ReadLater.Add(story);
+            this.Data.SaveChanges();
+
+            return new HttpStatusCodeResult(HttpStatusCode.OK, "Story added to 'Read later' list");
         }
 
         [NonAction]

@@ -1,0 +1,26 @@
+﻿@model Teller.Web.ViewModels.Like.StoryLikeViewModel
+
+<div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <p>
+                @Model.DislikesCount <span class="glyphicon glyphicon-thumbs-down"></span> | @Model.LikesCount <span class="glyphicon glyphicon-thumbs-up"></span>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="progress">
+                @if(Model.LikesCount == 0 && Model.DislikesCount == 0)
+                {
+                    <div class="progress-bar" style="width: 100%;"></div>
+                }
+                else
+                {
+                    <div class="progress-bar progress-bar-success" style="width: @Math.Round(Model.LikesPersentage)%;"></div>
+                    <div class="progress-bar progress-bar-danger" style="width: @Math.Round(100 - Model.LikesPersentage)%;"></div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

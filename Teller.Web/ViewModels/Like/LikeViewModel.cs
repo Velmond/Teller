@@ -1,6 +1,6 @@
-﻿namespace Teller.Web.ViewModels
+﻿namespace Teller.Web.ViewModels.Like
 {
-    public class LikesViewModel
+    public class LikeViewModel
     {
         public int LikesCount { get; set; }
 

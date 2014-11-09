@@ -1,30 +1,82 @@
 ﻿@model Teller.Web.ViewModels.Story.CommentViewModel
 
-<div class="col-md-12">
+<div class="col-md-12" id="@(Model.Author)-@(Model.Id)-comment">
     <div class="well">
         <div class="row">
             <div class="col-md-12">
-                <div class="col-md-10" style="overflow-wrap: break-word;">
+                <div class="col-md-10 pull-left" style="overflow-wrap: break-word;">
                     @Model.Content
                 </div>
-                @if(!Model.IsFlagged && User.Identity.IsAuthenticated)
-                {
-                    <div class="pull-right">
-                        @Ajax.ActionLink("Flag", "FlagComment", new { Area = "", Controller = "Story", id = Model.Id }, new AjaxOptions() { HttpMethod = "Post" }, new { @class = "btn btn-sm btn-default btn-block" })
-                    </div>
-                }
+                <div class="col-md-2 pull-right">
+                    @if(User.Identity.IsAuthenticated && Model.Author != User.Identity.Name &&
+                        !Model.AllLikes.Any(l => l.Author == User.Identity.Name))
+                    {
+                        <div class="row clearfix">
+                            <div class="pull-right">
+                                @Ajax.ActionLink(" ", "Like",
+                                    new { Area = "", Controller = "CommentLike", id = Model.Id, like = false },
+                                    new AjaxOptions() { HttpMethod = "Post", InsertionMode = InsertionMode.Replace, UpdateTargetId = Model.Author + "-" + Model.Id + "-likes-container" },
+                                    new { @class = "glyphicon glyphicon-thumbs-down btn btn-sm btn-default" })
+                                @Ajax.ActionLink(" ", "Like",
+                                    new { Area = "", Controller = "CommentLike", id = Model.Id, like = true },
+                                    new AjaxOptions() { HttpMethod = "Post", InsertionMode = InsertionMode.Replace, UpdateTargetId = Model.Author + "-" + Model.Id + "-likes-container" },
+                                    new { @class = "glyphicon glyphicon-thumbs-up btn btn-sm btn-default" })
+                            </div>
+                        </div>
+                        <p></p>
+                    }
+                    @if(!Model.IsFlagged && User.Identity.IsAuthenticated && User.Identity.Name != Model.Author)
+                    {
+                        <div class="row">
+                            <div class="pull-right" id="flag-button-container">
+                                @Ajax.ActionLink(" ", "Flag",
+                                new { Area = "", Controller = "StoryComments", id = Model.Id },
+                                new AjaxOptions() { HttpMethod = "Post", InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = "flag-button-container" },
+                                new { @class = "glyphicon glyphicon-flag btn btn-sm btn-default" })
+                            </div>
+                        </div>
+                    }
+                    else if(User.Identity.Name == Model.Author)
+                    {
+                        <div class="row">
+                            <div class="pull-right" id="delete-button-container">
+                                @Ajax.ActionLink(" ", "Delete",
+                                new { Area = "", Controller = "StoryComments", id = Model.Id },
+                                new AjaxOptions() { HttpMethod = "Post", InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = "delete-button-container" },
+                                new { @class = "glyphicon glyphicon-remove btn btn-sm btn-default", alt = "Remove comment" })
+                            </div>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4 text-left">
-                Dislikes: @Model.DislikesCount, Likes=@Model.LikesCount
+            <div class="col-md-6">
+                <div id="@(Model.Author)-@(Model.Id)-likes-container">
+                    <div class="pull-left col-md-12">
+                        @{
+                            var likes = new Teller.Web.ViewModels.Like.LikeViewModel()
+                            {
+                                LikesCount = Model.LikesCount,
+                                DislikesCount = Model.DislikesCount
+                            };
+                        }
+
+                        @Html.Partial("_CommentLikes", likes)
+                    </div>
+                </div>
             </div>
-            <div class="col-md-4 text-center">
+            <div class="col-md-3 text-center">
                 <em>@Html.DisplayFor(m => Model.Published)</em>
             </div>
-            <div class="col-md-4 text-right">
+            <div class="col-md-3 text-right">
                 @Html.RouteLink(@Model.Author, new { Area = "User", Controller = "UserInfo", Action = "Index", id = Model.Author })
             </div>
         </div>
     </div>
 </div>
+
+@section scripts {
+    <script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    @Scripts.Render("~/bundle/jqueryval");
+}
