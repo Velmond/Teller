@@ -42,7 +42,7 @@
                             <div class="pull-right" id="delete-button-container">
                                 @Ajax.ActionLink(" ", "Delete",
                                 new { Area = "", Controller = "StoryComments", id = Model.Id },
-                                new AjaxOptions() { HttpMethod = "Post", InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = "delete-button-container" },
+                             new AjaxOptions() { HttpMethod = "Post", InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = Model.Author + "-" + Model.Id + "-comment" },
                                 new { @class = "glyphicon glyphicon-remove btn btn-sm btn-default", alt = "Remove comment" })
                             </div>
                         </div>

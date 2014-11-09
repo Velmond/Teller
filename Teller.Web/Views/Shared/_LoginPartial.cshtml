@@ -2,15 +2,16 @@
 
 @if(Request.IsAuthenticated)
 {
-    using(Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    using(Html.BeginForm("LogOff", "Account", new { Area = "" }, FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
         @Html.AntiForgeryToken()
 
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav collapse navbar-collapse navbar-right">
             <li>@Html.RouteLink("Tell Story", new { Area = "", Controller = "Story", Action = "Create" }, null)</li>
-            <li></li>
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Stories<b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    Stories<b class="caret"></b>
+                </a>
                 <ul class="dropdown-menu">
                     <li>
                         @Html.RouteLink("Subscriptions", new { Area = "", Controller = "Feed", Action = "Index", id = User.Identity.GetUserName() }, new { })
@@ -24,13 +25,17 @@
                 </ul>
             </li>
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">@User.Identity.GetUserName()<b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <img src="@((new Teller.Data.TellerData(new Teller.Data.TellerDbContext())).Users.All().Single(u => u.UserName == User.Identity.Name).UserInfo.AvatarPath)" alt="@(User.Identity.Name)" class="img-responsive img-circle img-thumbnail" style="max-height: 22px;" />
+                    @User.Identity.GetUserName()
+                    <b class="caret"></b>
+                </a>
                 <ul class="dropdown-menu">
                     <li>
                         @Html.RouteLink("Public profile", new { Area = "User", Controller = "UserInfo", Action = "Index", id = User.Identity.GetUserName() }, new { })
                     </li>
                     <li>
-                        @Html.RouteLink("Edit public profile", new { Area = "User", Controller = "Profile", Action = "Edit", id = User.Identity.GetUserName() }, new { })
+                        @Html.RouteLink("Edit public profile", new { Area = "User", Controller = "UserInfo", Action = "Edit", id = User.Identity.GetUserName() }, new { })
                     </li>
                     <li>
                         @Html.RouteLink("Manage account", new { Area = "", Controller = "Manage", Action = "Index" }, new { })
@@ -53,8 +58,8 @@
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", null, new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", null, new { id = "loginLink" })</li>
+    <ul class="nav navbar-nav collapse navbar-collapse navbar-right">
+        <li>@Html.ActionLink("Register", "Register", "Account", new { Area = "" }, new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Account", new { Area = "" }, new { id = "loginLink" })</li>
     </ul>
 }

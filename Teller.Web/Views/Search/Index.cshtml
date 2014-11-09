@@ -28,6 +28,16 @@
         </div>
 
         <div class="row">
+            <div class="col-md-12">
+                <div class="well">
+                    <h5 class="lead">Stories</h5>
+                    <div>
+                        @Html.Partial("_StorySummaryPartial", Model.Stories)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-9">
                 <div class="well">
                     <h5 class="lead">Series</h5>
@@ -45,15 +55,21 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="well">
-                    <h5 class="lead">Stories</h5>
-                    <div>
-                        @Html.Partial("_StorySummaryPartial", Model.Stories)
-                    </div>
+        <div class="well-sm">
+            @if(ViewBag.Pages > 1)
+            {
+                <div class="row pull-right">
+                    @Html.Partial("_SearchPager", new Teller.Web.ViewModels.SearchPagerViewModel()
+                        {
+                            Area = "",
+                            Action = "Index",
+                            Controller = "Search",
+                            PagesCount = (int)ViewBag.Pages,
+                            Page = (int)ViewBag.Page,
+                            Pattern = Model.Pattern
+                        })
                 </div>
-            </div>
+            }
         </div>
     </div>
 </div>

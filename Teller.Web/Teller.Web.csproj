@@ -201,7 +201,6 @@
     <Compile Include="Areas\Admin\Controllers\AdminStoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminUsersController.cs" />
     <Compile Include="Areas\User\Controllers\UserInfoController.cs" />
-    <Compile Include="Areas\User\Controllers\ProfileController.cs" />
     <Compile Include="Areas\User\Controllers\UserSeriesController.cs" />
     <Compile Include="Areas\User\Controllers\UserStoriesController.cs" />
     <Compile Include="Areas\User\UserAreaRegistration.cs" />
@@ -265,12 +264,11 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\User\Views\web.config" />
-    <Content Include="Areas\User\Views\Profile\Info.cshtml" />
     <Content Include="Areas\User\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\User\Views\Profile\Stories.cshtml" />
-    <Content Include="Areas\User\Views\Profile\Series.cshtml" />
+    <Content Include="Areas\User\Views\UserInfo\Stories.cshtml" />
+    <Content Include="Areas\User\Views\UserInfo\Series.cshtml" />
     <Content Include="Areas\User\Views\Shared\_ProfileLayout.cshtml" />
-    <Content Include="Areas\User\Views\Profile\Edit.cshtml" />
+    <Content Include="Areas\User\Views\UserInfo\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
