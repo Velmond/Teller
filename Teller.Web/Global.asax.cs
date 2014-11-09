@@ -22,46 +22,33 @@ namespace Teller.Web
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
 
-        protected void Application_Error(object sender, EventArgs e)
-        {
-            HttpException lastErrorWrapper = Server.GetLastError() as HttpException;
+        //protected void Application_Error(object sender, EventArgs e)
+        //{
+        //    HttpException lastError = Server.GetLastError() as HttpException;
 
-            if(lastErrorWrapper.GetHttpCode() == 404)
-            {
-                Server.Transfer("~/Error/NotFound");
-            }
-            else
-            {
-                //Server.Transfer("~/Error/Oops");
-            }
+        //    Response.Clear();
+        //    Server.ClearError();
 
-            Exception exception = Server.GetLastError();
-            Response.Clear();
+        //    if(lastError != null)
+        //    {
+        //        if(lastError.GetHttpCode() == 404)
+        //        {
+        //            //Response.Redirect("~/Error/NotFound");
+        //            Server.Transfer("~/Error/NotFound");
+        //        }
+        //        else if(lastError.GetHttpCode() == 500)
+        //        {
+        //            //Response.Redirect("~/Error/ServerError");
+        //            Server.Transfer("~/Error/ServerError");
+        //        }
+        //        else
+        //        {
+        //            //Response.Redirect("~/Error/Oops");
+        //            Server.Transfer("~/Error/Oops");
+        //        }
 
-            HttpException httpException = exception as HttpException;
-
-            if(httpException != null)
-            {
-                string action;
-
-                switch(httpException.GetHttpCode())
-                {
-                    case 404:
-                        action = "NotFound";
-                        break;
-                    case 500:
-                        action = "ServerError";
-                        break;
-                    default:
-                        action = "Oops";
-                        break;
-                }
-
-                Server.ClearError();
-
-                //Response.Redirect(string.Format("~/Error/{0}/?message={1}&stack={2}", action, exception.Message, exception.StackTrace));
-                Response.Redirect(string.Format("~/Error/{0}", action));
-            }
-        }
+        //        //Response.Redirect(string.Format("~/Error/{0}/?message={1}&stack={2}", action, exception.Message, exception.StackTrace));
+        //    }
+        //}
     }
 }

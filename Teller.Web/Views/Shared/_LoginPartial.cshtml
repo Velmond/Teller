@@ -8,15 +8,15 @@
 
         <ul class="nav navbar-nav navbar-right">
             <li>@Html.RouteLink("Tell Story", new { Area = "", Controller = "Story", Action = "Create" }, null)</li>
-            <li>@Html.RouteLink("User Feed", new { Area = "", Controller = "Feed", Action = "Index", username = User.Identity.GetUserName() }, new { })</li>
+            <li>@Html.RouteLink("User Feed", new { Area = "", Controller = "Feed", Action = "Index", id = User.Identity.GetUserName() }, new { })</li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">@User.Identity.GetUserName()<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li>
-                        @Html.RouteLink("Public profile", new { Area = "User", Controller = "Info", Action = "Index", username = User.Identity.GetUserName() }, new { })
+                        @Html.RouteLink("Public profile", new { Area = "User", Controller = "UserInfo", Action = "Index", id = User.Identity.GetUserName() }, new { })
                     </li>
                     <li>
-                        @Html.RouteLink("Edit public profile", new { Area = "User", Controller = "Profile", Action = "Edit", username = User.Identity.GetUserName() }, new { })
+                        @Html.RouteLink("Edit public profile", new { Area = "User", Controller = "Profile", Action = "Edit", id = User.Identity.GetUserName() }, new { })
                     </li>
                     <li>
                         @Html.RouteLink("Manage account", new { Area = "", Controller = "Manage", Action = "Index" }, new { })
@@ -25,7 +25,7 @@
                     @if(User.IsInRole("Admin"))
                     {
                         <li>
-                            @Html.RouteLink("Administration", new { Area = "Admin", Controller = "Users", Action = "Index" }, new { })
+                            @Html.RouteLink("Administration", new { Area = "Admin", Controller = "AdminUsers", Action = "Index" }, new { })
                         </li>
                         <li class="divider"></li>
                     }

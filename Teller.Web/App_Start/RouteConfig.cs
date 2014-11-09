@@ -44,16 +44,16 @@ namespace Teller.Web
             //    url: "{controller}/{action}"
             //);
 
-            routes.MapRoute(
-                name: "WithUsername",
-                url: "{controller}/{action}/{username}",
-                namespaces: new string[] { "Teller.Web.Controllers" },
-                defaults: new
-                {
-                    controller = "Feed",
-                    action = "Index"
-                }
-            );
+            //routes.MapRoute(
+            //    name: "WithUsername",
+            //    url: "{controller}/{action}/{username}",
+            //    namespaces: new string[] { "Teller.Web.Controllers" },
+            //    defaults: new
+            //    {
+            //        controller = "Feed",
+            //        action = "Index"
+            //    }
+            //);
 
             routes.MapRoute(
                 name: "Default",

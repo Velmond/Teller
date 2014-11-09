@@ -5,6 +5,6 @@
             <img src="@user.AvatarPath" alt="@user.Username" />
         </div>*@
     <h4>
-        @Html.ActionLink(Model.Username, "Index", "Info", new { Area = "User", username = Model.Username }, new { })
+        @Html.ActionLink(Model.Username, "Index", "UserInfo", new { Area = "User", id = Model.Username }, new { })
     </h4>
 </div>

@@ -1,0 +1,17 @@
+﻿@model Teller.Web.ViewModels.Series.SeriesCreateViewModel
+
+<div>
+    <div class="form-group">
+        @Html.Label("SeriesName", "Series", new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBox("SeriesName", null, new { @class = "form-control", style = "max-width: 100%" })
+            @*@Html.ValidateFor(m => m.Title)*@
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.SeriesGenreId, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.SeriesGenreId, Model.GenresList.List, "-- Select Genre --", new { @class = "form-control", style = "max-width: 100%" })
+        </div>
+    </div>
+</div>

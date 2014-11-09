@@ -14,14 +14,14 @@
         {
             counter++;
 
-            @*<div class="col-md-4">*@
+            <div class="col-md-4">
                 @Html.DisplayFor(m => series)
-            @*</div>
+            </div>
         
             if(counter % 3 == 0)
             {
                 @Html.Raw("</div><p></p><div class=\"row\">")
-            }*@
+            }
         }
     }
 </div>

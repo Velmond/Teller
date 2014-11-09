@@ -1,11 +1,7 @@
 ﻿namespace Teller.Web.ViewModels
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Linq.Expressions;
-    using System.Web;
-    using Teller.Models;
 
     public class UserFeedStory
     {
@@ -47,7 +43,7 @@
 
         public string Genre { get; set; }
 
-        public Series Series { get; set; }
+        public Teller.Models.Series Series { get; set; }
 
         public int LikesCount { get; set; }
 

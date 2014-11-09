@@ -5,8 +5,8 @@
 
 <h2>Profile Layout</h2>
 
-@Html.ActionLink("Info", "Index", "Info", new { Area = "User", username = ViewBag.Username }, new { @class = "btn btn-default" })
-@Html.ActionLink("Series", "Index", "Series", new { Area = "User", username = ViewBag.Username }, new { @class = "btn btn-default" })
-@Html.ActionLink("Stories", "Index", "Stories", new { Area = "User", username = ViewBag.Username }, new { @class = "btn btn-default" })
+@Html.ActionLink("Info", "Index", "UserInfo", new { Area = "User", id = ViewBag.Username }, new { @class = "btn btn-default" })
+@Html.ActionLink("Series", "Index", "UserSeries", new { Area = "User", id = ViewBag.Username }, new { @class = "btn btn-default" })
+@Html.ActionLink("Stories", "Index", "UserStories", new { Area = "User", id = ViewBag.Username }, new { @class = "btn btn-default" })
 
 @RenderBody()

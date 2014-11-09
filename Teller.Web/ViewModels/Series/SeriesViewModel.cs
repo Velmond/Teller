@@ -1,4 +1,4 @@
-﻿namespace Teller.Web.ViewModels.Story
+﻿namespace Teller.Web.ViewModels.Series
 {
     using System;
     using System.Linq;

@@ -11,6 +11,6 @@
     </h4>
     <p>@Model.Content</p>
     <p class="text-right">
-        <small>@Html.DisplayFor(m => Model.DatePublished) | @Html.ActionLink(Model.Author, "Stories", "Profile", new { Area = "User", username = Model.Author }, null)</small>
+        <small>@Html.DisplayFor(m => Model.DatePublished) | @Html.ActionLink(Model.Author, "Index", "UserInfo", new { Area = "User", id = Model.Author }, null)</small>
     </p>
 </div>

@@ -16,7 +16,7 @@ namespace Teller.Web.Areas.User
         {
             context.MapRoute(
                 name: "User_NoAction",
-                url: "User/{controller}/{username}",
+                url: "User/{controller}/{id}",
                 namespaces: new string[] { "Teller.Web.Areas.User.Controllers" },
                 defaults: new
                 {
@@ -27,7 +27,7 @@ namespace Teller.Web.Areas.User
 
             context.MapRoute(
                 name: "User_default",
-                url: "User/{controller}/{action}/{username}",
+                url: "User/{controller}/{action}/{id}",
                 namespaces: new string[] { "Teller.Web.Areas.User.Controllers" },
                 defaults: new
                 {

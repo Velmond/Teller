@@ -9,9 +9,9 @@
 
     public class SearchController : BaseController
     {
-        private const int StoriesPageSize = 18;
-        private const int SeriesPageSize = 5;
-        private const int UsersPageSize = 5;
+        private const int StoriesPageSize = 9;
+        private const int SeriesPageSize = 6;
+        private const int UsersPageSize = 4;
 
         public SearchController(ITellerData data)
             : base(data)

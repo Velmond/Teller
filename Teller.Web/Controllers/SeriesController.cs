@@ -6,6 +6,9 @@
     using System.Web;
     using System.Web.Mvc;
     using Teller.Data;
+    using Teller.Models;
+    using Teller.Web.ViewModels;
+    using Teller.Web.ViewModels.Series;
 
     public class SeriesController : BaseController
     {
@@ -14,11 +17,27 @@
         {
         }
 
-        // ~/series/{id}
         public ActionResult Index(string id)
         {
-            // Get series with id = {id}
             return View();
+        }
+
+        [Authorize]
+        public ActionResult Create()
+        {
+            var model = new SeriesCreateViewModel();
+
+            model.GenresList = new SelectViewModel()
+            {
+                List = this.Data.Genres.All()
+                    .Select(g => new SelectListItem()
+                    {
+                        Value = g.Id.ToString(),
+                        Text = g.Name
+                    })
+            };
+
+            return PartialView("_SeriesCreateFormPartial", model);
         }
     }
 }

@@ -1,0 +1,30 @@
+﻿@model Teller.Web.ViewModels.Story.CommentViewModel
+
+<div class="col-md-12">
+    <div class="well">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-10" style="overflow-wrap: break-word;">
+                    @Model.Content
+                </div>
+                @if(!Model.IsFlagged && User.Identity.IsAuthenticated)
+                {
+                    <div class="pull-right">
+                        @Ajax.ActionLink("Flag", "FlagComment", new { Area = "", Controller = "Story", id = Model.Id }, new AjaxOptions() { HttpMethod = "Post" }, new { @class = "btn btn-sm btn-default btn-block" })
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 text-left">
+                Dislikes: @Model.DislikesCount, Likes=@Model.LikesCount
+            </div>
+            <div class="col-md-4 text-center">
+                <em>@Html.DisplayFor(m => Model.Published)</em>
+            </div>
+            <div class="col-md-4 text-right">
+                @Html.RouteLink(@Model.Author, new { Area = "User", Controller = "UserInfo", Action = "Index", id = Model.Author })
+            </div>
+        </div>
+    </div>
+</div>

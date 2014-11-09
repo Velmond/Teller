@@ -8,16 +8,16 @@ using Teller.Web.Controllers;
 
 namespace Teller.Web.Areas.User.Controllers
 {
-    public class InfoController : BaseController
+    public class UserSeriesController : BaseController
     {
-        public InfoController(ITellerData data)
+        public UserSeriesController(ITellerData data)
             : base(data)
         {
         }
 
-        public ActionResult Index(string username)
+        public ActionResult Index(string id)
         {
-            ViewBag.Username = username;
+            ViewBag.Username = id;
 
             return View();
         }

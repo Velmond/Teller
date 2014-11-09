@@ -34,7 +34,14 @@
 
                             @for(int i = 1 ; i <= ViewBag.Pages ; i++)
                             {
-                                @Html.ActionLink(i.ToString(), "Index", "Search", new { Area = "", pattern = Model.Pattern, page = i }, new { @class = "btn btn-sm btn-default" })
+                                if(ViewBag.Page != i)
+                                {
+                                    @Html.ActionLink(i.ToString(), "Index", "Search", new { Area = "", pattern = Model.Pattern, page = i }, new { @class = "btn btn-sm btn-default" })
+                                }
+                                else
+                                {
+                                    @Html.ActionLink(i.ToString(), null, null, new { }, new { @class = "btn btn-sm btn-default disabled" })
+                                }
                             }
 
                             @if(ViewBag.Page != ViewBag.Pages)
@@ -63,27 +70,27 @@
         <div class="row">
             <div class="col-md-9">
                 <div class="well">
-                    <h5 class="lead">Stories</h5>
+                    <h5 class="lead">Series</h5>
                     <div>
-                        @Html.Partial("_StorySummaryPartial", Model.Stories)
+                        @Html.Partial("_SeriesSummaryPartial", Model.Series)
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="row">
-                    <div class="well">
-                        <h5 class="lead">Series</h5>
-                        <div>
-                            @Html.Partial("_SeriesSummaryPartial", Model.Series)
-                        </div>
+                <div class="well">
+                    <h5 class="lead">Users</h5>
+                    <div>
+                        @Html.Partial("_UsersSummaryPartial", Model.Users)
                     </div>
                 </div>
-                <div class="row">
-                    <div class="well">
-                        <h5 class="lead">Users</h5>
-                        <div>
-                            @Html.Partial("_UsersSummaryPartial", Model.Users)
-                        </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="well">
+                    <h5 class="lead">Stories</h5>
+                    <div>
+                        @Html.Partial("_StorySummaryPartial", Model.Stories)
                     </div>
                 </div>
             </div>

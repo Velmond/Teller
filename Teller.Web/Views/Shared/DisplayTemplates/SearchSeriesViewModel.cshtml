@@ -7,7 +7,8 @@
 <div>
     <h4>
         @Html.ActionLink(Model.Title, "Index", "Series", new { Area = "", id = urlGenerator.GenerateUrlId(Model.Id, Model.Title) }, new { })
+        <br />
         <small> (@Model.Genre)</small>
     </h4>
-    <small>@Html.ActionLink(Model.Author, "Index", "Series", new { Area = "User", username = Model.Author }, new { })</small>
+    <small>@Html.ActionLink(Model.Author, "Index", "UserSeries", new { Area = "User", id = Model.Author }, new { })</small>
 </div>

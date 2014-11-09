@@ -18,10 +18,10 @@
         }
 
         [NonAction]
-        private UserViewModel GetUser(string username)
+        private UserViewModel GetUser(string id)
         {
             var user = this.Data.Users.All()
-                .Where(u => u.UserName == username)
+                .Where(u => u.UserName == id)
                 .Select(UserViewModel.FromUser)
                 .FirstOrDefault();
 
@@ -30,11 +30,11 @@
 
         [Authorize]
         [HttpGet]
-        public ActionResult Edit(string username)
+        public ActionResult Edit(string id)
         {
-            if(this.User.UserName != username && this.User.Roles.FirstOrDefault() != null)
+            if(this.User.UserName != id && this.User.Roles.FirstOrDefault() != null)
             {
-                return RedirectToAction("Info", new { username = username });
+                return RedirectToAction("Info", new { username = id });
             }
 
             if(this.User.UserInfo == null)

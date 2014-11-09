@@ -5,6 +5,8 @@
     using System.Linq;
     using System.Linq.Expressions;
 
+    using Teller.Web.ViewModels.Series;
+
     public class StoryCompleteViewModel
     {
         public static Expression<Func<Teller.Models.Story, StoryCompleteViewModel>> FromStory

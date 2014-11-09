@@ -4,13 +4,18 @@
     var urlGenerator = new UrlGenerator();
 }
 
-<div>
-    <h4>
-        @Html.ActionLink(Model.Title, "Index", "Story", new { Area = "", id = urlGenerator.GenerateUrlId(Model.Id, Model.Title) }, new { })
-        <small> (@Model.Genre)</small>
-    </h4>
-    <p>@Model.Content</p>
-    <p class="text-right">
-        <small>@Html.DisplayFor(m => Model.DatePublished) | @Html.ActionLink(Model.Author, "Index", "Stories", new { Area = "User", username = Model.Author }, new { })</small>
-    </p>
+<div class="row">
+    <div class="col-md-4">
+        <img src="@Model.PicturePath" alt="@Model.Title" class="img-responsive img-thumbnail"/>
+    </div>
+    <div class="col-md-8">
+        <h4>
+            @Html.ActionLink(Model.Title, "Index", "Story", new { Area = "", id = urlGenerator.GenerateUrlId(Model.Id, Model.Title) }, new { })
+            <small> (@Model.Genre)</small>
+        </h4>
+        <p>@Model.Content</p>
+        <p class="text-right">
+            <small>@Html.DisplayFor(m => Model.DatePublished) | @Html.ActionLink(Model.Author, "Index", "UserStories", new { Area = "User", id = Model.Author }, new { })</small>
+        </p>
+    </div>
 </div>

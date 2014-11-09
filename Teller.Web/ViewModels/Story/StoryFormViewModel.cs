@@ -1,27 +1,13 @@
 ﻿namespace Teller.Web.ViewModels.Story
 {
-    using System.ComponentModel.DataAnnotations;
+    using System.Web;
 
-    public class StoryFormViewModel
+    public class StoryFormViewModel : StoryCreateViewModel
     {
-        [MaxLength(100)]
-        [MinLength(2)]
-        [Required]
-        public string Title { get; set; }
-
-        [MinLength(10)]
-        [Required]
-        public string Content { get; set; }
-
-        [Required]
-        public int GenreId { get; set; }
-
         public SelectViewModel GenresList { get; set; }
 
-        public string PicturePath { get; set; }
-
-        public int? SeriesId { get; set; }
-
         public SelectViewModel SeriesList { get; set; }
+
+        public HttpPostedFileBase Picture { get; set; }
     }
 }

@@ -6,18 +6,19 @@ using System.Web.Mvc;
 using Teller.Data;
 using Teller.Web.Controllers;
 
-namespace Teller.Web.Areas.Admin.Controllers
+namespace Teller.Web.Areas.User.Controllers
 {
-    public class StoriesController : AdminController
+    public class UserStoriesController : BaseController
     {
-        public StoriesController(ITellerData data)
+        public UserStoriesController(ITellerData data)
             : base(data)
         {
         }
 
-        // GET: Admin/Stories
-        public ActionResult Index()
+        public ActionResult Index(string id)
         {
+            ViewBag.Username = id;
+
             return View();
         }
     }

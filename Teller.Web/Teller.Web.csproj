@@ -197,13 +197,13 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
-    <Compile Include="Areas\Admin\Controllers\CommentsController.cs" />
-    <Compile Include="Areas\Admin\Controllers\StoriesController.cs" />
-    <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
-    <Compile Include="Areas\User\Controllers\InfoController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminCommentsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminStoriesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminUsersController.cs" />
+    <Compile Include="Areas\User\Controllers\UserInfoController.cs" />
     <Compile Include="Areas\User\Controllers\ProfileController.cs" />
-    <Compile Include="Areas\User\Controllers\SeriesController.cs" />
-    <Compile Include="Areas\User\Controllers\StoriesController.cs" />
+    <Compile Include="Areas\User\Controllers\UserSeriesController.cs" />
+    <Compile Include="Areas\User\Controllers\UserStoriesController.cs" />
     <Compile Include="Areas\User\UserAreaRegistration.cs" />
     <Compile Include="Areas\User\ViewModels\EditUserProfileViewModel.cs" />
     <Compile Include="Areas\User\ViewModels\UserInfoViewModel.cs" />
@@ -223,9 +223,11 @@
     </Compile>
     <Compile Include="Helpers\IUrlGenerator.cs" />
     <Compile Include="Helpers\UrlGenerator.cs" />
+    <Compile Include="Models\PostComment.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\ErrorViewModel.cs" />
     <Compile Include="ViewModels\HomePageViewModel.cs" />
+    <Compile Include="ViewModels\LikesViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -234,8 +236,9 @@
     <Compile Include="ViewModels\Search\SearchUserViewModel.cs" />
     <Compile Include="ViewModels\Search\SearchViewModel.cs" />
     <Compile Include="ViewModels\SelectViewModel.cs" />
+    <Compile Include="ViewModels\Series\SeriesCreateViewModel.cs" />
     <Compile Include="ViewModels\Story\CommentViewModel.cs" />
-    <Compile Include="ViewModels\Story\SeriesViewModel.cs" />
+    <Compile Include="ViewModels\Series\SeriesViewModel.cs" />
     <Compile Include="ViewModels\Story\StoryCompleteViewModel.cs" />
     <Compile Include="ViewModels\Story\StoryFormViewModel.cs" />
     <Compile Include="ViewModels\Story\StoryViewModel.cs" />
@@ -263,16 +266,18 @@
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Admin\Views\Comments\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Stories\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\Index.cshtml" />
-    <Content Include="Areas\User\Views\Info\Index.cshtml" />
-    <Content Include="Areas\User\Views\Series\Index.cshtml" />
-    <Content Include="Areas\User\Views\Stories\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminComments\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminStories\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminUsers\Index.cshtml" />
+    <Content Include="Areas\User\Views\UserInfo\Index.cshtml" />
+    <Content Include="Areas\User\Views\UserSeries\Index.cshtml" />
+    <Content Include="Areas\User\Views\UserStories\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -340,6 +345,11 @@
     <Content Include="Views\Shared\DisplayTemplates\UserFeedStory.cshtml" />
     <Content Include="Views\Story\Index.cshtml" />
     <Content Include="Views\Series\Index.cshtml" />
+    <Content Include="Views\Shared\_StoryLikes.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\LikesViewModel.cshtml" />
+    <Content Include="Views\Shared\_CommentPartial.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\CommentViewModel.cshtml" />
+    <Content Include="Views\Series\_SeriesCreateFormPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

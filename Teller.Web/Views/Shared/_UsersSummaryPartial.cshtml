@@ -13,14 +13,14 @@
         foreach(var user in Model)
         {
             counter++;
-            @*<div class="col-md-4">*@
+            <div class="col-md-6">
                 @Html.DisplayFor(m => user)
-            @*</div>
+            </div>
         
-            if(counter % 3 == 0)
+            if(counter % 2 == 0)
             {
                 @Html.Raw("</div><p></p><div class=\"row\">")
-            }*@
+            }
         }
     }
 </div>

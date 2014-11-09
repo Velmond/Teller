@@ -8,14 +8,14 @@ using Teller.Web.Controllers;
 
 namespace Teller.Web.Areas.Admin.Controllers
 {
-    public class UsersController : AdminController
+    public class AdminStoriesController : AdminController
     {
-        public UsersController(ITellerData data)
+        public AdminStoriesController(ITellerData data)
             : base(data)
         {
         }
 
-        // GET: Admin/Users
+        // GET: Admin/Stories
         public ActionResult Index()
         {
             return View();
