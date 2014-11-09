@@ -89,6 +89,59 @@
         }
 
         [Authorize]
+        public ActionResult Create()
+        {
+            var model = new StoryFormViewModel();
+
+            model.GenresList = new SelectViewModel()
+            {
+                List = this.Data.Genres.All()
+                    .Select(g => new SelectListItem()
+                        {
+                            Value = g.Id.ToString(),
+                            Text = g.Name
+                        })
+            };
+
+            model.SeriesList = new SelectViewModel()
+            {
+                List = this.Data.Series.All()
+                    .Where(s => s.AuthorId == this.User.Id)
+                    .Select(g => new SelectListItem()
+                        {
+                            Value = g.Id.ToString(),
+                            Text = g.Title
+                        })
+            };
+
+            return View(model);
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(StoryFormViewModel story)
+        {
+            Story newStory = new Story()
+            {
+                Title = story.Title,
+                AuthorId = this.User.Id,
+                Content = story.Content,
+                DatePublished = DateTime.Now,
+                GenreId = story.GenreId
+            };
+
+            newStory.SeriesId = this.GetSeriesId(story);
+            newStory.PicturePath = this.GetPicturePath(story.Picture, story.Title);
+
+            this.Data.Stories.Add(newStory);
+            this.Data.SaveChanges();
+
+            var url = new UrlGenerator();
+            return RedirectToAction("Index", new { id = url.GenerateUrlId(newStory.Id, newStory.Title) });
+        }
+
+        [Authorize]
         [HttpPost]
         public ActionResult Like(string id, string like)
         {
@@ -218,53 +271,28 @@
         }
 
         [Authorize]
-        public ActionResult Create()
+        [HttpPost]
+        public ActionResult FlagComment(int id)
         {
-            var model = new StoryFormViewModel();
+            var comment = this.Data.Comments.Find(id);
 
-            model.GenresList = new SelectViewModel()
+            if(comment == null)
             {
-                List = this.Data.Genres.All()
-                    .Select(g => new SelectListItem()
-                        {
-                            Value = g.Id.ToString(),
-                            Text = g.Name
-                        })
-            };
+                return RedirectToAction("Index", "Error", new { Area = "" });
+            }
 
-            model.SeriesList = new SelectViewModel()
-            {
-                List = this.Data.Series.All()
-                    .Where(s => s.AuthorId == this.User.Id)
-                    .Select(g => new SelectListItem()
-                        {
-                            Value = g.Id.ToString(),
-                            Text = g.Title
-                        })
-            };
+            comment.IsFlagged = true;
+            this.Data.SaveChanges();
 
-            return View(model);
+            return new HttpStatusCodeResult(HttpStatusCode.OK, "Comment was successfully flagged");
         }
 
-        [Authorize]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(StoryFormViewModel story)
+        [NonAction]
+        private int? GetSeriesId(StoryFormViewModel story)
         {
-            Story newStory = new Story()
-            {
-                Title = story.Title,
-                AuthorId = this.User.Id,
-                Author = this.User,
-                Content = story.Content,
-                DatePublished = DateTime.Now,
-                GenreId = story.GenreId,
-                Genre = this.Data.Genres.Find(story.GenreId)
-            };
-
             if(story.SeriesId != null)
             {
-                newStory.SeriesId = story.SeriesId;
+                return story.SeriesId;
             }
             else if(story.SeriesName != null && story.SeriesGenreId.HasValue)
             {
@@ -280,38 +308,37 @@
                 this.Data.Series.Add(series);
                 this.Data.SaveChanges();
 
-                newStory.SeriesId = series.Id;
+                return series.Id;
             }
             else
             {
-                newStory.SeriesId = null;
+                return null;
             }
+        }
 
-            var url = new UrlGenerator();
-
-            if(story.Picture != null && (story.Picture.ContentType.StartsWith("image/")))
+        [NonAction]
+        private string GetPicturePath(HttpPostedFileBase httpPostedFileBase, string storyTitle)
+        {
+            if(httpPostedFileBase != null && (httpPostedFileBase.ContentType.StartsWith("image/")))
             {
-                string folderPath = string.Format("/Images/StoryPictures/{0}", url.GenerateUrlId((new Random()).Next(1, 1001), story.Title));
+                var url = new UrlGenerator();
+
+                string folderPath = string.Format("/Images/StoryPictures/{0}", url.GenerateUrlId((new Random()).Next(1, 1001), storyTitle));
                 string fullFolderPath = Server.MapPath(folderPath);
                 if(!Directory.Exists(fullFolderPath))
                 {
                     Directory.CreateDirectory(fullFolderPath);
                 }
 
-                string filePath = string.Format("{0}/{1}", folderPath, story.Picture.FileName);
-                string fullFilePath = string.Format("{0}/{1}", fullFolderPath, story.Picture.FileName);
-                story.Picture.SaveAs(fullFilePath);
-                newStory.PicturePath = filePath;
+                string filePath = string.Format("{0}/{1}", folderPath, httpPostedFileBase.FileName);
+                string fullFilePath = string.Format("{0}/{1}", fullFolderPath, httpPostedFileBase.FileName);
+                httpPostedFileBase.SaveAs(fullFilePath);
+                return filePath;
             }
             else
             {
-                newStory.PicturePath = "/Images/StoryPictures/default/cover.jpg";
+                return "/Images/StoryPictures/default/cover.jpg";
             }
-
-            this.Data.Stories.Add(newStory);
-            this.Data.SaveChanges();
-
-            return RedirectToAction("Index", new { id = url.GenerateUrlId(newStory.Id, newStory.Title) });
         }
     }
 }
