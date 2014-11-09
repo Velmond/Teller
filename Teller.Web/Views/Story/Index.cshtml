@@ -167,13 +167,13 @@
                         <div class="col-md-12">
                             @Ajax.ActionLink(" Favorite", "Favorite",
                                 new { Area = "", Controller = "Story", id = url.GenerateUrlId(Model.Id, Model.Title) },
-                                new AjaxOptions() { HttpMethod = "Post", InsertionMode = InsertionMode.Replace, UpdateTargetId = "likes-container" },
+                                new AjaxOptions() { HttpMethod = "Post" },
                                 new { @class = "glyphicon glyphicon-heart-empty btn btn-sm btn-default btn-block" })
                         </div>
                         <div class="col-md-12">
                             @Ajax.ActionLink(" Save", "ReadLater",
                                 new { Area = "", Controller = "Story", id = url.GenerateUrlId(Model.Id, Model.Title) },
-                                new AjaxOptions() { HttpMethod = "Post", InsertionMode = InsertionMode.Replace, UpdateTargetId = "likes-container" },
+                                new AjaxOptions() { HttpMethod = "Post" },
                                 new { @class = "glyphicon glyphicon-book btn btn-sm btn-default btn-block" })
                         </div>
                     }

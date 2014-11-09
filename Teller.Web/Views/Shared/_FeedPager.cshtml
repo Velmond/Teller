@@ -1,0 +1,51 @@
+﻿@model Teller.Web.ViewModels.FeedPagerViewModel
+
+<span class="pull-right btn-group">
+    @if(ViewBag.Page > 1)
+    {
+        @Html.ActionLink("<<", Model.Action, Model.Controller, new { Area = Model.Area, username = Model.Username, page = 1 }, new { @class = "btn btn-sm btn-default" })
+    }
+    else
+    {
+        @Html.ActionLink("<<", null, null, new { }, new { @class = "btn btn-sm btn-default disabled" })
+    }
+
+    @if(ViewBag.Page > 1)
+    {
+        @Html.ActionLink("<", Model.Action, Model.Controller, new { Area = Model.Area, username = Model.Username, page = Model.Page - 1 }, new { @class = "btn btn-sm btn-default" })
+    }
+    else
+    {
+        @Html.ActionLink("<", null, null, new { }, new { @class = "btn btn-sm btn-default disabled" })
+    }
+
+    @for(int i = 1 ; i <= Model.PagesCount ; i++)
+    {
+        if(ViewBag.Page != i)
+        {
+            @Html.ActionLink(i.ToString(), Model.Action, Model.Controller, new { Area = Model.Area, username = Model.Username, page = i }, new { @class = "btn btn-sm btn-default" })
+        }
+        else
+        {
+            @Html.ActionLink(i.ToString(), null, null, new { }, new { @class = "btn btn-sm btn-default disabled" })
+        }
+    }
+
+    @if(ViewBag.Page != ViewBag.Pages)
+    {
+        @Html.ActionLink(">", Model.Action, Model.Controller, new { Area = Model.Area, username = Model.Username, page = Model.Page + 1 }, new { @class = "btn btn-sm btn-default" })
+    }
+    else
+    {
+        @Html.ActionLink(">", null, null, new { }, new { @class = "btn btn-sm btn-default disabled" })
+    }
+
+    @if(ViewBag.Page != ViewBag.Pages)
+    {
+        @Html.ActionLink(">>", Model.Action, Model.Controller, new { Area = Model.Area, username = Model.Username, page = Model.PagesCount }, new { @class = "btn btn-sm btn-default" })
+    }
+    else
+    {
+        @Html.ActionLink(">>", null, null, new { }, new { @class = "btn btn-sm btn-default disabled" })
+    }
+</span>

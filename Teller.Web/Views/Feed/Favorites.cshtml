@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Teller.Web.ViewModels.UserFeedStory>
 @{
-    ViewBag.Title = "Subscription feed";
+    ViewBag.Title = "Favorite stories";
 }
 
 <div class="row">
@@ -9,14 +9,14 @@
             <div class="row">
                 <h3 class="lead">
                     <span class="pull-left">
-                        Subscription stories
+                        Favorite stories
                     </span>
                     @if(ViewBag.Pages > 1)
                     {
                         @Html.Partial("_FeedPager", new Teller.Web.ViewModels.FeedPagerViewModel()
                         {
                             Area = "",
-                            Action = "Index",
+                            Action = "Favorites",
                             Controller = "Feed",
                             PagesCount = (int)ViewBag.Pages,
                             Page = (int)ViewBag.Page,

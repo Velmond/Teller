@@ -12,6 +12,9 @@
         private const int StoriesPageSize = 9;
         private const int SeriesPageSize = 6;
         private const int UsersPageSize = 8;
+        private const string StoriesCachePrefix = "search-stories-cache-";
+        private const string SeriesCachePrefix = "search-series-cache-";
+        private const string UsersCachePrefix = "search-users-cache-";
 
         public SearchController(ITellerData data)
             : base(data)
@@ -20,7 +23,7 @@
 
         public IQueryable<SearchStoryViewModel> GetAllStories(string pattern)
         {
-            var data = this.HttpContext.Cache["home-stories-cache-" + pattern];
+            IQueryable<SearchStoryViewModel> data = this.HttpContext.Cache[StoriesCachePrefix + pattern] as IQueryable<SearchStoryViewModel>;
 
             if(data == null)
             {
@@ -39,7 +42,7 @@
                     .OrderBy(s => s.Title);
 
                 this.HttpContext.Cache.Add(
-                    "home-stories-cache-" + pattern,
+                    StoriesCachePrefix + pattern,
                     data,
                     null,
                     DateTime.Now.AddMinutes(5),
@@ -48,12 +51,12 @@
                     null);
             }
 
-            return (data as IQueryable<SearchStoryViewModel>);
+            return data;
         }
 
         public IQueryable<SearchSeriesViewModel> GetAllSeries(string pattern)
         {
-            var data = this.HttpContext.Cache["home-series-cache-" + pattern];
+            IQueryable<SearchSeriesViewModel> data = this.HttpContext.Cache[SeriesCachePrefix + pattern] as IQueryable<SearchSeriesViewModel>;
 
             if(data == null)
             {
@@ -63,7 +66,7 @@
                     .OrderBy(s => s.Title);
 
                 this.HttpContext.Cache.Add(
-                    "home-series-cache-" + pattern,
+                    SeriesCachePrefix + pattern,
                     data,
                     null,
                     DateTime.Now.AddMinutes(5),
@@ -72,12 +75,12 @@
                     null);
             }
 
-            return (data as IQueryable<SearchSeriesViewModel>);
+            return data;
         }
 
         public IQueryable<SearchUserViewModel> GetAllUsers(string pattern)
         {
-            var data = this.HttpContext.Cache["home-users-cache-" + pattern];
+            IQueryable<SearchUserViewModel> data = this.HttpContext.Cache[UsersCachePrefix + pattern] as IQueryable<SearchUserViewModel>;
 
             if(data == null)
             {
@@ -87,7 +90,7 @@
                     .OrderBy(u => u.Username);
 
                 this.HttpContext.Cache.Add(
-                    "home-users-cache-" + pattern,
+                    UsersCachePrefix + pattern,
                     data,
                     null,
                     DateTime.Now.AddMinutes(5),
@@ -96,7 +99,7 @@
                     null);
             }
 
-            return (data as IQueryable<SearchUserViewModel>);
+            return data;
         }
 
         public ActionResult Index(string pattern, int? page)

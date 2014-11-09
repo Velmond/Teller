@@ -13,55 +13,15 @@
                     </span>
                     @if(ViewBag.Pages > 1)
                     {
-                        <span class="pull-right">
-                            @if(ViewBag.Page > 1)
-                            {
-                                @Html.ActionLink("<<", "Index", "Search", new { Area = "", pattern = Model.Pattern, page = 1 }, new { @class = "btn btn-sm btn-default" })
-                            }
-                            else
-                            {
-                                @Html.ActionLink("<<", null, null, new { }, new { @class = "btn btn-sm btn-default disabled" })
-                            }
-
-                            @if(ViewBag.Page > 1)
-                            {
-                                @Html.ActionLink("<", "Index", "Search", new { Area = "", pattern = Model.Pattern, page = ViewBag.Page - 1 }, new { @class = "btn btn-sm btn-default" })
-                            }
-                            else
-                            {
-                                @Html.ActionLink("<", null, null, new { }, new { @class = "btn btn-sm btn-default disabled" })
-                            }
-
-                            @for(int i = 1 ; i <= ViewBag.Pages ; i++)
-                            {
-                                if(ViewBag.Page != i)
-                                {
-                                    @Html.ActionLink(i.ToString(), "Index", "Search", new { Area = "", pattern = Model.Pattern, page = i }, new { @class = "btn btn-sm btn-default" })
-                                }
-                                else
-                                {
-                                    @Html.ActionLink(i.ToString(), null, null, new { }, new { @class = "btn btn-sm btn-default disabled" })
-                                }
-                            }
-
-                            @if(ViewBag.Page != ViewBag.Pages)
-                            {
-                                @Html.ActionLink(">", "Index", "Search", new { Area = "", pattern = Model.Pattern, page = ViewBag.Page + 1 }, new { @class = "btn btn-sm btn-default" })
-                            }
-                            else
-                            {
-                                @Html.ActionLink(">", null, null, new { }, new { @class = "btn btn-sm btn-default disabled" })
-                            }
-
-                            @if(ViewBag.Page != ViewBag.Pages)
-                            {
-                                @Html.ActionLink(">>", "Index", "Search", new { Area = "", pattern = Model.Pattern, page = ViewBag.Pages }, new { @class = "btn btn-sm btn-default" })
-                            }
-                            else
-                            {
-                                @Html.ActionLink(">>", null, null, new { }, new { @class = "btn btn-sm btn-default disabled" })
-                            }
-                        </span>
+                        @Html.Partial("_SearchPager", new Teller.Web.ViewModels.SearchPagerViewModel()
+                        {
+                            Area = "",
+                            Action = "Index",
+                            Controller = "Search",
+                            PagesCount = (int)ViewBag.Pages,
+                            Page = (int)ViewBag.Page,
+                            Pattern = Model.Pattern
+                        })
                     }
                 </h3>
             </div>

@@ -13,7 +13,6 @@
     using Teller.Data;
     using Teller.Models;
     using Teller.Web.Helpers;
-    using Teller.Web.Models;
     using Teller.Web.ViewModels;
     using Teller.Web.ViewModels.Series;
     using Teller.Web.ViewModels.Story;
@@ -219,13 +218,16 @@
 
             if(this.User.Favourites.Any(s => s == story))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.OK, "Story is already in your favorites list");
+                this.User.Favourites.Remove(story);
+                this.Data.SaveChanges();
+            }
+            else
+            {
+                this.User.Favourites.Add(story);
+                this.Data.SaveChanges();
             }
 
-            this.User.Favourites.Add(story);
-            this.Data.SaveChanges();
-
-            return new HttpStatusCodeResult(HttpStatusCode.OK, "Story added to favorites list");
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         [Authorize]
@@ -261,13 +263,16 @@
 
             if(this.User.ReadLater.Any(s => s == story))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.OK, "Story is already in your 'Read later' list");
+                this.User.ReadLater.Remove(story);
+                this.Data.SaveChanges();
             }
-
-            this.User.ReadLater.Add(story);
-            this.Data.SaveChanges();
-
-            return new HttpStatusCodeResult(HttpStatusCode.OK, "Story added to 'Read later' list");
+            else
+            {
+                this.User.ReadLater.Add(story);
+                this.Data.SaveChanges();
+            }
+            
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         [NonAction]
