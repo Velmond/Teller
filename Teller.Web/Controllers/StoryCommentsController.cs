@@ -23,34 +23,53 @@
         [ValidateAntiForgeryToken]
         public ActionResult Post(PostComment newComment)
         {
-            if(!ModelState.IsValid)
+            if(string.IsNullOrEmpty(newComment.CommentContent))
             {
-                return Redirect("~/Error");
+                ModelState.AddModelError("CommentContent", "Message content is required to post a message... Duh o.O");
             }
 
-            var comment = new Comment()
+            if(newComment.CommentContent.Length < 2 || newComment.CommentContent.Length > 1000)
             {
-                AuthorId = this.User.Id,
-                Content = newComment.CommentContent,
-                StoryId = newComment.StoryId,
-                Published = DateTime.Now
-            };
+                ModelState.AddModelError("CommentContent", "Message content must be between 2 and 1000 characters long");
+            }
 
-            this.Data.Comments.Add(comment);
-            this.Data.SaveChanges();
-
-            var commentModel = new CommentViewModel()
+            if(ModelState.IsValid)
             {
-                Author = comment.Author.UserName,
-                Content = comment.Content,
+                var comment = new Comment()
+                {
+                    AuthorId = this.User.Id,
+                    Content = newComment.CommentContent,
+                    StoryId = newComment.StoryId,
+                    Published = DateTime.Now
+                };
+
+                this.Data.Comments.Add(comment);
+                this.Data.SaveChanges();
+
+                var commentModel = new CommentViewModel()
+                {
+                    Author = comment.Author.UserName,
+                    Content = comment.Content,
+                    DislikesCount = 0,
+                    LikesCount = 0,
+                    Published = comment.Published,
+                    IsFlagged = false,
+                    Id = comment.Id
+                };
+
+                return PartialView("_CommentPartial", commentModel);
+            }
+
+            return PartialView("_CommentPartial", new CommentViewModel()
+            {
+                Author = " ",
+                Content = "ERROR! Incorrect input! comment must be between 2 and 1000 characters long.",
                 DislikesCount = 0,
                 LikesCount = 0,
-                Published = comment.Published,
-                IsFlagged = false,
-                Id = comment.Id
-            };
-
-            return PartialView("_CommentPartial", commentModel);
+                Published = DateTime.Now,
+                IsFlagged = true,
+                Id = 0
+            });
         }
 
         [Authorize]

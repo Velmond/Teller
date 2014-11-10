@@ -1,0 +1,28 @@
+﻿@using Kendo.Mvc.UI
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+    @RenderSection("styles", required: false)
+    @Styles.Render("~/Content/Kendo")
+}
+
+<h2>Administration Layout</h2>
+
+@Html.ActionLink("Users", "Index", "Users", new { Area = "Admin" }, new { @class = "btn btn-default" })
+@Html.ActionLink("Stories", "Index", "Stories", new { Area = "Admin" }, new { @class = "btn btn-default" })
+@Html.ActionLink("Comments", "Index", "Comments", new { Area = "Admin" }, new { @class = "btn btn-default" })
+
+@RenderBody()
+
+@(Html.Kendo().Calendar().Name("calendar"))
+<br />
+@(Html.Kendo().DateTimePicker().Name("datetimepicker"))
+<br />
+@(Html.Kendo().DatePicker().Name("datepicker"))
+
+@section scripts{
+    @Scripts.Render("~/bundles/Kendo")
+    @RenderSection("scripts", required: false)
+}

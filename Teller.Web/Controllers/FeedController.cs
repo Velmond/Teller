@@ -11,7 +11,7 @@
 
     public class FeedController : BaseController
     {
-        private const int PageSize = 4;
+        private const int PageSize = 10;
         //private const string FeedCacheKey = "subscriptions";
         //private const string FavoritesCacheKey = "favorites";
         //private const string ReadLaterCacheKey = "read-later";

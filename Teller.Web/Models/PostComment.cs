@@ -4,9 +4,8 @@
 
     public class PostComment
     {
-        [MaxLength(1000)]
-        [MinLength(2)]
-        [Required]
+        [Required(ErrorMessage = "Message content is required to post a message... Duh o.O")]
+        [StringLength(1000, MinimumLength = 2, ErrorMessage = "Message content must be between 2 and 1000 characters long")]
         public string CommentContent { get; set; }
 
         [Required]

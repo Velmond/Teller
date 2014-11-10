@@ -10,8 +10,7 @@
         [Key]
         public int Id { get; set; }
         
-        [MaxLength(1000)]
-        [MinLength(2)]
+        [StringLength(1000, MinimumLength = 2)]
         [Required]
         public string Content { get; set; }
 
