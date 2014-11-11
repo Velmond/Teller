@@ -199,7 +199,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Base\AdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Base\KendoGridAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\CommentsController.cs" />
     <Compile Include="Areas\Admin\Controllers\StoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
@@ -1128,10 +1129,25 @@
     <Content Include="Scripts\Kendo\kendo.view.min.js.map" />
     <Content Include="Scripts\Kendo\kendo.web.min.js.map" />
     <Content Include="Scripts\Kendo\kendo.window.min.js.map" />
+    <Content Include="Views\Shared\EditorTemplates\Currency.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Date.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Email.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\EmailAddress.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\GridForeignKey.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Integer.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Number.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Password.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Time.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Url.cshtml" />
+    <Content Include="Views\Story\Edit.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\StoryViewModel.cshtml" />
+    <Content Include="Views\Series\_SeriesStoriesPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\ViewModels\" />
+    <Folder Include="Areas\Admin\Views\KendoGridAdmin\" />
     <Folder Include="Images\StoryPictures\" />
     <Folder Include="Images\UserPictures\" />
   </ItemGroup>

@@ -1,6 +1,6 @@
 ﻿@model Teller.Web.ViewModels.Story.CommentViewModel
 
-<div class="col-md-12" id="@(Model.Author)-@(Model.Id)-comment">
+<div class="col-md-12 comment-container" id="@(Model.Author)-@(Model.Id)-comment">
     <div class="well">
         <div class="row">
             <div class="col-md-12">
@@ -30,9 +30,9 @@
                         <div class="row">
                             <div class="pull-right" id="flag-button-container">
                                 @Ajax.ActionLink(" ", "Flag",
-                                new { Area = "", Controller = "StoryComments", id = Model.Id },
-                                new AjaxOptions() { HttpMethod = "Post", InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = "flag-button-container" },
-                                new { @class = "glyphicon glyphicon-flag btn btn-sm btn-default" })
+                                    new { Area = "", Controller = "StoryComments", id = Model.Id },
+                                    new AjaxOptions() { HttpMethod = "Post", InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = "flag-button-container" },
+                                    new { @class = "glyphicon glyphicon-flag btn btn-sm btn-default" })
                             </div>
                         </div>
                     }
@@ -41,9 +41,9 @@
                         <div class="row">
                             <div class="pull-right" id="delete-button-container">
                                 @Ajax.ActionLink(" ", "Delete",
-                                new { Area = "", Controller = "StoryComments", id = Model.Id },
-                             new AjaxOptions() { HttpMethod = "Post", InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = Model.Author + "-" + Model.Id + "-comment" },
-                                new { @class = "glyphicon glyphicon-remove btn btn-sm btn-default", alt = "Remove comment" })
+                                    new { Area = "", Controller = "StoryComments", id = Model.Id },
+                                    new AjaxOptions() { HttpMethod = "Post", InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = Model.Author + "-" + Model.Id + "-comment", OnComplete = "removeComment('#" + Model.Author + "-" + Model.Id + "-comment" + "')" },
+                                    new { @class = "glyphicon glyphicon-remove btn btn-sm btn-default delete-comment-btn", alt = "Remove comment" })
                             </div>
                         </div>
                     }
@@ -70,7 +70,7 @@
                 <em>@Html.DisplayFor(m => Model.Published)</em>
             </div>
             <div class="col-md-3 text-right">
-                @Html.RouteLink(@Model.Author, new { Area = "User", Controller = "UserInfo", Action = "Index", id = Model.Author })
+                @Html.RouteLink(@Model.Author, new { Area = "User", Controller = "Info", Action = "Index", id = Model.Author })
             </div>
         </div>
     </div>
@@ -78,5 +78,5 @@
 
 @section scripts {
     <script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-    @Scripts.Render("~/bundle/jqueryval");
+    @Scripts.Render("~/bundles/jqueryval")
 }

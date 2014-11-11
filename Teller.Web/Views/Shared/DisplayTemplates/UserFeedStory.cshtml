@@ -5,12 +5,26 @@
 }
 
 <div>
-    <h4>
-        @Html.ActionLink(Model.Title, "Index", "Story", new { id = urlGenerator.GenerateUrlId(Model.Id, Model.Title) }, new { })
-        <small> (@Model.Genre)</small>
-    </h4>
-    <p>@Model.Content</p>
-    <p class="text-right">
-        <small>@Html.DisplayFor(m => Model.DatePublished) | @Html.ActionLink(Model.Author, "Index", "UserInfo", new { Area = "User", id = Model.Author }, null)</small>
-    </p>
+    <div class="col-md-2">
+        <img src="@Model.PicturePath" alt="@Model.Title" class="img-responsive img-circle img-thumbnail" style="max-width: 100px" />
+    </div>
+    <div class="col-md-10">
+            <h4>
+                @Html.ActionLink(Model.Title, "Index", "Story", new { Area = "", id = urlGenerator.GenerateUrlId(Model.Id, Model.Title) }, new { })
+                <small> (@Model.Genre)</small>
+            </h4>
+            <p>@Model.Content</p>
+        <div>
+            <p class="">
+                <span class="col-md-1 text-center glyphicon glyphicon-thumbs-down"> @Model.DislikesCount</span>
+                <span class="col-md-1 text-center glyphicon glyphicon-thumbs-up"> @Model.LikesCount</span>
+                <span class="col-md-1 text-center glyphicon glyphicon-comment"> @Model.CommentsCount</span>
+                <span class="col-md-1 text-center glyphicon glyphicon-user"> @Model.ViewsCount</span>
+            </p>
+            <p class="pull-right">
+                <small>@Html.DisplayFor(m => Model.DatePublished) | @Html.ActionLink(Model.Author, "Index", "Info", new { Area = "User", id = Model.Author }, new { })</small>
+            </p>
+        </div>
+    </div>
+
 </div>

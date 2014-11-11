@@ -16,10 +16,19 @@
                             @Ajax.ActionLink(" ", "Flag", "Story",
                                 new { Area = "", id = url.GenerateUrlId(Model.Id, Model.Title) },
                                 new AjaxOptions() { HttpMethod = "Post" },
-                                new { @class = "glyphicon glyphicon-flag btn btn-sm btn-default" })
+                                new { @class = "glyphicon glyphicon-flag btn btn-sm btn-default flag-story-btn" })
+                        </small>
+                    }
+                    else if(Model.Author == User.Identity.Name)
+                    {
+                        <small class="pull-right">
+                            @Html.ActionLink(" ", "Delete", "Story",
+                                new { Area = "", id = url.GenerateUrlId(Model.Id, Model.Title) },
+                                new { @class = "glyphicon glyphicon-remove btn btn-sm btn-default" })
                         </small>
                     }
                 </h2>
+
             </div>
 
             <div class="well">
@@ -33,11 +42,14 @@
             @if(Model.Comments.Count() > 0 || User.Identity.IsAuthenticated)
             {
                 <div class="well">
-                    @if(User.Identity.IsAuthenticated)
-                    {
-                        var postComment = new Teller.Web.Models.PostComment() { StoryId = Model.Id, CommentContent = "" };
-                        @Html.Partial("_CommentForm", postComment)
-                    }
+                    <div class="row">
+                        @if(User.Identity.IsAuthenticated)
+                        {
+                            var postComment = new Teller.Web.Models.PostComment() { StoryId = Model.Id, CommentContent = "" };
+                            @Html.Partial("_CommentForm", postComment)
+                        }
+                    </div>
+
                     <div id="comments-container" class="row">
                         @foreach(var comment in Model.Comments)
                         {
@@ -164,10 +176,26 @@
 
 @section scripts {
     <script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-    @Scripts.Render("~/bundle/jqueryval");
+    @Scripts.Render("~/bundles/jqueryval");
     <script type="text/javascript">
-        function clearInput() {
+        function removeContent() {
             $('#new-comment-content-container').val('');
+        }
+
+        //$(function () {
+        //    $('.add-comment-btn').click(function () {
+                
+        //    });
+        //});
+
+        $(function () {
+            $('.flag-story-btn').click(function () {
+                $(this).remove();
+            });
+        });
+
+        function removeComment(id) {
+            $(id).remove();
         }
     </script>
 }

@@ -6,19 +6,18 @@
     </div>
     <div class="col-md-12">
         @using(Ajax.BeginForm("Post",
-                   new { Area = "", Controller = "StoryComments", Action = "Post" },
-                   new AjaxOptions() { HttpMethod = "Post", InsertionMode = InsertionMode.InsertBefore, UpdateTargetId = "comments-container", OnSuccess = "clearContent" },
-                   new { @class = "form-horizontal col-md-12" }))
+            new { Area = "", Controller = "StoryComments", Action = "Post" },
+            new AjaxOptions() { HttpMethod = "Post", InsertionMode = InsertionMode.InsertBefore, UpdateTargetId = "comments-container", OnComplete = "removeContent()" },
+            new { @class = "form-horizontal col-md-12" }))
         {
             @Html.AntiForgeryToken()
-            @Html.ValidationSummary()
             @Html.HiddenFor(m => Model.StoryId)
+            @Html.ValidationMessageFor(m => Model.CommentContent, null, new { @class = "help-inline text-danger" })
             <div class="col-md-12">
                 <div class="form-group">
                     @Html.TextAreaFor(m => Model.CommentContent, new { @class = "form-control", style = "max-width: 100%", id = "new-comment-content-container" })
-                    @Html.ValidationMessageFor(m => Model.CommentContent, "", new { @class = "help-inline" })
                     <span class="input-group-btn">
-                        <input type="submit" value="Comment" class="btn btn-default pull-right" style="height: 100%" />
+                        <input type="submit" value="Comment" class="btn btn-default pull-right add-comment-btn" style="height: 100%" />
                     </span>
                 </div>
             </div>
@@ -28,10 +27,5 @@
 
 @section scripts {
     <script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-    @Scripts.Render("~/bundle/jqueryval");
-    <script type="text/javascript">
-        function clearInput() {
-            $('#new-comment-content-container').val('');
-        }
-    </script>
+    @Scripts.Render("~/bundles/jqueryval")
 }

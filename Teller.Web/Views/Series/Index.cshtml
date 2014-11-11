@@ -1,7 +1,62 @@
-﻿
+﻿@model Teller.Web.ViewModels.Series.SeriesViewModel
 @{
-    ViewBag.Title = "Series";
+    ViewBag.Title = Model.Title + " - " + Model.Author;
 }
 
-<h2>Series page</h2>
-
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <div class="row">
+                <div class="well-lg">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h2 class="lead">
+                                @Model.Title <small>(@Model.Genre)</small>
+                            </h2>
+                            <h3>
+                                @Html.RouteLink(Model.Author, new { Area = "User", Controller = "Info", Action = "Index", id = Model.Author }, new { })
+                            </h3>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="well">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p class="text-center">
+                                            <small class="pull-left">Stories count:</small>
+                                            <em class="pull-right">@Model.Stories.Count()</em>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <p class="text-center">
+                                            <small class="pull-left">Total views:</small>
+                                            <em class="pull-right">@Model.TotalViewsCount</em>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <p class="text-center">
+                                            <small class="pull-left">Total favorites:</small>
+                                            <em class="pull-right">@Model.TotalFavoritesCount</em>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <p class="text-center">
+                                            <small class="pull-left">Users engaged:</small>
+                                            <em class="pull-right">@Model.TotalLikesCount</em>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="well">
+                        @Html.Partial("_SeriesStoriesPartial", Model.Stories)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

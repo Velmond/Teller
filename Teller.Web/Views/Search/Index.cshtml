@@ -1,6 +1,15 @@
 ﻿@model Teller.Web.ViewModels.Search.SearchViewModel
 @{
     ViewBag.Title = "Search results";
+    var pager = new Teller.Web.ViewModels.SearchPagerViewModel()
+    {
+        Area = "",
+        Action = "Index",
+        Controller = "Search",
+        PagesCount = (int)ViewBag.Pages,
+        Page = (int)ViewBag.Page,
+        Pattern = Model.Pattern
+    };
 }
 
 <div class="row">
@@ -13,15 +22,7 @@
                     </span>
                     @if(ViewBag.Pages > 1)
                     {
-                        @Html.Partial("_SearchPager", new Teller.Web.ViewModels.SearchPagerViewModel()
-                        {
-                            Area = "",
-                            Action = "Index",
-                            Controller = "Search",
-                            PagesCount = (int)ViewBag.Pages,
-                            Page = (int)ViewBag.Page,
-                            Pattern = Model.Pattern
-                        })
+                        @Html.Partial("_SearchPager", pager)
                     }
                 </h3>
             </div>
@@ -38,7 +39,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-8">
                 <div class="well">
                     <h5 class="lead">Series</h5>
                     <div>
@@ -46,7 +47,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="well">
                     <h5 class="lead">Users</h5>
                     <div>
@@ -59,15 +60,7 @@
             @if(ViewBag.Pages > 1)
             {
                 <div class="row pull-right">
-                    @Html.Partial("_SearchPager", new Teller.Web.ViewModels.SearchPagerViewModel()
-                        {
-                            Area = "",
-                            Action = "Index",
-                            Controller = "Search",
-                            PagesCount = (int)ViewBag.Pages,
-                            Page = (int)ViewBag.Page,
-                            Pattern = Model.Pattern
-                        })
+                    @Html.Partial("_SearchPager", pager)
                 </div>
             }
         </div>

@@ -10,46 +10,50 @@
     @Html.AntiForgeryToken()
     <h4>Create a new story.</h4>
     <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
         @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.Title, new { @class = "form-control", style = "max-width: 100%" })
-            @*@Html.ValidateFor(m => m.Title)*@
+            @Html.ValidationMessageFor(model => model.Title, null, new { @class = "help-inline text-danger" })
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Content, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.TextAreaFor(m => m.Content, new { @class = "form-control", style = "max-width: 100%" })
-            @*@Html.ValidateFor(m => m.Content)*@
+            @Html.ValidationMessageFor(model => model.Content, null, new { @class = "help-inline text-danger" })
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.GenreId, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.DropDownListFor(m => m.GenreId, Model.GenresList.List, "-- Select Genre --", new { @class = "form-control", style = "max-width: 100%" })
-            @*@Html.ValidateFor(m => m.GenreId)*@
+            @Html.ValidationMessageFor(model => model.GenreId, null, new { @class = "help-inline text-danger" })
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.PicturePath, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Picture, new { @class = "form-control", type="file", style = "max-width: 100%" })
-            @*@Html.ValidateFor(m => m.Content)*@
+            @Html.TextBoxFor(m => m.Picture, new { @class = "form-control", type = "file", style = "max-width: 100%" })
         </div>
     </div>
     <div id="create-series-form" class="form-group">
         @Html.LabelFor(m => m.SeriesId, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            <div class="input-group">
-                @Html.DropDownListFor(m => m.SeriesId, Model.SeriesList.List, "-- Select Series --", new { @class = "form-control", style = "max-width: 100%" })
-                <span class="input-group-btn">
-                    @Ajax.ActionLink("Add to new series", "Create", "Series",
-                        new { Area = "" },
-                        new AjaxOptions() { HttpMethod = "Get", UpdateTargetId = "create-series-form", InsertionMode = InsertionMode.ReplaceWith },
-                        new { @class = "btn btn-default btn-block" })
-                </span>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="input-group">
+                        @Html.DropDownListFor(m => m.SeriesId, Model.SeriesList.List, "-- Select Series --", new { @class = "form-control", style = "max-width: 100%" })
+                        <span class="input-group-btn">
+                            @Ajax.ActionLink("Add to new series", "Create", "Series",
+                                new { Area = "" },
+                                new AjaxOptions() { HttpMethod = "Get", UpdateTargetId = "create-series-form", InsertionMode = InsertionMode.ReplaceWith },
+                                new { @class = "btn btn-default btn-block" })
+                        </span>
+                    </div>
+                    @Html.ValidationMessageFor(m => m.SeriesGenreId, null, new { @class = "help-inline text-danger" })
+                    @Html.ValidationMessageFor(m => m.SeriesName, null, new { @class = "help-inline text-danger" })
+                </div>
             </div>
         </div>
     </div>

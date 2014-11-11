@@ -2,9 +2,9 @@
 
 <div class="text-center">
     @*<div class="col-md-2">
-            <img src="@user.AvatarPath" alt="@user.Username" />
-        </div>*@
+        <img src="@Model.AvatarPath" alt="@Model.Username" />
+    </div>*@
     <h4>
-        @Html.ActionLink(Model.Username, "Index", "UserInfo", new { Area = "User", id = Model.Username }, new { })
+        @Html.ActionLink(Model.Username, "Index", "Info", new { Area = "User", id = Model.Username }, new { })
     </h4>
 </div>

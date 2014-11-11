@@ -23,14 +23,10 @@ namespace Teller.Web
                 .Include("~/Content/bootstrap.cosmo.css",
                          "~/Content/site.css"));
 
-            //bundles.Add(new StyleBundle("~/Content/Kendo")
-            //    .Include("~/Content/Kendo/kendo.common.*",
-            //             "~/Content/Kendo/kendo.default.*"));
-
             bundles.Add(new StyleBundle("~/Content/Kendo")
                 .Include("~/Content/Kendo/kendo.common.min.css",
-                         //"~/Content/Kendo/kendo.bootstrap.*",
-                         "~/Content/Kendo/kendo.black.min.css"));
+                         //"~/Content/Kendo/kendo.black.min.css",
+                         "~/Content/Kendo/kendo.bootstrap.min.css"));
         }
 
         private static void RegisterScriptBundles(BundleCollection bundles)

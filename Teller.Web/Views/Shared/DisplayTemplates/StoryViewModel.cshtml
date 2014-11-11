@@ -1,21 +1,21 @@
-﻿@model Teller.Web.ViewModels.Search.SearchStoryViewModel
+﻿@model Teller.Web.ViewModels.Story.StoryViewModel
 @using Teller.Web.Helpers
 @{
     var urlGenerator = new UrlGenerator();
 }
 
 <div class="row">
-    <div class="col-md-4">
-        <img src="@Model.PicturePath" alt="@Model.Title" class="img-responsive img-circle img-thumbnail" style="max-width: 100px"/>
+    <div class="col-md-2">
+        <img src="@Model.PicturePath" alt="@Model.Title" class="img-responsive img-circle img-thumbnail"  />
     </div>
-    <div class="col-md-8">
+    <div class="col-md-10">
         <h4>
             @Html.ActionLink(Model.Title, "Index", "Story", new { Area = "", id = urlGenerator.GenerateUrlId(Model.Id, Model.Title) }, new { })
-            <small> (@Model.Genre)</small>
         </h4>
         <p>@Model.Content</p>
-        <p class="text-right">
+        <p class="pull-right">
             <small>@Html.DisplayFor(m => Model.DatePublished) | @Html.ActionLink(Model.Author, "Index", "Story", new { Area = "User", id = Model.Author }, new { })</small>
         </p>
     </div>
 </div>
+

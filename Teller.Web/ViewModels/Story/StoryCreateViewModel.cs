@@ -2,23 +2,25 @@
 {
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
+    using System.Web;
     using System.Web.Mvc;
 
     public class StoryCreateViewModel
     {
-        [MaxLength(100)]
-        [MinLength(2)]
-        [Required]
+        [Required(ErrorMessage = "Title is required")]
+        [StringLength(100, MinimumLength=2, ErrorMessage="Title must be between 2 and 100 characters long")]
         public string Title { get; set; }
 
         [AllowHtml]
-        [MinLength(10)]
-        [Required]
+        [MinLength(10, ErrorMessage = "Content must be at least 10 characters long")]
+        [Required(ErrorMessage = "Content is required")]
         public string Content { get; set; }
 
         [DisplayName("Genre")]
-        [Required]
+        [Required(ErrorMessage = "Genre is required")]
         public int GenreId { get; set; }
+
+        public HttpPostedFileBase Picture { get; set; }
 
         [DisplayName("Thumbnail picture")]
         public string PicturePath { get; set; }

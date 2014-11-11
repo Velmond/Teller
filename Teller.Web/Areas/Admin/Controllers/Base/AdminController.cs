@@ -1,4 +1,4 @@
-﻿namespace Teller.Web.Areas.Admin.Controllers
+﻿namespace Teller.Web.Areas.Admin.Controllers.Base
 {
     using System.Web.Mvc;
 
