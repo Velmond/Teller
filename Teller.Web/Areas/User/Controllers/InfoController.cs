@@ -49,7 +49,7 @@
                 this.Data.SaveChanges();
             }
 
-            var profile = new EditUserProfileViewModel()
+            var profile = new EditUserInfoViewModel()
             {
                 Username = this.User.UserName,
                 AvatarPath = this.User.UserInfo.AvatarPath == null ? string.Empty : this.User.UserInfo.AvatarPath,
@@ -68,7 +68,8 @@
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(string id, EditUserProfileViewModel profile)
+        [ValidateInput(false)]
+        public ActionResult Edit(string id, EditUserInfoViewModel profile)
         {
             if(this.User.UserName != id && this.User.Roles.FirstOrDefault() != null)
             {
@@ -135,14 +136,13 @@
             }
         }
 
-        private UserViewModel GetUser(string id)
-        {
-            var user = this.Data.Users.All()
-                .Where(u => u.UserName == id)
-                .Select(UserViewModel.FromUser)
-                .FirstOrDefault();
-
-            return user;
-        }
+        //private UserViewModel GetUser(string id)
+        //{
+        //    var user = this.Data.Users.All()
+        //        .Where(u => u.UserName == id)
+        //        .Select(UserViewModel.FromUser)
+        //        .FirstOrDefault();
+        //    return user;
+        //}
     }
 }

@@ -3,7 +3,7 @@
 <span class="pull-right btn-group">
     @if(ViewBag.Page > 1)
     {
-        @Html.ActionLink("<<", Model.Action, Model.Controller, new { Area = Model.Area, username = Model.Username, page = 1 }, new { @class = "btn btn-sm btn-default" })
+        @Html.ActionLink("<<", Model.Action, Model.Controller, new { Area = Model.Area, id = Model.Id, page = 1 }, new { @class = "btn btn-sm btn-default" })
     }
     else
     {
@@ -12,7 +12,7 @@
 
     @if(ViewBag.Page > 1)
     {
-        @Html.ActionLink("<", Model.Action, Model.Controller, new { Area = Model.Area, username = Model.Username, page = Model.Page - 1 }, new { @class = "btn btn-sm btn-default" })
+        @Html.ActionLink("<", Model.Action, Model.Controller, new { Area = Model.Area, id = Model.Id, page = Model.Page - 1 }, new { @class = "btn btn-sm btn-default" })
     }
     else
     {
@@ -23,7 +23,7 @@
     {
         if(ViewBag.Page != i)
         {
-            @Html.ActionLink(i.ToString(), Model.Action, Model.Controller, new { Area = Model.Area, username = Model.Username, page = i }, new { @class = "btn btn-sm btn-default" })
+            @Html.ActionLink(i.ToString(), Model.Action, Model.Controller, new { Area = Model.Area, id = Model.Id, page = i }, new { @class = "btn btn-sm btn-default" })
         }
         else
         {
@@ -33,7 +33,7 @@
 
     @if(ViewBag.Page != ViewBag.Pages)
     {
-        @Html.ActionLink(">", Model.Action, Model.Controller, new { Area = Model.Area, username = Model.Username, page = Model.Page + 1 }, new { @class = "btn btn-sm btn-default" })
+        @Html.ActionLink(">", Model.Action, Model.Controller, new { Area = Model.Area, id = Model.Id, page = Model.Page + 1 }, new { @class = "btn btn-sm btn-default" })
     }
     else
     {
@@ -42,7 +42,7 @@
 
     @if(ViewBag.Page != ViewBag.Pages)
     {
-        @Html.ActionLink(">>", Model.Action, Model.Controller, new { Area = Model.Area, username = Model.Username, page = Model.PagesCount }, new { @class = "btn btn-sm btn-default" })
+        @Html.ActionLink(">>", Model.Action, Model.Controller, new { Area = Model.Area, id = Model.Id, page = Model.PagesCount }, new { @class = "btn btn-sm btn-default" })
     }
     else
     {

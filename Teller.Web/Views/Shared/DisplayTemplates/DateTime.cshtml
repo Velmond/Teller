@@ -1,3 +1,6 @@
 ﻿@model DateTime
+@{
+    System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
+}
 
-@Model.ToString(System.Globalization.CultureInfo.InvariantCulture)
+@Model.ToShortDateString()

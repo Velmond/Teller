@@ -4,76 +4,118 @@
 }
 
 @section profileNavigation {
-    @Html.ActionLink("Series", "Index", "Series", new { Area = "User", id = ViewBag.Username }, new { @class = "btn btn-default" })
-    @Html.ActionLink("Stories", "Index", "Story", new { Area = "User", id = ViewBag.Username }, new { @class = "btn btn-default" })
+    <div class="btn-group">
+        <div class="pull-left">
+            @Html.ActionLink("Stories", "Index", "Story", new { Area = "User", id = ViewBag.Username }, new { @class = "btn btn-default" })
+        </div>
+        <div class="pull-left">
+            @Html.ActionLink("Series", "Index", "Series", new { Area = "User", id = ViewBag.Username }, new { @class = "btn btn-default" })
+        </div>
+    </div>
 }
 
 <div class="row">
     <div class="col-sm-offset-1 col-sm-10 well">
-        <h2 class="row text-center">
-            <span class="col-sm-offset-1 col-sm-10">Profile info</span>
+        <h2 class="row">
+            <span class="col-sm-offset-3 col-sm-9">@Model.Username's information</span>
         </h2>
-        <div class="row text-center">
-            <div class="col-sm-6">
-                <div class="row">
-                    <p class="col-sm-offset-1 col-sm-10">
-                        <span class="glyphicon glyphicon-book"></span>
-                        <strong>@Model.StoriesCount</strong>
-                        <em>stories</em>
-                    </p>
+        <div class="row">
+            <p>
+                <div class="col-sm-3 text-right">Motto:</div>
+                <div class="col-sm-9 text-left">@Model.Motto</div>
+            </p>
+        </div>
+        <div class="row">
+            <p>
+                <div class="col-sm-3 text-right">Description:</div>
+                <div class="col-sm-9 text-left">@Model.Description</div>
+            </p>
+        </div>
+        <div class="row">
+            <p>
+                <div class="col-sm-3 text-right">Registered:</div>
+                <div class="col-sm-9 text-left">@Html.DisplayFor(m => m.RegisteredOn)</div>
+            </p>
+        </div>
+        <div class="row">
+            <p>
+                <div class="col-sm-3 text-right">Stories:</div>
+                <div class="col-sm-9 text-left">
+                    <span class="glyphicon glyphicon-book"></span>
+                    <strong>@Model.StoriesCount</strong>
+                    <em>stories</em>
                 </div>
-                <div class="row">
-                    <p class="col-sm-offset-1 col-sm-10">
-                        <span class="glyphicon glyphicon-heart-empty"></span>
-                        <strong>@Model.StoryFavorites</strong>
-                        <em>favorites</em>
-                    </p>
+            </p>
+        </div>
+        <div class="row">
+            <p>
+                <div class="col-sm-3 text-right">Favorited:</div>
+                <div class="col-sm-9 text-left">
+                    <span class="glyphicon glyphicon-heart-empty"></span>
+                    <strong>@Model.StoryFavorites</strong>
+                    <em>favorites</em>
                 </div>
-                <div class="row">
-                    <p class="col-sm-offset-1 col-sm-10">
-                        <span class="glyphicon glyphicon-thumbs-up"></span>
-                        <strong>@Model.StoryLikes</strong>
-                        <em>likes</em>
-                    </p>
+            </p>
+        </div>
+        <div class="row">
+            <p>
+                <div class="col-sm-3 text-right">Liked:</div>
+                <div class="col-sm-9 text-left">
+                    <span class="glyphicon glyphicon-thumbs-up"> </span>
+                    <strong>@Model.StoryLikes</strong>
+                    <em>likes</em>
                 </div>
-            </div>
-            <div class="col-sm-6 text-center">
-                <div class="row">
-                    <p class="col-sm-offset-1 col-sm-10">
-                        <span class="glyphicon glyphicon-user">
-                            <a href="@Model.Facebook"> Facebook</a>
-                        </span>
-                    </p>
+            </p>
+        </div>
+        <div class="row">
+            <p>
+                <div class="col-sm-3 text-right">Facebook:</div>
+                <div class="col-sm-9 text-left">
+                    <span class="glyphicon glyphicon-user">
+                        <a href="@Model.Facebook"> Facebook</a>
+                    </span>
                 </div>
-                <div class="row">
-                    <p class="col-sm-offset-1 col-sm-10">
-                        <span class="glyphicon glyphicon-user">
-                            <a href="@Model.GooglePlus"> GooglePlus</a>
-                        </span>
-                    </p>
+            </p>
+        </div>
+        <div class="row">
+            <p>
+                <div class="col-sm-3 text-right">GooglePlus:</div>
+                <div class="col-sm-9 text-left">
+                    <span class="glyphicon glyphicon-user">
+                        <a href="@Model.GooglePlus"> GooglePlus</a>
+                    </span>
                 </div>
-                <div class="row">
-                    <p class="col-sm-offset-1 col-sm-10">
-                        <span class="glyphicon glyphicon-user">
-                            <a href="@Model.Twitter"> Twitter</a>
-                        </span>
-                    </p>
+            </p>
+        </div>
+        <div class="row">
+            <p>
+                <div class="col-sm-3 text-right">Twitter:</div>
+                <div class="col-sm-9 text-left">
+                    <span class="glyphicon glyphicon-user">
+                        <a href="@Model.Twitter"> Twitter</a>
+                    </span>
                 </div>
-                <div class="row">
-                    <p class="col-sm-offset-1 col-sm-10">
-                        <span class="glyphicon glyphicon-user">
-                            <a href="@Model.YouTube"> YouTube</a>
-                        </span>
-                    </p>
+            </p>
+        </div>
+        <div class="row">
+            <p>
+                <div class="col-sm-3 text-right">YouTube:</div>
+                <div class="col-sm-9 text-left">
+                    <span class="glyphicon glyphicon-user">
+                        <a href="@Model.YouTube"> YouTube</a>
+                    </span>
                 </div>
-                <div class="row">
-                    <p class="col-sm-offset-1 col-sm-10">
-                        <span class="glyphicon glyphicon-user">
-                            <a href="@Model.LinkedIn"> LinkedIn</a>
-                        </span>
-                    </p>
+            </p>
+        </div>
+        <div class="row">
+            <p>
+                <div class="col-sm-3 text-right">LinkedIn:</div>
+                <div class="col-sm-9 text-left">
+                    <span class="glyphicon glyphicon-user">
+                        <a href="@Model.LinkedIn"> LinkedIn</a>
+                    </span>
                 </div>
-            </div>
+            </p>
         </div>
     </div>
 </div>

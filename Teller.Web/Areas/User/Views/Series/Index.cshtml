@@ -4,14 +4,20 @@
 }
 
 @section profileNavigation {
-    @Html.ActionLink("Info", "Index", "Info", new { Area = "User", id = ViewBag.Username }, new { @class = "btn btn-default" })
-    @Html.ActionLink("Stories", "Index", "Story", new { Area = "User", id = ViewBag.Username }, new { @class = "btn btn-default" })
+    <div class="btn-group">
+        <div class="pull-left">
+            @Html.ActionLink("Stories", "Index", "Story", new { Area = "User", id = ViewBag.Username }, new { @class = "btn btn-default" })
+        </div>
+        <div class="pull-left">
+            @Html.ActionLink("Info", "Index", "Info", new { Area = "User", id = ViewBag.Username }, new { @class = "btn btn-default" })
+        </div>
+    </div>
 }
 
 <div class="row">
     <div class="col-sm-offset-1 col-sm-10 well">
         <h2 class="row text-center">
-            <span class="col-sm-offset-1 col-sm-10">User's series</span>
+            <span class="col-sm-offset-1 col-sm-10">@Model.Username's series</span>
         </h2>
         <div class="row text-center">
             <div class="col-sm-6">

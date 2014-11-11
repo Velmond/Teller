@@ -214,9 +214,10 @@
     <Compile Include="Areas\User\Controllers\SeriesController.cs" />
     <Compile Include="Areas\User\Controllers\StoryController.cs" />
     <Compile Include="Areas\User\UserAreaRegistration.cs" />
-    <Compile Include="Areas\User\ViewModels\EditUserProfileViewModel.cs" />
+    <Compile Include="Areas\User\ViewModels\Base\UserViewModel.cs" />
+    <Compile Include="Areas\User\ViewModels\EditUserInfoViewModel.cs" />
     <Compile Include="Areas\User\ViewModels\UserInfoViewModel.cs" />
-    <Compile Include="Areas\User\ViewModels\UserViewModel.cs" />
+    <Compile Include="Areas\User\ViewModels\UserStoriesViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CommentLikeController.cs" />
@@ -1184,7 +1185,7 @@
     <Content Include="Views\Shared\_CommentLikes.cshtml" />
     <Content Include="Views\Feed\ReadLater.cshtml" />
     <Content Include="Views\Feed\Favorites.cshtml" />
-    <Content Include="Views\Feed\_FeedPager.cshtml" />
+    <Content Include="Views\Shared\_Pager.cshtml" />
     <Content Include="Views\Search\_SearchPager.cshtml" />
     <Content Include="Views\Story\_StoryCommentForm.cshtml" />
     <Content Include="Scripts\Kendo\jquery.min.map" />

@@ -5,8 +5,9 @@
     using System.Linq.Expressions;
 
     using Teller.Models;
+    using Teller.Web.Areas.User.ViewModels.Base;
 
-    public class UserInfoViewModel
+    public class UserInfoViewModel : UserViewModel
     {
         public static Expression<Func<AppUser, UserInfoViewModel>> FromUser
         {
@@ -15,44 +16,37 @@
                 return user => new UserInfoViewModel()
                 {
                     Username = user.UserName,
-                    AvatarPath = user.UserInfo != null ?
-                                     user.UserInfo.AvatarPath :
-                                     "/Images/UsersPictures/default/user.png",
+                    RegisteredOn = user.RegisteredOn,
+                    Motto = user.UserInfo != null ? user.UserInfo.Motto : "not entered yet",
+                    Description = user.UserInfo != null ? user.UserInfo.Description : "not entered yet",
+                    AvatarPath = user.UserInfo != null ? user.UserInfo.AvatarPath : "/Images/UsersPictures/default/user.png",
                     StoriesCount = user.Stories.Count(),
                     StoryLikes = user.Stories.Sum(s => s.Likes.Count(l => l.Value == true)),
                     StoryFavorites = user.Stories.Sum(s => s.FavouritedBy.Count()),
                     Facebook = (user.UserInfo != null ?
                                     (user.UserInfo.LinkedProfiles != null ?
-                                       user.UserInfo.LinkedProfiles.Facebook :
-                                       string.Empty) :
-                                    string.Empty),
+                                       user.UserInfo.LinkedProfiles.Facebook : string.Empty) : string.Empty),
                     GooglePlus = (user.UserInfo != null ?
                                     (user.UserInfo.LinkedProfiles != null ?
-                                       user.UserInfo.LinkedProfiles.GooglePlus :
-                                       string.Empty) :
-                                    string.Empty),
+                                       user.UserInfo.LinkedProfiles.GooglePlus : string.Empty) : string.Empty),
                     Twitter = (user.UserInfo != null ?
                                     (user.UserInfo.LinkedProfiles != null ?
-                                       user.UserInfo.LinkedProfiles.Twitter :
-                                       string.Empty) :
-                                    string.Empty),
+                                       user.UserInfo.LinkedProfiles.Twitter : string.Empty) : string.Empty),
                     YouTube = (user.UserInfo != null ?
                                     (user.UserInfo.LinkedProfiles != null ?
-                                       user.UserInfo.LinkedProfiles.YouTube :
-                                       string.Empty) :
-                                    string.Empty),
+                                       user.UserInfo.LinkedProfiles.YouTube : string.Empty) : string.Empty),
                     LinkedIn = (user.UserInfo != null ?
                                     (user.UserInfo.LinkedProfiles != null ?
-                                       user.UserInfo.LinkedProfiles.LinkedIn :
-                                       string.Empty) :
-                                    string.Empty)
+                                       user.UserInfo.LinkedProfiles.LinkedIn : string.Empty) : string.Empty)
                 };
             }
         }
 
-        public string Username { get; set; }
+        public string Motto { get; set; }
 
-        public string AvatarPath { get; set; }
+        public string Description { get; set; }
+
+        public DateTime RegisteredOn { get; set; }
 
         public int StoriesCount { get; set; }
 

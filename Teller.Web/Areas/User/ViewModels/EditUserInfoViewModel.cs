@@ -6,16 +6,17 @@
     using System.Linq;
     using System.Linq.Expressions;
     using System.Web;
-    using System.Web.Mvc;
-    using Teller.Models;
 
-    public class EditUserProfileViewModel
+    using Teller.Models;
+    using Teller.Web.Areas.User.ViewModels.Base;
+
+    public class EditUserInfoViewModel : UserViewModel
     {
-        public static Expression<Func<AppUser, EditUserProfileViewModel>> FromUser
+        public static Expression<Func<AppUser, EditUserInfoViewModel>> FromUser
         {
             get
             {
-                return user => new EditUserProfileViewModel()
+                return user => new EditUserInfoViewModel()
                 {
                     Username = user.UserName,
                     AvatarPath = user.UserInfo.AvatarPath,
@@ -30,11 +31,6 @@
                 };
             }
         }
-
-        [Required]
-        public string Username { get; set; }
-
-        public string AvatarPath { get; set; }
 
         public HttpPostedFileBase Picture { get; set; }
 
