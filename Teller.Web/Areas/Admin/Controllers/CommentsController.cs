@@ -9,17 +9,21 @@
     using Teller.Data;
     using Teller.Web.Areas.Admin.Controllers.Base;
 
-    public class CommentsController : KendoGridAdminController
+    public class CommentsController : AdminController
     {
         public CommentsController(ITellerData data)
             : base(data)
         {
         }
 
-        // GET: Admin/Comments
         public ActionResult Index()
         {
             return View();
         }
+
+        //protected override System.Collections.IEnumerable GetData()
+        //{
+        //    return this.Data.Comments.All();
+        //}
     }
 }

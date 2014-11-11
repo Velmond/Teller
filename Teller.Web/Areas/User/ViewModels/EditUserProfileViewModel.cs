@@ -6,6 +6,7 @@
     using System.Linq;
     using System.Linq.Expressions;
     using System.Web;
+    using System.Web.Mvc;
     using Teller.Models;
 
     public class EditUserProfileViewModel
@@ -42,7 +43,9 @@
         public string Motto { get; set; }
 
         [Required]
+        [DataType("TextArea")]
         [StringLength(1000, MinimumLength = 2, ErrorMessage = "Description must be between 2 and 1000 characters long.")]
+        [UIHint("TextArea")]
         public string Description { get; set; }
 
         [RegularExpression(@"(?:(?:http|https):\/\/)?(?:www.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?", ErrorMessage = "Invalid Facebook profile url")]

@@ -15,14 +15,14 @@
     <div class="form-group">
         @Html.LabelFor(m => m.Motto, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Motto, new { @class = "form-control", style = "max-width: 100%" })
+            @Html.EditorFor(m => m.Motto)
             @Html.ValidationMessageFor(model => model.Motto, null, new { @class = "help-inline text-danger" })
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextAreaFor(m => m.Description, new { @class = "form-control", style = "max-width: 100%" })
+            @Html.EditorFor(m => m.Description)
             @Html.ValidationMessageFor(model => model.Description, null, new { @class = "help-inline text-danger" })
         </div>
     </div>
@@ -35,35 +35,35 @@
     <div class="form-group">
         @Html.LabelFor(m => m.Facebook, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Facebook, new { @class = "form-control", style = "max-width: 100%" })
+            @Html.EditorFor(m => m.Facebook)
             @Html.ValidationMessageFor(model => model.Facebook, null, new { @class = "help-inline text-danger" })
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.GooglePlus, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.GooglePlus, new { @class = "form-control", style = "max-width: 100%" })
+            @Html.EditorFor(m => m.GooglePlus)
             @Html.ValidationMessageFor(model => model.GooglePlus, null, new { @class = "help-inline text-danger" })
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Twitter, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Twitter, new { @class = "form-control", style = "max-width: 100%" })
+            @Html.EditorFor(m => m.Twitter)
             @Html.ValidationMessageFor(model => model.Twitter, null, new { @class = "help-inline text-danger" })
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.YouTube, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.YouTube, new { @class = "form-control", style = "max-width: 100%" })
+            @Html.EditorFor(m => m.YouTube)
             @Html.ValidationMessageFor(model => model.YouTube, null, new { @class = "help-inline text-danger" })
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.LinkedIn, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.LinkedIn, new { @class = "form-control", style = "max-width: 100%" })
+            @Html.EditorFor(m => m.LinkedIn)
             @Html.ValidationMessageFor(model => model.LinkedIn, null, new { @class = "help-inline text-danger" })
         </div>
     </div>

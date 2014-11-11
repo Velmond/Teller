@@ -9,17 +9,21 @@
     using Teller.Data;
     using Teller.Web.Areas.Admin.Controllers.Base;
 
-    public class StoriesController : KendoGridAdminController
+    public class StoriesController : AdminController
     {
         public StoriesController(ITellerData data)
             : base(data)
         {
         }
 
-        // GET: Admin/Stories
         public ActionResult Index()
         {
             return View();
         }
+
+        //protected override System.Collections.IEnumerable GetData()
+        //{
+        //    return this.Data.Stories.All();
+        //}
     }
 }

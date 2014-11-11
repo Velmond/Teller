@@ -12,8 +12,10 @@
         public string Title { get; set; }
 
         [AllowHtml]
+        [DataType("tinymce_full")]
         [MinLength(10, ErrorMessage = "Content must be at least 10 characters long")]
         [Required(ErrorMessage = "Content is required")]
+        [UIHint("tinymce_full")]
         public string Content { get; set; }
 
         [DisplayName("Genre")]

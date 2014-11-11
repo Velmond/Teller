@@ -1,5 +1,5 @@
 ﻿@model Teller.Web.ViewModels.Story.StoryViewModel
-@using Teller.Web.Helpers
+@using Teller.Web.Infrastructure
 @{
     var urlGenerator = new UrlGenerator();
 }
@@ -12,7 +12,7 @@
         <h4>
             @Html.ActionLink(Model.Title, "Index", "Story", new { Area = "", id = urlGenerator.GenerateUrlId(Model.Id, Model.Title) }, new { })
         </h4>
-        <p>@Model.Content</p>
+        <p>@Html.Raw(Model.Content)</p>
         <p class="pull-right">
             <small>@Html.DisplayFor(m => Model.DatePublished) | @Html.ActionLink(Model.Author, "Index", "Story", new { Area = "User", id = Model.Author }, new { })</small>
         </p>

@@ -7,7 +7,7 @@
     using System.Web.Mvc;
     using Teller.Data;
     using Teller.Models;
-    using Teller.Web.Helpers;
+    using Teller.Web.Infrastructure;
     using Teller.Web.ViewModels;
     using Teller.Web.ViewModels.Like;
 

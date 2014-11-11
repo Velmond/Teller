@@ -6,7 +6,7 @@
     using System.Web.Mvc;
 
     using Teller.Data;
-    using Teller.Web.Helpers;
+    using Teller.Web.Infrastructure;
     using Teller.Web.ViewModels;
     using Teller.Web.ViewModels.Series;
     using Teller.Web.ViewModels.Story;

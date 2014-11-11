@@ -1,5 +1,5 @@
 ﻿@model Teller.Web.ViewModels.UserFeedStory
-@using Teller.Web.Helpers
+@using Teller.Web.Infrastructure
 @{
     var urlGenerator = new UrlGenerator();
 }
@@ -13,7 +13,7 @@
                 @Html.ActionLink(Model.Title, "Index", "Story", new { Area = "", id = urlGenerator.GenerateUrlId(Model.Id, Model.Title) }, new { })
                 <small> (@Model.Genre)</small>
             </h4>
-            <p>@Model.Content</p>
+            <p>@Html.Raw(Model.Content)</p>
         <div>
             <p class="">
                 <span class="col-md-1 text-center glyphicon glyphicon-thumbs-down"> @Model.DislikesCount</span>

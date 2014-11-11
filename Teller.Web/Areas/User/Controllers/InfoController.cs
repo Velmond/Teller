@@ -10,7 +10,7 @@
     using Teller.Models;
     using Teller.Web.Areas.User.ViewModels;
     using Teller.Web.Controllers;
-    using Teller.Web.Helpers;
+    using Teller.Web.Infrastructure;
 
     public class InfoController : BaseController
     {
@@ -23,12 +23,13 @@
 
         public ActionResult Index(string id)
         {
+            var user = this.Data.Users.All()
+                .Select(UserInfoViewModel.FromUser)
+                .SingleOrDefault(u => u.Username == id);
+
             ViewBag.Username = id;
-            var user = this.Data.Users.All().SingleOrDefault(u => u.UserName == id);
-
-
-
-            return View();
+            ViewBag.AvatarPath = user.AvatarPath;
+            return View(user);
         }
 
         [Authorize]

@@ -6,6 +6,7 @@
     using System.Web;
     using System.Web.Mvc;
     using Teller.Data;
+    using Teller.Web.Areas.User.ViewModels;
     using Teller.Web.Controllers;
 
     public class StoryController : BaseController
@@ -17,9 +18,13 @@
 
         public ActionResult Index(string id)
         {
-            ViewBag.Username = id;
+            var user = this.Data.Users.All()
+                .Select(UserInfoViewModel.FromUser)
+                .SingleOrDefault(u => u.Username == id);
 
-            return View();
+            ViewBag.Username = id;
+            ViewBag.AvatarPath = user.AvatarPath;
+            return View(user);
         }
     }
 }

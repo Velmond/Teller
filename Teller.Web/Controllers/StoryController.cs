@@ -10,7 +10,7 @@
 
     using Teller.Data;
     using Teller.Models;
-    using Teller.Web.Helpers;
+    using Teller.Web.Infrastructure;
     using Teller.Web.ViewModels;
     using Teller.Web.ViewModels.Series;
     using Teller.Web.ViewModels.Story;
@@ -18,10 +18,12 @@
     public class StoryController : BaseController
     {
         private const string DefaultStoryImage = "/Images/StoryPictures/default/cover.jpg";
+        private readonly ISanitizer sanitizer;
 
-        public StoryController(ITellerData data)
+        public StoryController(ITellerData data, ISanitizer sanitizer)
             : base(data)
         {
+            this.sanitizer = sanitizer;
         }
 
         public ActionResult Index(string id)
@@ -100,10 +102,10 @@
         [ValidateAntiForgeryToken]
         public ActionResult Create(StoryFormViewModel story)
         {
-            if(Regex.Matches(story.Content, "<[^>]*script").Count > 0)
-            {
-                ModelState.AddModelError("Content", "Content cannot have script tags in it.");
-            }
+            //if(Regex.Matches(story.Content, "<[^>]*script").Count > 0)
+            //{
+            //    ModelState.AddModelError("Content", "Content cannot have script tags in it.");
+            //}
 
             if(!string.IsNullOrEmpty(story.SeriesName) &&
                 !string.IsNullOrWhiteSpace(story.SeriesName))
@@ -124,7 +126,7 @@
                 {
                     Title = story.Title,
                     AuthorId = this.User.Id,
-                    Content = story.Content,
+                    Content = this.sanitizer.Sanitize(story.Content),
                     DatePublished = DateTime.Now,
                     GenreId = story.GenreId
                 };
@@ -221,10 +223,10 @@
                 return RedirectToAction("NotFound", "Error", new { Area = "" });
             }
 
-            if(Regex.Matches(story.Content, "<[^>]*script").Count > 0)
-            {
-                ModelState.AddModelError("Content", "Content cannot have script tags in it.");
-            }
+            //if(Regex.Matches(story.Content, "<[^>]*script").Count > 0)
+            //{
+            //    ModelState.AddModelError("Content", "Content cannot have script tags in it.");
+            //}
 
             if(!string.IsNullOrEmpty(story.SeriesName) &&
                 !string.IsNullOrWhiteSpace(story.SeriesName))
@@ -242,7 +244,7 @@
             if(ModelState.IsValid)
             {
                 foundStory.Title = story.Title;
-                foundStory.Content = story.Content;
+                foundStory.Content = this.sanitizer.Sanitize(story.Content);
                 foundStory.GenreId = story.GenreId;
                 foundStory.SeriesId = this.GetSeriesId(story);
 

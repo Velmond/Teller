@@ -2,18 +2,22 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@*@section styles{
-    @RenderSection("styles")
-}*@
+@section styles{
+    @RenderSection("styles", required: false)
+}
 
-<h2>Profile Layout</h2>
-
-@Html.ActionLink("Info", "Index", "Info", new { Area = "User", id = ViewBag.Username }, new { @class = "btn btn-default" })
-@Html.ActionLink("Series", "Index", "Series", new { Area = "User", id = ViewBag.Username }, new { @class = "btn btn-default" })
-@Html.ActionLink("Stories", "Index", "Story", new { Area = "User", id = ViewBag.Username }, new { @class = "btn btn-default" })
+<div class="jumbotron">
+    <div class="row">
+        <h2 class="col-sm-9">@ViewBag.Username</h2>
+        <img src="@ViewBag.AvatarPath" alt="@ViewBag.Username" class="col-sm-3 pull-right img-responsive img-thumbnail img-circle" />
+    </div>
+    <div class="row">
+        @RenderSection("profileNavigation", required: true)
+    </div>
+</div>
 
 @RenderBody()
 
-@*@section scripts{
-    @RenderSection("scripts")
-}*@
+@section scripts{
+    @RenderSection("scripts", required: false)
+}
