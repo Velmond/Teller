@@ -1,15 +1,80 @@
 ﻿@model Teller.Web.Areas.User.ViewModels.EditUserProfileViewModel
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title =  Model.Username + " - Edit Profile";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Edit Profile</h2>
 
-@using(Html.BeginForm("Edit", "Profile", null, FormMethod.Post, new { @class = "form-horizontal" }))
+@using(Html.BeginForm("Edit", "Info", new { id = Model.Username }, FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    @Html.TextBoxFor(m => m.Motto, new { @class = "form-control" })
-    @Html.TextAreaFor(m => m.Description, new { @class = "form-control"})
-    
+    <h4>Edit your profile.</h4>
+    <hr />
+    @Html.HiddenFor(m => m.Username)
+    <div class="form-group">
+        @Html.LabelFor(m => m.Motto, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Motto, new { @class = "form-control", style = "max-width: 100%" })
+            @Html.ValidationMessageFor(model => model.Motto, null, new { @class = "help-inline text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(m => m.Description, new { @class = "form-control", style = "max-width: 100%" })
+            @Html.ValidationMessageFor(model => model.Description, null, new { @class = "help-inline text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.AvatarPath, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Picture, new { @class = "form-control", type = "file", style = "max-width: 100%" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Facebook, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Facebook, new { @class = "form-control", style = "max-width: 100%" })
+            @Html.ValidationMessageFor(model => model.Facebook, null, new { @class = "help-inline text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.GooglePlus, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.GooglePlus, new { @class = "form-control", style = "max-width: 100%" })
+            @Html.ValidationMessageFor(model => model.GooglePlus, null, new { @class = "help-inline text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Twitter, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Twitter, new { @class = "form-control", style = "max-width: 100%" })
+            @Html.ValidationMessageFor(model => model.Twitter, null, new { @class = "help-inline text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.YouTube, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.YouTube, new { @class = "form-control", style = "max-width: 100%" })
+            @Html.ValidationMessageFor(model => model.YouTube, null, new { @class = "help-inline text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.LinkedIn, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.LinkedIn, new { @class = "form-control", style = "max-width: 100%" })
+            @Html.ValidationMessageFor(model => model.LinkedIn, null, new { @class = "help-inline text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default btn-block" style="max-width: 100%" value="Edit Profile" />
+        </div>
+    </div>
+}
+
+@section scripts {
+    <script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    @Scripts.Render("~/bundles/jqueryval");
 }

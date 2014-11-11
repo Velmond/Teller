@@ -17,6 +17,8 @@
 
     public class StoryController : BaseController
     {
+        private const string DefaultStoryImage = "/Images/StoryPictures/default/cover.jpg";
+
         public StoryController(ITellerData data)
             : base(data)
         {
@@ -150,16 +152,75 @@
         }
 
         [Authorize]
-        public ActionResult Edit()
+        public ActionResult Edit(string id)
         {
-            return View(this.GetStoryFormModel());
+            if(string.IsNullOrEmpty(id) || string.IsNullOrWhiteSpace(id) || id.IndexOf('-') < 0)
+            {
+                return RedirectToAction("Index", "Error", new { Area = "" });
+            }
+
+            int storyId;
+            if(!int.TryParse(id.Substring(id.LastIndexOf('-') + 1), out storyId))
+            {
+                return RedirectToAction("Index", "Error", new { Area = "" });
+            }
+
+            var foundStory = this.Data.Stories.Find(storyId);
+
+            if(foundStory == null)
+            {
+                return RedirectToAction("NotFound", "Error", new { Area = "" });
+            }
+
+            var url = new UrlGenerator();
+            var encodedStoryId = url.GenerateUrlId(foundStory.Id, foundStory.Title);
+
+            if(encodedStoryId != id)
+            {
+                return RedirectToAction("NotFound", "Error", new { Area = "" });
+            }
+
+            var story = this.GetStoryFormModel();
+
+            story.Title = foundStory.Title;
+            story.Content = foundStory.Content;
+            story.GenreId = foundStory.GenreId;
+            story.SeriesId = foundStory.SeriesId;
+
+            return View(story);
         }
 
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(StoryFormViewModel story)
+        public ActionResult Edit(string id, StoryFormViewModel story)
         {
+            if(string.IsNullOrEmpty(id) || string.IsNullOrWhiteSpace(id) || id.IndexOf('-') < 0)
+            {
+                return RedirectToAction("Index", "Error", new { Area = "" });
+            }
+
+            int storyId;
+            if(!int.TryParse(id.Substring(id.LastIndexOf('-') + 1), out storyId))
+            {
+                return RedirectToAction("Index", "Error", new { Area = "" });
+            }
+
+            var foundStory = this.Data.Stories.Find(storyId);
+
+            if(foundStory == null)
+            {
+                return RedirectToAction("NotFound", "Error", new { Area = "" });
+            }
+
+            var url = new UrlGenerator();
+            var encodedStoryId = url.GenerateUrlId(foundStory.Id, foundStory.Title);
+
+            if(encodedStoryId != id)
+            {
+                return RedirectToAction("NotFound", "Error", new { Area = "" });
+            }
+
             if(Regex.Matches(story.Content, "<[^>]*script").Count > 0)
             {
                 ModelState.AddModelError("Content", "Content cannot have script tags in it.");
@@ -180,23 +241,24 @@
 
             if(ModelState.IsValid)
             {
-                Story newStory = new Story()
+                foundStory.Title = story.Title;
+                foundStory.Content = story.Content;
+                foundStory.GenreId = story.GenreId;
+                foundStory.SeriesId = this.GetSeriesId(story);
+
+                var newPicturePath = this.GetPicturePath(story.Picture, story.Title);
+
+                if(!string.IsNullOrEmpty(newPicturePath) &&
+                    !string.IsNullOrWhiteSpace(newPicturePath) &&  
+                    newPicturePath != DefaultStoryImage)
                 {
-                    Title = story.Title,
-                    AuthorId = this.User.Id,
-                    Content = story.Content,
-                    DatePublished = DateTime.Now,
-                    GenreId = story.GenreId
-                };
+                    foundStory.PicturePath = newPicturePath;
+                }
 
-                newStory.SeriesId = this.GetSeriesId(story);
-                newStory.PicturePath = this.GetPicturePath(story.Picture, story.Title);
-
-                this.Data.Stories.Add(newStory);
+                this.Data.Stories.Update(foundStory);
                 this.Data.SaveChanges();
 
-                var url = new UrlGenerator();
-                return RedirectToAction("Index", new { id = url.GenerateUrlId(newStory.Id, newStory.Title) });
+                return RedirectToAction("Index", new { id = url.GenerateUrlId(foundStory.Id, foundStory.Title) });
             }
 
             var model = this.GetStoryFormModel();
@@ -457,7 +519,7 @@
             }
             else
             {
-                return "/Images/StoryPictures/default/cover.jpg";
+                return DefaultStoryImage;
             }
         }
     }

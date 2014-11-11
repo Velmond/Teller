@@ -3,10 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web;
     using System.Web.Mvc;
+
     using Teller.Data;
-    using Teller.Models;
     using Teller.Web.Helpers;
     using Teller.Web.ViewModels;
     using Teller.Web.ViewModels.Series;
@@ -59,20 +58,17 @@
                 Stories = new List<StoryViewModel>()
             };
 
-            if(foundSeries.Stories.Any())
+            foreach(var story in foundSeries.Stories)
             {
-                foreach(var story in foundSeries.Stories)
+                series.Stories.Add(new StoryViewModel()
                 {
-                    series.Stories.Add(new StoryViewModel()
-                    {
-                        Id = story.Id,
-                        Author = story.Author.UserName,
-                        Title = story.Title,
-                        Content = story.Content.Length > 100 ? story.Content.Substring(0, 100) + "..." : story.Content,
-                        DatePublished = story.DatePublished,
-                        PicturePath = story.PicturePath
-                    });
-                }
+                    Id = story.Id,
+                    Author = story.Author.UserName,
+                    Title = story.Title,
+                    Content = story.Content.Length > 100 ? story.Content.Substring(0, 100) + "..." : story.Content,
+                    DatePublished = story.DatePublished,
+                    PicturePath = story.PicturePath
+                });
             }
 
             return View(series);

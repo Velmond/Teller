@@ -22,13 +22,15 @@
                     else if(Model.Author == User.Identity.Name)
                     {
                         <small class="pull-right">
+                            @Html.ActionLink(" ", "Edit", "Story",
+                                new { Area = "", id = url.GenerateUrlId(Model.Id, Model.Title) },
+                                new { @class = "glyphicon glyphicon-edit btn btn-sm btn-default" })
                             @Html.ActionLink(" ", "Delete", "Story",
                                 new { Area = "", id = url.GenerateUrlId(Model.Id, Model.Title) },
                                 new { @class = "glyphicon glyphicon-remove btn btn-sm btn-default" })
                         </small>
                     }
                 </h2>
-
             </div>
 
             <div class="well">
@@ -178,21 +180,15 @@
     <script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     @Scripts.Render("~/bundles/jqueryval");
     <script type="text/javascript">
-        function removeContent() {
-            $('#new-comment-content-container').val('');
-        }
-
-        //$(function () {
-        //    $('.add-comment-btn').click(function () {
-                
-        //    });
-        //});
-
         $(function () {
             $('.flag-story-btn').click(function () {
                 $(this).remove();
             });
         });
+
+        function removeContent() {
+            $('#new-comment-content-container').val('');
+        }
 
         function removeComment(id) {
             $(id).remove();

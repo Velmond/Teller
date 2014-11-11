@@ -12,12 +12,10 @@
 
         public virtual LinkedProfiles LinkedProfiles { get; set; }
 
-        [MaxLength(100)]
-        [MinLength(2)]
+        [StringLength(100, MinimumLength = 2)]
         public string Motto { get; set; }
 
-        [MaxLength(500)]
-        [MinLength(2)]
+        [StringLength(1000, MinimumLength = 2)]
         public string Description { get; set; }
 
         public string AvatarPath { get; set; }
