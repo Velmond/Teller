@@ -1,6 +1,6 @@
 ﻿namespace Teller.Web.ViewModels.Story
 {
-    public class StoryFormViewModel : StoryCreateViewModel
+    public class FormViewModel : StoryCreateViewModel
     {
         public SelectViewModel GenresList { get; set; }
 

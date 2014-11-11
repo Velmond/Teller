@@ -21,6 +21,7 @@
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         public ActionResult Post(PostComment newComment)
         {
             if(string.IsNullOrEmpty(newComment.CommentContent))

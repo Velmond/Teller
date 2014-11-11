@@ -100,13 +100,9 @@
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(StoryFormViewModel story)
+        [ValidateInput(false)]
+        public ActionResult Create(FormViewModel story)
         {
-            //if(Regex.Matches(story.Content, "<[^>]*script").Count > 0)
-            //{
-            //    ModelState.AddModelError("Content", "Content cannot have script tags in it.");
-            //}
-
             if(!string.IsNullOrEmpty(story.SeriesName) &&
                 !string.IsNullOrWhiteSpace(story.SeriesName))
             {
@@ -195,7 +191,8 @@
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(string id, StoryFormViewModel story)
+        [ValidateInput(false)]
+        public ActionResult Edit(string id, FormViewModel story)
         {
             if(string.IsNullOrEmpty(id) || string.IsNullOrWhiteSpace(id) || id.IndexOf('-') < 0)
             {
@@ -222,11 +219,6 @@
             {
                 return RedirectToAction("NotFound", "Error", new { Area = "" });
             }
-
-            //if(Regex.Matches(story.Content, "<[^>]*script").Count > 0)
-            //{
-            //    ModelState.AddModelError("Content", "Content cannot have script tags in it.");
-            //}
 
             if(!string.IsNullOrEmpty(story.SeriesName) &&
                 !string.IsNullOrWhiteSpace(story.SeriesName))
@@ -443,9 +435,9 @@
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
-        private StoryFormViewModel GetStoryFormModel()
+        private FormViewModel GetStoryFormModel()
         {
-            var model = new StoryFormViewModel();
+            var model = new FormViewModel();
 
             model.GenresList = new SelectViewModel()
             {

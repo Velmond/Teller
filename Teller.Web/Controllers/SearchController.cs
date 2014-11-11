@@ -102,6 +102,7 @@
             return data;
         }
 
+        [ValidateInput(false)]
         public ActionResult Index(string pattern, int? page)
         {
             if(string.IsNullOrEmpty(pattern) || string.IsNullOrWhiteSpace(pattern))

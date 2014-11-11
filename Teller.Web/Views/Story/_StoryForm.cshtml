@@ -1,0 +1,60 @@
+﻿@model Teller.Web.ViewModels.StoryFormViewModel
+
+@using(Html.BeginForm(Model.Action, Model.Controller, FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Edit "@Model.PageSubTitle"</h4>
+    <hr />
+    <div class="form-group">
+        @Html.LabelFor(m => m.Model.Title, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(m => m.Model.Title)
+            @Html.ValidationMessageFor(m => m.Model.Title, null, new { @class = "help-inline text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Model.Content, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(m => m.Model.Content)
+            @Html.ValidationMessageFor(m => m.Model.Content, null, new { @class = "help-inline text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Model.GenreId, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.Model.GenreId, Model.Model.GenresList.List, "-- Select Genre --", new { @class = "form-control", style = "max-width: 100%" })
+            @Html.ValidationMessageFor(m => m.Model.GenreId, null, new { @class = "help-inline text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Model.PicturePath, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Model.Picture, new { @class = "form-control", type = "file", style = "max-width: 100%" })
+        </div>
+    </div>
+    <div id="create-series-form" class="form-group">
+        @Html.LabelFor(m => m.Model.SeriesId, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="input-group">
+                        @Html.DropDownListFor(m => m.Model.SeriesId, Model.Model.SeriesList.List, "-- Select Series --", new { @class = "form-control", style = "max-width: 100%" })
+                        <span class="input-group-btn">
+                            @Ajax.ActionLink("Add to new series", "Create", "Series",
+                                new { Area = "" },
+                                new AjaxOptions() { HttpMethod = "Get", UpdateTargetId = "create-series-form", InsertionMode = InsertionMode.ReplaceWith },
+                                new { @class = "btn btn-default btn-block" })
+                        </span>
+                    </div>
+                    @Html.ValidationMessageFor(m => m.Model.SeriesGenreId, null, new { @class = "help-inline text-danger" })
+                    @Html.ValidationMessageFor(m => m.Model.SeriesName, null, new { @class = "help-inline text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default btn-block" style="max-width: 100%" value="Confirm" />
+        </div>
+    </div>
+}

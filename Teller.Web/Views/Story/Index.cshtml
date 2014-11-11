@@ -48,7 +48,7 @@
                         @if(User.Identity.IsAuthenticated)
                         {
                             var postComment = new Teller.Web.Models.PostComment() { StoryId = Model.Id, CommentContent = "" };
-                            @Html.Partial("_CommentForm", postComment)
+                            @Html.Partial("_StoryCommentForm", postComment)
                         }
                     </div>
 
@@ -60,7 +60,6 @@
                     </div>
                 </div>
             }
-
         </div>
         <div class="col-md-3">
             <div class="well">
@@ -81,7 +80,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <p>
-                            <strong>Author:</strong> <em>@Html.RouteLink(Model.Author, new { Area = "User", Controller = "UserStories", Action = "Index", id = Model.Author })</em>
+                            <strong>Author:</strong> <em>@Html.RouteLink(Model.Author, new { Area = "User", Controller = "Story", Action = "Index", id = Model.Author })</em>
                         </p>
                     </div>
                 </div>

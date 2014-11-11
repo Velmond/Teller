@@ -252,10 +252,11 @@
     <Compile Include="ViewModels\Search\SearchViewModel.cs" />
     <Compile Include="ViewModels\SelectViewModel.cs" />
     <Compile Include="ViewModels\Series\SeriesCreateViewModel.cs" />
+    <Compile Include="ViewModels\StoryFormViewModel.cs" />
     <Compile Include="ViewModels\Story\CommentViewModel.cs" />
     <Compile Include="ViewModels\Series\SeriesViewModel.cs" />
     <Compile Include="ViewModels\Story\StoryCompleteViewModel.cs" />
-    <Compile Include="ViewModels\Story\StoryFormViewModel.cs" />
+    <Compile Include="ViewModels\Story\FormViewModel.cs" />
     <Compile Include="ViewModels\Story\StoryViewModel.cs" />
     <Compile Include="ViewModels\Story\StoryCreateViewModel.cs" />
     <Compile Include="ViewModels\UserFeedStory.cs" />
@@ -1161,8 +1162,8 @@
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
     <Content Include="Views\Shared\_StorySummaryPartial.cshtml" />
-    <Content Include="Views\Shared\_SeriesSummaryPartial.cshtml" />
-    <Content Include="Views\Shared\_UsersSummaryPartial.cshtml" />
+    <Content Include="Views\Search\_SeriesSummaryPartial.cshtml" />
+    <Content Include="Views\Search\_UsersSummaryPartial.cshtml" />
     <Content Include="Views\Error\ServerError.cshtml" />
     <Content Include="Views\Feed\Index.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
@@ -1183,9 +1184,9 @@
     <Content Include="Views\Shared\_CommentLikes.cshtml" />
     <Content Include="Views\Feed\ReadLater.cshtml" />
     <Content Include="Views\Feed\Favorites.cshtml" />
-    <Content Include="Views\Shared\_FeedPager.cshtml" />
-    <Content Include="Views\Shared\_SearchPager.cshtml" />
-    <Content Include="Views\Story\_CommentForm.cshtml" />
+    <Content Include="Views\Feed\_FeedPager.cshtml" />
+    <Content Include="Views\Search\_SearchPager.cshtml" />
+    <Content Include="Views\Story\_StoryCommentForm.cshtml" />
     <Content Include="Scripts\Kendo\jquery.min.map" />
     <Content Include="Scripts\Kendo\kendo.all.min.js.map" />
     <Content Include="Scripts\Kendo\kendo.aspnetmvc.min.js.map" />
@@ -1309,6 +1310,7 @@
     <Content Include="Scripts\tinymce\langs\readme.md" />
     <Content Include="Views\Shared\EditorTemplates\tinymce_full.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\TextArea.cshtml" />
+    <Content Include="Views\Story\_StoryForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
