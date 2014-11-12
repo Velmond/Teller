@@ -3,9 +3,11 @@
     using System;
     using System.IO;
     using System.Linq;
+    using System.Net;
     using System.Web;
     using System.Web.Mvc;
 
+    using Teller.Common;
     using Teller.Data;
     using Teller.Models;
     using Teller.Web.Areas.User.ViewModels;
@@ -14,7 +16,7 @@
 
     public class InfoController : BaseController
     {
-        private const string DefaultProfileImage = "/Images/UserPictures/default/user.png";
+        private const string SubscribeBtnPartialName = "_SubscribeBtn";
 
         public InfoController(ITellerData data)
             : base(data)
@@ -26,6 +28,11 @@
             var user = this.Data.Users.All()
                 .Select(UserInfoViewModel.FromUser)
                 .SingleOrDefault(u => u.Username == id);
+
+            if (this.User != null)
+            {
+                ViewBag.IsSubscribedTo = this.User.SubscribedTo.Any(u => u.UserName == id);
+            }
 
             ViewBag.Username = id;
             ViewBag.AvatarPath = user.AvatarPath;
@@ -71,7 +78,7 @@
         [ValidateInput(false)]
         public ActionResult Edit(string id, EditUserInfoViewModel profile)
         {
-            if (this.User.UserName != id && this.User.Roles.FirstOrDefault() != null)
+            if (this.User.UserName != id)
             {
                 return this.RedirectToAction("Info", new { username = id });
             }
@@ -93,7 +100,7 @@
 
             var newPicturePath = this.GetAvatarPath(profile.Picture, this.User.UserName);
 
-            if (profile.Picture != null && newPicturePath != DefaultProfileImage)
+            if (profile.Picture != null && newPicturePath != GlobalConstants.DefaultUserAvatarPicturePath)
             {
                 this.User.UserInfo.AvatarPath = newPicturePath;
             }
@@ -112,13 +119,49 @@
             return this.RedirectToAction("Index", "Info", new { id = profile.Username });
         }
 
+        [Authorize]
+        [HttpPost]
+        public ActionResult Subscribe(string id)
+        {
+            var user = this.Data.Users.All()
+                .FirstOrDefault(u => u.UserName == id);
+
+            if (user == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            this.User.SubscribedTo.Add(user);
+            this.Data.SaveChanges();
+
+            return PartialView(SubscribeBtnPartialName, new SubscribeButtonViewModel { Username = user.UserName, IsSubscribed = true });
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult Unsubscribe(string id)
+        {
+            var user = this.Data.Users.All()
+                .FirstOrDefault(u => u.UserName == id);
+
+            if (user == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            this.User.SubscribedTo.Remove(user);
+            this.Data.SaveChanges();
+
+            return PartialView(SubscribeBtnPartialName, new SubscribeButtonViewModel { Username = user.UserName, IsSubscribed = false });
+        }
+
         private string GetAvatarPath(HttpPostedFileBase httpPostedFileBase, string username)
         {
-            if (httpPostedFileBase != null && httpPostedFileBase.ContentType.StartsWith("image/"))
+            if (httpPostedFileBase != null && httpPostedFileBase.ContentType.StartsWith(GlobalConstants.ImageTypeSubstring))
             {
                 var url = new UrlGenerator();
 
-                string folderPath = string.Format("/Images/UserPictures/{0}", url.GenerateUrlId((new Random()).Next(1, 1001), username));
+                string folderPath = string.Format(GlobalConstants.UserAvatarPicturePathTemplate, url.GenerateUrlId((new Random()).Next(1, 1001), username));
                 string fullFolderPath = Server.MapPath(folderPath);
                 if (!Directory.Exists(fullFolderPath))
                 {
@@ -132,17 +175,8 @@
             }
             else
             {
-                return DefaultProfileImage;
+                return GlobalConstants.DefaultUserAvatarPicturePath;
             }
         }
-
-        ////private UserViewModel GetUser(string id)
-        ////{
-        ////    var user = this.Data.Users.All()
-        ////        .Where(u => u.UserName == id)
-        ////        .Select(UserViewModel.FromUser)
-        ////        .FirstOrDefault();
-        ////    return user;
-        ////}
     }
 }

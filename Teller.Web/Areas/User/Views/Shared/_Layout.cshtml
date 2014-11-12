@@ -1,5 +1,7 @@
-﻿@{
+﻿@using Teller.Web.Areas.User.ViewModels
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var isSubscribed = ViewBag.IsSubscribedTo == null ? false : ViewBag.IsSubscribedTo;
 }
 
 @section styles{
@@ -8,7 +10,13 @@
 
 <div class="jumbotron">
     <div class="row">
-        <h2 class="col-sm-9">@ViewBag.Username</h2>
+        <h2 class="col-sm-9">
+            @ViewBag.Username
+            @if (User.Identity.IsAuthenticated && ViewBag.Username != User.Identity.Name)
+            {
+                @Html.Partial("_SubscribeBtn", new SubscribeButtonViewModel() { Username = ViewBag.Username, IsSubscribed = (bool)isSubscribed })
+            }
+        </h2>
         <img src="@ViewBag.AvatarPath" alt="@ViewBag.Username" class="col-sm-3 pull-right img-responsive img-thumbnail img-circle" />
     </div>
     <div class="row">
@@ -19,5 +27,7 @@
 @RenderBody()
 
 @section scripts{
+    <script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    @Scripts.Render("~/bundles/jqueryval");
     @RenderSection("scripts", required: false)
 }

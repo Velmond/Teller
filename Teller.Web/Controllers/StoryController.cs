@@ -4,20 +4,23 @@
     using System.IO;
     using System.Linq;
     using System.Net;
-    using System.Text.RegularExpressions;
     using System.Web;
     using System.Web.Mvc;
 
+    using Teller.Common;
     using Teller.Data;
     using Teller.Models;
     using Teller.Web.Infrastructure;
+    using Teller.Web.Infrastructure.Contracts;
     using Teller.Web.ViewModels;
     using Teller.Web.ViewModels.Series;
     using Teller.Web.ViewModels.Story;
 
     public class StoryController : BaseController
     {
-        private const string DefaultStoryImage = "/Images/StoryPictures/default/cover.jpg";
+        private const string SeriesNameTooShortMsg = "Series name must be at least 2 characters long.";
+        private const string SeriesMissesGenreMsg = "Series must have genre selected.";
+
         private readonly ISanitizer sanitizer;
 
         public StoryController(ITellerData data, ISanitizer sanitizer)
@@ -108,11 +111,11 @@
             {
                 if (story.SeriesName.Length < 2)
                 {
-                    ModelState.AddModelError("SeriesName", "Series name must be at least 2 characters long.");
+                    ModelState.AddModelError("SeriesName", SeriesNameTooShortMsg);
                 }
                 else if (!story.SeriesGenreId.HasValue)
                 {
-                    ModelState.AddModelError("SeriesGenreId", "New series must have genre selected.");
+                    ModelState.AddModelError("SeriesGenreId", SeriesMissesGenreMsg);
                 }
             }
 
@@ -225,11 +228,11 @@
             {
                 if (story.SeriesName.Length < 2)
                 {
-                    ModelState.AddModelError("SeriesName", "Series name must be at least 2 characters long.");
+                    ModelState.AddModelError("SeriesName", SeriesNameTooShortMsg);
                 }
                 else if (!story.SeriesGenreId.HasValue)
                 {
-                    ModelState.AddModelError("SeriesGenreId", "New series must have genre selected.");
+                    ModelState.AddModelError("SeriesGenreId", SeriesMissesGenreMsg);
                 }
             }
 
@@ -244,7 +247,7 @@
 
                 if (!string.IsNullOrEmpty(newPicturePath) &&
                     !string.IsNullOrWhiteSpace(newPicturePath) &&
-                    newPicturePath != DefaultStoryImage)
+                    newPicturePath != GlobalConstants.DefaultStoryPicturePath)
                 {
                     foundStory.PicturePath = newPicturePath;
                 }
@@ -343,7 +346,7 @@
 
             this.Data.SaveChanges();
 
-            return new HttpStatusCodeResult(HttpStatusCode.OK, "Story was successfully flagged");
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         [Authorize]
@@ -495,11 +498,11 @@
         [NonAction]
         private string GetPicturePath(HttpPostedFileBase httpPostedFileBase, string storyTitle)
         {
-            if (httpPostedFileBase != null && httpPostedFileBase.ContentType.StartsWith("image/"))
+            if (httpPostedFileBase != null && httpPostedFileBase.ContentType.StartsWith(GlobalConstants.ImageTypeSubstring))
             {
                 var url = new UrlGenerator();
 
-                string folderPath = string.Format("/Images/StoryPictures/{0}", url.GenerateUrlId((new Random()).Next(1, 1001), storyTitle));
+                string folderPath = string.Format(GlobalConstants.StoryPictureFolderPathTemplate, url.GenerateUrlId((new Random()).Next(1, 1001), storyTitle));
                 string fullFolderPath = Server.MapPath(folderPath);
                 if (!Directory.Exists(fullFolderPath))
                 {
@@ -513,7 +516,7 @@
             }
             else
             {
-                return DefaultStoryImage;
+                return GlobalConstants.DefaultStoryPicturePath;
             }
         }
     }

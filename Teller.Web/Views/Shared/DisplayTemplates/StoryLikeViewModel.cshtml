@@ -2,14 +2,14 @@
 
 <div>
     <div class="row">
-        <div class="col-md-12 text-center">
+        <div class="col-sm-12 text-center">
             <p>
                 @Model.DislikesCount <span class="glyphicon glyphicon-thumbs-down"></span> | @Model.LikesCount <span class="glyphicon glyphicon-thumbs-up"></span>
             </p>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-sm-12">
             <div class="progress">
                 @if(Model.LikesCount == 0 && Model.DislikesCount == 0)
                 {

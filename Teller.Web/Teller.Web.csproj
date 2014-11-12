@@ -219,6 +219,7 @@
     <Compile Include="Areas\User\UserAreaRegistration.cs" />
     <Compile Include="Areas\User\ViewModels\Base\UserViewModel.cs" />
     <Compile Include="Areas\User\ViewModels\EditUserInfoViewModel.cs" />
+    <Compile Include="Areas\User\ViewModels\SubscribeButtonViewModel.cs" />
     <Compile Include="Areas\User\ViewModels\UserInfoViewModel.cs" />
     <Compile Include="Areas\User\ViewModels\UserSeriesViewModel.cs" />
     <Compile Include="Areas\User\ViewModels\UserStoriesViewModel.cs" />
@@ -238,6 +239,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\HtmlExtensions.cs" />
     <Compile Include="Models\PostComment.cs" />
     <Compile Include="ViewModels\Account\ResetPasswordViewModel.cs" />
     <Compile Include="ViewModels\Account\ExternalLoginConfirmationViewModel.cs" />
@@ -257,15 +259,15 @@
     <Compile Include="ViewModels\Manage\SetPasswordViewModel.cs" />
     <Compile Include="ViewModels\Manage\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\Manage\VerifyPhoneNumberViewModel.cs" />
-    <Compile Include="ViewModels\SearchPagerViewModel.cs" />
-    <Compile Include="ViewModels\FeedPagerViewModel.cs" />
+    <Compile Include="Models\SearchPager.cs" />
+    <Compile Include="Models\FeedPager.cs" />
     <Compile Include="ViewModels\HomePageViewModel.cs" />
     <Compile Include="ViewModels\CommentLikeViewModel.cs" />
     <Compile Include="ViewModels\Like\LikeViewModel.cs" />
     <Compile Include="ViewModels\Like\StoryLikeViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ViewModels\PagerViewModel.cs" />
+    <Compile Include="Models\Pager.cs" />
     <Compile Include="ViewModels\Search\SearchSeriesViewModel.cs" />
     <Compile Include="ViewModels\Search\SearchStoryViewModel.cs" />
     <Compile Include="ViewModels\Search\SearchUserViewModel.cs" />
@@ -522,6 +524,7 @@
     <Content Include="Content\Kendo\images\kendoui.ttf" />
     <Content Include="Content\Kendo\images\kendoui.woff" />
     <Content Include="Areas\User\Views\Shared\DisplayTemplates\SeriesViewModel.cshtml" />
+    <Content Include="Areas\User\Views\Shared\_SubscribeBtn.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -1339,7 +1342,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\ViewModels\" />
-    <Folder Include="Areas\Admin\Views\KendoGridAdmin\" />
     <Folder Include="Images\StoryPictures\" />
     <Folder Include="Images\UserPictures\" />
   </ItemGroup>
@@ -1351,6 +1353,10 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Teller.Common\Teller.Common.csproj">
+      <Project>{1ab0b515-7479-43c4-bfea-a2b896b35098}</Project>
+      <Name>Teller.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Teller.Data\Teller.Data.csproj">
       <Project>{77ea78c0-e3cd-4514-9889-c52c924fae86}</Project>
       <Name>Teller.Data</Name>

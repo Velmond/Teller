@@ -1,7 +1,6 @@
 ﻿namespace Teller.Web.Controllers
 {
     using System.Web.Mvc;
-    using Teller.Web.ViewModels;
 
     public class ErrorController : Controller
     {

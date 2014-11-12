@@ -1,7 +1,5 @@
-﻿@using Kendo.Mvc.UI
-@{
+﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    const string ComntrollerName = "Users";
 }
 
 @section styles{
@@ -9,49 +7,11 @@
     @Styles.Render("~/Content/Kendo")
 }
 
-<h2>Administration Layout</h2>
-
 @Html.ActionLink("Users", "Index", "Users", new { Area = "Admin" }, new { @class = "btn btn-default" })
 @Html.ActionLink("Stories", "Index", "Stories", new { Area = "Admin" }, new { @class = "btn btn-default" })
 @Html.ActionLink("Comments", "Index", "Comments", new { Area = "Admin" }, new { @class = "btn btn-default" })
 
 @RenderBody()
-
-@*@(Html.Kendo().Calendar().Name("calendar"))
-    <br />
-    @(Html.Kendo().DateTimePicker().Name("datetimepicker"))
-    <br />
-    @(Html.Kendo().DatePicker().Name("datepicker"))*@
-
-@(
- Html.Kendo()
-        .Grid<Teller.Models.Story>()
-        .Name("Grid")
-        .Columns(cols =>
-        {
-            cols.Bound(pr => pr.Title);//.ClientTemplate("<h3>#: Title #</h3>");
-            cols.Bound(pr => pr.Content);
-            cols.Bound(pr => pr.PicturePath).Hidden();
-            cols.Bound(pr => pr.Series.Title);
-            //cols.Command(com => com.Edit()).Title("Edit");
-            //cols.Command(com => com.Destroy()).Title("Delete");
-        })
-        .ColumnMenu()// Shows hiddent cols in a dropdown
-        //.Editable(edit => edit.Mode(GridEditMode.PopUp))
-        //.ToolBar(toolbar => { toolbar.Create(); })
-        .Pageable(page => page.Refresh(true))
-        .Sortable()
-        .Groupable()
-        .DataSource(data => {
-            data.Ajax()
-                .Model(m => m.Id(story => story.Content))
-                .Read(read => read.Action("Read", ComntrollerName))
-                //.Create(create => create.Action("Action", ControllerName))
-                //.Update(update => update.Action("Action", ControllerName))
-                //.Destroy(destroy => destroy.Action("Action", ControllerName))
-                .PageSize(10);
-        })
-)
 
 @section scripts{
     @Scripts.Render("~/bundles/Kendo")

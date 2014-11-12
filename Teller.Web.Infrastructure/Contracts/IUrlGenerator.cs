@@ -1,4 +1,4 @@
-﻿namespace Teller.Web.Infrastructure
+﻿namespace Teller.Web.Infrastructure.Contracts
 {
     public interface IUrlGenerator
     {

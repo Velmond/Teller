@@ -13,6 +13,11 @@
 
     public class StoryCommentsController : BaseController
     {
+        private const string ContentIsRequiredMsg = "Message content is required to post a message... Duh o.O";
+        private const string ContentTooShortOrTooLongMsg = "Comment must be between 2 and 1000 characters long.";
+        private const string CommentPartialName = "_CommentPartial";
+        private const string StoryLikesPartialName = "_StoryLikes";
+
         public StoryCommentsController(ITellerData data)
             : base(data)
         {
@@ -26,14 +31,14 @@
         {
             if (string.IsNullOrEmpty(newComment.CommentContent))
             {
-                ModelState.AddModelError("CommentContent", "Message content is required to post a message... Duh o.O");
+                ModelState.AddModelError("CommentContent", ContentIsRequiredMsg);
 
                 return this.PartialView(
-                    "_CommentPartial",
+                    CommentPartialName,
                     new CommentViewModel()
                     {
                         Author = " ",
-                        Content = "ERROR! Incorrect input! comment must be between 2 and 1000 characters long.",
+                        Content = ContentTooShortOrTooLongMsg,
                         DislikesCount = 0,
                         LikesCount = 0,
                         Published = DateTime.Now,
@@ -44,14 +49,14 @@
 
             if (newComment.CommentContent.Length < 2 || newComment.CommentContent.Length > 1000)
             {
-                ModelState.AddModelError("CommentContent", "Message content must be between 2 and 1000 characters long");
+                ModelState.AddModelError("CommentContent", ContentTooShortOrTooLongMsg);
 
                 return this.PartialView(
-                    "_CommentPartial",
+                    CommentPartialName,
                     new CommentViewModel()
                     {
                         Author = " ",
-                        Content = "ERROR! Incorrect input! comment must be between 2 and 1000 characters long.",
+                        Content = ContentTooShortOrTooLongMsg,
                         DislikesCount = 0,
                         LikesCount = 0,
                         Published = DateTime.Now,
@@ -82,7 +87,7 @@
                 Id = comment.Id
             };
 
-            return this.PartialView("_CommentPartial", commentModel);
+            return this.PartialView(CommentPartialName, commentModel);
         }
 
         [Authorize]
@@ -169,7 +174,7 @@
                 LikesPersentage = likesPersentage
             };
 
-            return this.PartialView("_StoryLikes", likesModel);
+            return this.PartialView(StoryLikesPartialName, likesModel);
         }
     }
 }

@@ -5,10 +5,10 @@
 }
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-sm-4">
         <img src="@Model.PicturePath" alt="@Model.Title" class="img-responsive img-circle img-thumbnail" style="max-width: 100px"/>
     </div>
-    <div class="col-md-8">
+    <div class="col-sm-8">
         <h4>
             @Html.ActionLink(Model.Title, "Index", "Story", new { Area = "", id = urlGenerator.GenerateUrlId(Model.Id, Model.Title) }, new { })
             <small> (@Model.Genre)</small>

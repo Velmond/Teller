@@ -1,24 +1,24 @@
 ﻿@model Teller.Web.Areas.User.ViewModels.UserSeriesViewModel
 @{
-    ViewBag.Title = "Series - " + ViewBag.Username;
-    var pager = new Teller.Web.ViewModels.FeedPagerViewModel()
+    ViewBag.Title = "Series - " + Model.Username;
+    var pager = new Teller.Web.Models.FeedPager()
     {
         Area = "User",
         Action = "Index",
         Controller = "Series",
         PagesCount = (int)ViewBag.Pages,
         Page = (int)ViewBag.Page,
-        Id = ViewBag.Username
+        Id = Model.Username
     };
 }
 
 @section profileNavigation {
     <div class="btn-group">
         <div class="pull-left">
-            @Html.ActionLink("Stories", "Index", "Story", new { Area = "User", id = ViewBag.Username }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Stories", "Index", "Story", new { Area = "User", id = Model.Username }, new { @class = "btn btn-default" })
         </div>
         <div class="pull-left">
-            @Html.ActionLink("Info", "Index", "Info", new { Area = "User", id = ViewBag.Username }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Info", "Index", "Info", new { Area = "User", id = Model.Username }, new { @class = "btn btn-default" })
         </div>
     </div>
 }
@@ -39,7 +39,7 @@
             {
                 foreach(var series in Model.Series)
                 {
-                    <div class="col-md-12">
+                    <div class="col-sm-12">
                         @Html.DisplayFor(m => series)
                     </div>
                 }

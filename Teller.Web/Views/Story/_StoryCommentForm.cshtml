@@ -1,23 +1,24 @@
 ﻿@model Teller.Web.Models.PostComment
+@using Teller.Web.Helpers
 
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-sm-12">
         @Html.ValidationSummary()
     </div>
-    <div class="col-md-12">
-        @using(Ajax.BeginForm("Post",
+    <div class="col-sm-12">
+        @using (Ajax.BeginForm("Post",
             new { Area = "", Controller = "StoryComments", Action = "Post" },
             new AjaxOptions() { HttpMethod = "Post", InsertionMode = InsertionMode.InsertBefore, UpdateTargetId = "comments-container", OnComplete = "removeContent()" },
-            new { @class = "form-horizontal col-md-12" }))
+            new { @class = "form-horizontal col-sm-12" }))
         {
             @Html.AntiForgeryToken()
             @Html.HiddenFor(m => Model.StoryId)
             @Html.ValidationMessageFor(m => Model.CommentContent, null, new { @class = "help-inline text-danger" })
-            <div class="col-md-12">
+            <div class="col-sm-12">
                 <div class="form-group">
                     @Html.TextAreaFor(m => Model.CommentContent, new { @class = "form-control", style = "max-width: 100%", id = "new-comment-content-container" })
                     <span class="input-group-btn">
-                        <input type="submit" value="Comment" class="btn btn-default pull-right add-comment-btn" style="height: 100%" />
+                        @Html.Submit(new { @class = "btn btn-default pull-right add-comment-btn", style = "max-width: 100%", value = "Comment" })
                     </span>
                 </div>
             </div>

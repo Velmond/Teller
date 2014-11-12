@@ -6,7 +6,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-sm-9">
             <div class="jumbotron">
                 <h2 class="lead">
                     @Model.Title
@@ -35,7 +35,7 @@
 
             <div class="well">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-sm-12">
                         <p>@Html.Raw(Model.Content)</p>
                     </div>
                 </div>
@@ -61,31 +61,31 @@
                 </div>
             }
         </div>
-        <div class="col-md-3">
+        <div class="col-sm-3">
             <div class="well">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-sm-12">
                         <p>
                             <img src="@Model.PicturePath" alt="@Model.Title" class="img-responsive img-thumbnail" />
                         </p>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-sm-12">
                         <p>
                             <strong>Genre:</strong> <em>@Model.Genre</em>
                         </p>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-sm-12">
                         <p>
                             <strong>Author:</strong> <em>@Html.RouteLink(Model.Author, new { Area = "User", Controller = "Story", Action = "Index", id = Model.Author })</em>
                         </p>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-sm-12">
                         <p>
                             <strong>Series: </strong>
                             @if(Model.Series != null)
@@ -100,21 +100,21 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-sm-12">
                         <p>
                             <strong>Published on:</strong> <em>@Html.DisplayFor(m => Model.DatePublished)</em>
                         </p>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-sm-12">
                         <p>
                             <strong>Favorited by:</strong> <em>@Model.FavouritedByCount users</em>
                         </p>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-sm-12">
                         <p>
                             <strong>Seen:</strong> <em>@Model.ViewsCount times</em>
                         </p>
@@ -125,13 +125,13 @@
                         <p>
                             @if(User.Identity.IsAuthenticated && !Model.UserHasLiked && Model.Author != User.Identity.Name)
                             {
-                                <div class="col-md-6">
+                                <div class="col-sm-6">
                                     @Ajax.ActionLink(" ", "Like",
                                         new { Area = "", Controller = "StoryLike", id = url.GenerateUrlId(Model.Id, Model.Title), like = false },
                                         new AjaxOptions() { HttpMethod = "Post", InsertionMode = InsertionMode.Replace, UpdateTargetId = "likes-container" },
                                         new { @class = "glyphicon glyphicon-thumbs-down btn btn-sm btn-danger btn-block" })
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-sm-6">
                                     @Ajax.ActionLink(" ", "Like",
                                         new { Area = "", Controller = "StoryLike", id = url.GenerateUrlId(Model.Id, Model.Title), like = true },
                                         new AjaxOptions() { HttpMethod = "Post", InsertionMode = InsertionMode.Replace, UpdateTargetId = "likes-container" },
@@ -156,13 +156,13 @@
                 <div class="row">
                     @if(User.Identity.IsAuthenticated && Model.Author != User.Identity.Name)
                     {
-                        <div class="col-md-12">
+                        <div class="col-sm-12">
                             @Ajax.ActionLink(" Favorite", "Favorite",
                                 new { Area = "", Controller = "Story", id = url.GenerateUrlId(Model.Id, Model.Title) },
                                 new AjaxOptions() { HttpMethod = "Post" },
                                 new { @class = "glyphicon glyphicon-heart-empty btn btn-sm btn-default btn-block" })
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-sm-12">
                             @Ajax.ActionLink(" Save", "ReadLater",
                                 new { Area = "", Controller = "Story", id = url.GenerateUrlId(Model.Id, Model.Title) },
                                 new AjaxOptions() { HttpMethod = "Post" },

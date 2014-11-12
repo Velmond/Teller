@@ -11,8 +11,14 @@
         public BaseController(ITellerData data)
         {
             this.Data = data;
-            this.User = this.Data.Users.All()
-                .FirstOrDefault(u => u.UserName == System.Web.HttpContext.Current.User.Identity.Name);
+            this.User = System.Web.HttpContext.Current.Session["user"] as AppUser;
+
+            if (this.User == null)
+            {
+                this.User = this.Data.Users.All()
+                    .FirstOrDefault(u => u.UserName == System.Web.HttpContext.Current.User.Identity.Name);
+                System.Web.HttpContext.Current.Session.Add("user", this.User);
+            }
         }
 
         public ITellerData Data { get; set; }

@@ -1,4 +1,6 @@
 ﻿@model Teller.Web.Areas.User.ViewModels.EditUserInfoViewModel
+@using Teller.Web.Helpers
+
 @{
     ViewBag.Title =  Model.Username + " - Edit Profile";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -13,63 +15,63 @@
     <hr />
     @Html.HiddenFor(m => m.Username)
     <div class="form-group">
-        @Html.LabelFor(m => m.Motto, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
+        @Html.LabelFor(m => m.Motto, new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-10">
             @Html.EditorFor(m => m.Motto)
             @Html.ValidationMessageFor(model => model.Motto, null, new { @class = "help-inline text-danger" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
+        @Html.LabelFor(m => m.Description, new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-10">
             @Html.EditorFor(m => m.Description)
             @Html.ValidationMessageFor(model => model.Description, null, new { @class = "help-inline text-danger" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.AvatarPath, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
+        @Html.LabelFor(m => m.AvatarPath, new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-10">
             @Html.TextBoxFor(m => m.Picture, new { @class = "form-control", type = "file", style = "max-width: 100%" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Facebook, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
+        @Html.LabelFor(m => m.Facebook, new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-10">
             @Html.EditorFor(m => m.Facebook)
             @Html.ValidationMessageFor(model => model.Facebook, null, new { @class = "help-inline text-danger" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.GooglePlus, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
+        @Html.LabelFor(m => m.GooglePlus, new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-10">
             @Html.EditorFor(m => m.GooglePlus)
             @Html.ValidationMessageFor(model => model.GooglePlus, null, new { @class = "help-inline text-danger" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Twitter, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
+        @Html.LabelFor(m => m.Twitter, new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-10">
             @Html.EditorFor(m => m.Twitter)
             @Html.ValidationMessageFor(model => model.Twitter, null, new { @class = "help-inline text-danger" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.YouTube, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
+        @Html.LabelFor(m => m.YouTube, new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-10">
             @Html.EditorFor(m => m.YouTube)
             @Html.ValidationMessageFor(model => model.YouTube, null, new { @class = "help-inline text-danger" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.LinkedIn, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
+        @Html.LabelFor(m => m.LinkedIn, new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-10">
             @Html.EditorFor(m => m.LinkedIn)
             @Html.ValidationMessageFor(model => model.LinkedIn, null, new { @class = "help-inline text-danger" })
         </div>
     </div>
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default btn-block" style="max-width: 100%" value="Edit Profile" />
+        <div class="col-sm-offset-2 col-sm-10">
+            @Html.Submit(new { @class = "btn btn-default btn-block", style = "max-width: 100%", value = "Edit Profile" })
         </div>
     </div>
 }

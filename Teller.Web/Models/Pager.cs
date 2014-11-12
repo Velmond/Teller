@@ -1,6 +1,6 @@
-﻿namespace Teller.Web.ViewModels
+﻿namespace Teller.Web.Models
 {
-    public class PagerViewModel
+    public class Pager
     {
         public string Area { get; set; }
         

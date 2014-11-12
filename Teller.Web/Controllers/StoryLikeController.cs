@@ -1,18 +1,18 @@
 ﻿namespace Teller.Web.Controllers
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Web;
     using System.Web.Mvc;
+
     using Teller.Data;
     using Teller.Models;
     using Teller.Web.Infrastructure;
-    using Teller.Web.ViewModels;
     using Teller.Web.ViewModels.Like;
 
     public class StoryLikeController : BaseController
     {
+        private const string StoryLikesPartialName = "_StoryLikes";
+
         public StoryLikeController(ITellerData data)
             : base(data)
         {
@@ -68,7 +68,7 @@
                 LikesPersentage = likesPersentage
             };
 
-            return this.PartialView("_StoryLikes", likesModel);
+            return this.PartialView(StoryLikesPartialName, likesModel);
         }
     }
 }

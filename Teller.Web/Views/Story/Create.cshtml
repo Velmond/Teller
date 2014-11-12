@@ -1,4 +1,6 @@
 ﻿@model Teller.Web.ViewModels.Story.FormViewModel
+@using Teller.Web.Helpers
+
 @{
     ViewBag.Title = "Post a story";
 }
@@ -7,66 +9,66 @@
 
 @*@Html.Partial("_StoryForm", new Teller.Web.ViewModels.StoryFormViewModel() { Action = "Create", Controller = "Story", Model = Model, PageSubTitle = "Create a new story." })*@
 
-@using(Html.BeginForm("Create", "Story", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
-    {
-        @Html.AntiForgeryToken()
-        <h4>Create a new story.</h4>
-        <hr />
-        <div class="form-group">
-            @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.EditorFor(m => m.Title)
-                @Html.ValidationMessageFor(model => model.Title, null, new { @class = "help-inline text-danger" })
-            </div>
+@using (Html.BeginForm("Create", "Story", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Create a new story.</h4>
+    <hr />
+    <div class="form-group">
+        @Html.LabelFor(m => m.Title, new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-10">
+            @Html.EditorFor(m => m.Title)
+            @Html.ValidationMessageFor(model => model.Title, null, new { @class = "help-inline text-danger" })
         </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Content, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.EditorFor(m => m.Content)
-                @Html.ValidationMessageFor(model => model.Content, null, new { @class = "help-inline text-danger" })
-            </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Content, new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-10">
+            @Html.EditorFor(m => m.Content)
+            @Html.ValidationMessageFor(model => model.Content, null, new { @class = "help-inline text-danger" })
         </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.GenreId, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(m => m.GenreId, Model.GenresList.List, "-- Select Genre --", new { @class = "form-control", style = "max-width: 100%" })
-                @Html.ValidationMessageFor(model => model.GenreId, null, new { @class = "help-inline text-danger" })
-            </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.GenreId, new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-10">
+            @Html.DropDownListFor(m => m.GenreId, Model.GenresList.List, "-- Select Genre --", new { @class = "form-control", style = "max-width: 100%" })
+            @Html.ValidationMessageFor(model => model.GenreId, null, new { @class = "help-inline text-danger" })
         </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.PicturePath, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Picture, new { @class = "form-control", type = "file", style = "max-width: 100%" })
-            </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.PicturePath, new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-10">
+            @Html.TextBoxFor(m => m.Picture, new { @class = "form-control", type = "file", style = "max-width: 100%" })
         </div>
-        <div id="create-series-form" class="form-group">
-            @Html.LabelFor(m => m.SeriesId, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="input-group">
-                            @Html.DropDownListFor(m => m.SeriesId, Model.SeriesList.List, "-- Select Series --", new { @class = "form-control", style = "max-width: 100%" })
-                            <span class="input-group-btn">
-                                @Ajax.ActionLink("Add to new series", "Create", "Series",
+    </div>
+    <div id="create-series-form" class="form-group">
+        @Html.LabelFor(m => m.SeriesId, new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-10">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="input-group">
+                        @Html.DropDownListFor(m => m.SeriesId, Model.SeriesList.List, "-- Select Series --", new { @class = "form-control", style = "max-width: 100%" })
+                        <span class="input-group-btn">
+                            @Ajax.ActionLink("Add to new series", "Create", "Series",
                                     new { Area = "" },
                                     new AjaxOptions() { HttpMethod = "Get", UpdateTargetId = "create-series-form", InsertionMode = InsertionMode.ReplaceWith },
                                     new { @class = "btn btn-default btn-block" })
-                            </span>
-                        </div>
-                        @Html.ValidationMessageFor(m => m.SeriesGenreId, null, new { @class = "help-inline text-danger" })
-                        @Html.ValidationMessageFor(m => m.SeriesName, null, new { @class = "help-inline text-danger" })
+                        </span>
                     </div>
+                    @Html.ValidationMessageFor(m => m.SeriesGenreId, null, new { @class = "help-inline text-danger" })
+                    @Html.ValidationMessageFor(m => m.SeriesName, null, new { @class = "help-inline text-danger" })
                 </div>
             </div>
         </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" class="btn btn-default btn-block" style="max-width: 100%" value="Post Story" />
-            </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            @Html.Submit(new { @class = "btn btn-default btn-block", style = "max-width: 100%", value = "Post Story" })
         </div>
-    }
+    </div>
+}
 
-    @section scripts {
-        <script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-        @Scripts.Render("~/bundles/jqueryval");
-    }
+@section scripts {
+    <script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    @Scripts.Render("~/bundles/jqueryval");
+}

@@ -2,10 +2,11 @@
 {
     using System.Web.Mvc;
 
+    using Teller.Common;
     using Teller.Data;
     using Teller.Web.Controllers;
 
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     public abstract class AdminController : BaseController
     {
         public AdminController(ITellerData data)

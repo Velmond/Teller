@@ -1,15 +1,15 @@
 ﻿@model Teller.Web.Areas.User.ViewModels.UserInfoViewModel
 @{
-    ViewBag.Title = "Profile - " + ViewBag.Username;
+    ViewBag.Title = "Profile - " + Model.Username;
 }
 
 @section profileNavigation {
     <div class="btn-group">
         <div class="pull-left">
-            @Html.ActionLink("Stories", "Index", "Story", new { Area = "User", id = ViewBag.Username }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Stories", "Index", "Story", new { Area = "User", id = Model.Username }, new { @class = "btn btn-default" })
         </div>
         <div class="pull-left">
-            @Html.ActionLink("Series", "Index", "Series", new { Area = "User", id = ViewBag.Username }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Series", "Index", "Series", new { Area = "User", id = Model.Username }, new { @class = "btn btn-default" })
         </div>
     </div>
 }

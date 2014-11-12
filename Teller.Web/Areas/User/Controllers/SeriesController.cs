@@ -13,6 +13,7 @@
     public class SeriesController : BaseController
     {
         private const int PageSize = 10;
+        private const string SeriesCacheKeyPrefix = "user-profile-series-";
 
         public SeriesController(ITellerData data)
             : base(data)
@@ -32,7 +33,7 @@
                 return this.RedirectToAction("NotFound", "Error", new { Area = string.Empty });
             }
 
-            var userSeries = this.HttpContext.Cache["user-profile-series-" + id] as IQueryable<SeriesViewModel>;
+            var userSeries = this.HttpContext.Cache[SeriesCacheKeyPrefix + id] as IQueryable<SeriesViewModel>;
 
             if (userSeries == null)
             {
@@ -43,13 +44,18 @@
                     .Select(SeriesViewModel.FromSeries);
 
                 this.HttpContext.Cache.Add(
-                    "user-profile-series-" + id,
+                    SeriesCacheKeyPrefix + id,
                     userSeries,
                     null,
                     DateTime.Now.AddMinutes(15),
                     Cache.NoSlidingExpiration,
                     CacheItemPriority.Normal,
                     null);
+            }
+
+            if (this.User != null)
+            {
+                ViewBag.IsSubscribedTo = this.User.SubscribedTo.Any(u => u.UserName == id);
             }
 
             ViewBag.Username = id;

@@ -13,6 +13,8 @@
 
     public class SeriesController : BaseController
     {
+        private const string SeriesCreateFormPartialName = "_SeriesCreateFormPartial";
+
         public SeriesController(ITellerData data)
             : base(data)
         {
@@ -89,7 +91,7 @@
                     })
             };
 
-            return this.PartialView("_SeriesCreateFormPartial", model);
+            return this.PartialView(SeriesCreateFormPartialName, model);
         }
     }
 }

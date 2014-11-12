@@ -1,4 +1,6 @@
 ﻿@model Teller.Web.ViewModels.Story.FormViewModel
+@using Teller.Web.Helpers
+
 @{
     ViewBag.Title = "Edit your story";
 }
@@ -13,37 +15,37 @@
         <h4>Edit "@Model.Title"</h4>
         <hr />
         <div class="form-group">
-            @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
+            @Html.LabelFor(m => m.Title, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
                 @Html.EditorFor(m => m.Title)
                 @Html.ValidationMessageFor(model => model.Title, null, new { @class = "help-inline text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(m => m.Content, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
+            @Html.LabelFor(m => m.Content, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
                 @Html.EditorFor(m => m.Content)
                 @Html.ValidationMessageFor(model => model.Content, null, new { @class = "help-inline text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(m => m.GenreId, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
+            @Html.LabelFor(m => m.GenreId, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
                 @Html.DropDownListFor(m => m.GenreId, Model.GenresList.List, "-- Select Genre --", new { @class = "form-control", style = "max-width: 100%" })
                 @Html.ValidationMessageFor(model => model.GenreId, null, new { @class = "help-inline text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(m => m.PicturePath, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
+            @Html.LabelFor(m => m.PicturePath, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
                 @Html.TextBoxFor(m => m.Picture, new { @class = "form-control", type = "file", style = "max-width: 100%" })
             </div>
         </div>
         <div id="create-series-form" class="form-group">
-            @Html.LabelFor(m => m.SeriesId, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
+            @Html.LabelFor(m => m.SeriesId, new { @class = "col-sm-2 control-label" })
+            <div class="col-sm-10">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-sm-12">
                         <div class="input-group">
                             @Html.DropDownListFor(m => m.SeriesId, Model.SeriesList.List, "-- Select Series --", new { @class = "form-control", style = "max-width: 100%" })
                             <span class="input-group-btn">
@@ -60,8 +62,8 @@
             </div>
         </div>
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" class="btn btn-default btn-block" style="max-width: 100%" value="Edit Story" />
+            <div class="col-sm-offset-2 col-sm-10">
+                @Html.Submit(new { @class = "btn btn-default btn-block", style = "max-width: 100%", value = "Edit Story" })
             </div>
         </div>
     }

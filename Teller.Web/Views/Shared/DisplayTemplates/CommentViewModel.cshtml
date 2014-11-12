@@ -1,13 +1,13 @@
 ﻿@model Teller.Web.ViewModels.Story.CommentViewModel
 
-<div class="col-md-12 comment-container" id="@(Model.Author)-@(Model.Id)-comment">
+<div class="col-sm-12 comment-container" id="@(Model.Author)-@(Model.Id)-comment">
     <div class="well">
         <div class="row">
-            <div class="col-md-12">
-                <div class="col-md-10 pull-left" style="overflow-wrap: break-word;">
+            <div class="col-sm-12">
+                <div class="col-sm-10 pull-left" style="overflow-wrap: break-word;">
                     @Model.Content
                 </div>
-                <div class="col-md-2 pull-right">
+                <div class="col-sm-2 pull-right">
                     @if(User.Identity.IsAuthenticated && Model.Author != User.Identity.Name &&
                         !Model.AllLikes.Any(l => l.Author == User.Identity.Name))
                     {
@@ -51,9 +51,9 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-sm-6">
                 <div id="@(Model.Author)-@(Model.Id)-likes-container">
-                    <div class="pull-left col-md-12">
+                    <div class="pull-left col-sm-12">
                         @{
                             var likes = new Teller.Web.ViewModels.Like.LikeViewModel()
                             {
@@ -66,10 +66,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 text-center">
+            <div class="col-sm-3 text-center">
                 <em>@Html.DisplayFor(m => Model.Published)</em>
             </div>
-            <div class="col-md-3 text-right">
+            <div class="col-sm-3 text-right">
                 @Html.RouteLink(@Model.Author, new { Area = "User", Controller = "Info", Action = "Index", id = Model.Author })
             </div>
         </div>

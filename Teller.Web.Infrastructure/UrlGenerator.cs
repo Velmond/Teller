@@ -3,6 +3,8 @@
     using System;
     using System.Text;
 
+    using Teller.Web.Infrastructure.Contracts;
+
     public class UrlGenerator : IUrlGenerator
     {
         public string GenerateUrlId(int id, string title)

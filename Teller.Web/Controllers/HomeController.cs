@@ -12,6 +12,8 @@
 
     public class HomeController : BaseController
     {
+        private const string HomeStoriesCacheName = "HomeStories";
+
         public HomeController(ITellerData data)
             : base(data)
         {
@@ -19,7 +21,7 @@
 
         public ActionResult Index()
         {
-            var cachedCollections = this.HttpContext.Cache["HomeStories"];
+            var cachedCollections = this.HttpContext.Cache[HomeStoriesCacheName];
             if (cachedCollections == null)
             {
                 var topHundredEver = this.GetMostVotedStoriesEver();
@@ -36,7 +38,7 @@
                 };
 
                 this.HttpContext.Cache.Add(
-                    "HomeStories",
+                    HomeStoriesCacheName,
                     cachedCollections,
                     null,
                     DateTime.Now.AddHours(12),
@@ -52,14 +54,14 @@
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "To be added.";
 
             return this.View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "To be added.";
 
             return this.View();
         }

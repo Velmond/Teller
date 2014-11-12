@@ -10,6 +10,8 @@
 
     public class CommentLikeController : BaseController
     {
+        private const string CommentLikesPertialName = "_CommentLikes";
+
         public CommentLikeController(ITellerData data)
             : base(data)
         {
@@ -44,7 +46,7 @@
                 DislikesCount = dislikesCount
             };
 
-            return this.PartialView("_CommentLikes", likesModel);
+            return this.PartialView(CommentLikesPertialName, likesModel);
         }
     }
 }

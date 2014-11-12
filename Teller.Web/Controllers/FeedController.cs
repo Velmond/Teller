@@ -49,7 +49,7 @@
         {
             var pageNumber = page.GetValueOrDefault(1);
 
-            IEnumerable<UserFeedStory> stories = this.User.Favourites
+            var stories = this.User.Favourites
                 .AsQueryable()
                     .Select(UserFeedStory.FromStory)
                     .OrderByDescending(s => s.DatePublished);

@@ -1,7 +1,39 @@
-﻿@{
+﻿@using Kendo.Mvc.UI
+@{
     ViewBag.Title = "Administration - Users";
+    const string ComntrollerName = "Users";
 }
 
 <h2>Administer USERS page</h2>
 
-
+@(
+ Html.Kendo()
+        .Grid<Teller.Web.Areas.User.ViewModels.UserInfoViewModel>()
+        .Name("Grid")
+        .Columns(cols =>
+        {
+            cols.Bound(pr => pr.Id);//.ClientTemplate("<h3>#: Title #</h3>");
+            cols.Bound(pr => pr.Username);
+            cols.Bound(pr => pr.RegisteredOn);
+            cols.Bound(pr => pr.AvatarPath).Hidden();
+            cols.Bound(pr => pr.LinkedIn);
+            //cols.Command(com => com.Edit()).Title("Edit");
+            //cols.Command(com => com.Destroy()).Title("Delete");
+        })
+        .ColumnMenu()// Shows hiddent cols in a dropdown
+        //.Editable(edit => edit.Mode(GridEditMode.PopUp))
+        //.ToolBar(toolbar => { toolbar.Create(); })
+        .Pageable(page => page.Refresh(true))
+        .Sortable()
+        .Groupable()
+        .DataSource(data =>
+        {
+            data.Ajax()
+                .Model(m => m.Id(u => u.Id))
+                .Read(read => read.Action("ReadData", ComntrollerName))
+                //.Create(create => create.Action("Action", ControllerName))
+                //.Update(update => update.Action("Action", ControllerName))
+                //.Destroy(destroy => destroy.Action("Action", ControllerName))
+                .PageSize(10);
+        })
+)

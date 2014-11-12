@@ -1,0 +1,11 @@
+﻿@model Teller.Web.Areas.User.ViewModels.SubscribeButtonViewModel
+@{
+    var subscriptionString = Model.IsSubscribed ? "Unsubscribe" : "Subscribe";
+}
+
+<span id="subscribe-btn-container">
+    @Ajax.ActionLink(subscriptionString, subscriptionString, "Info",
+    new { Area = "User", id = Model.Username },
+    new AjaxOptions() { HttpMethod = "Post", InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = "subscribe-btn-container" },
+    new { @class = "btn btn-sm btn-default subscribe-btn" })
+</span>
