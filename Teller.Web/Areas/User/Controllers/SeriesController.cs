@@ -22,19 +22,19 @@
         public ActionResult Index(string id, int? page)
         {
             var pageNumber = page.GetValueOrDefault(1);
-       
+
             var user = this.Data.Users.All()
                 .Select(UserSeriesViewModel.FromUser)
                 .SingleOrDefault(u => u.Username == id);
-            
-            if(user == null)
+
+            if (user == null)
             {
-                return RedirectToAction("NotFound", "Error", new { Area = "" });
+                return this.RedirectToAction("NotFound", "Error", new { Area = string.Empty });
             }
 
             var userSeries = this.HttpContext.Cache["user-profile-series-" + id] as IQueryable<SeriesViewModel>;
 
-            if(userSeries == null)
+            if (userSeries == null)
             {
                 userSeries = this.Data.Series.All()
                     .Where(s => s.AuthorId == user.Id)
@@ -59,7 +59,7 @@
 
             user.Series = userSeries.Skip((pageNumber - 1) * PageSize).Take(PageSize);
 
-            return View(user);
+            return this.View(user);
         }
     }
 }

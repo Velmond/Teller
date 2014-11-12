@@ -22,19 +22,19 @@
         public ActionResult Index(string id, int? page)
         {
             var pageNumber = page.GetValueOrDefault(1);
-       
+
             var user = this.Data.Users.All()
                 .Select(UserStoriesViewModel.FromUser)
                 .SingleOrDefault(u => u.Username == id);
-            
-            if(user == null)
+
+            if (user == null)
             {
-                return RedirectToAction("NotFound", "Error", new { Area = "" });
+                return this.RedirectToAction("NotFound", "Error", new { Area = string.Empty });
             }
 
             var userStories = this.HttpContext.Cache["user-profile-stories-" + id] as IQueryable<UserFeedStory>;
 
-            if(userStories== null)
+            if (userStories == null)
             {
                 userStories = this.Data.Stories.All()
                     .Where(s => s.Author.UserName == id)
@@ -58,7 +58,7 @@
 
             user.Stories = userStories.Skip((pageNumber - 1) * PageSize).Take(PageSize);
 
-            return View(user);
+            return this.View(user);
         }
     }
 }

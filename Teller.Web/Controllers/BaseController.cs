@@ -8,11 +8,6 @@
 
     public abstract class BaseController : Controller
     {
-        //public BaseController()
-        //    : this(new TellerData(new TellerDbContext()))
-        //{
-        //}
-
         public BaseController(ITellerData data)
         {
             this.Data = data;
@@ -27,7 +22,6 @@
         [NonAction]
         public void SytemSettings()
         {
-
         }
     }
 }

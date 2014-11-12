@@ -22,30 +22,30 @@
         [HttpPost]
         public ActionResult Like(string id, bool like)
         {
-            if(string.IsNullOrEmpty(id) || string.IsNullOrWhiteSpace(id) || id.IndexOf('-') < 0)
+            if (string.IsNullOrEmpty(id) || string.IsNullOrWhiteSpace(id) || id.IndexOf('-') < 0)
             {
-                return RedirectToAction("Index", "Error", new { Area = "" });
+                return this.RedirectToAction("Index", "Error", new { Area = string.Empty });
             }
 
             int storyId;
-            if(!int.TryParse(id.Substring(id.LastIndexOf('-') + 1), out storyId))
+            if (!int.TryParse(id.Substring(id.LastIndexOf('-') + 1), out storyId))
             {
-                return RedirectToAction("Index", "Error", new { Area = "" });
+                return this.RedirectToAction("Index", "Error", new { Area = string.Empty });
             }
 
             var story = this.Data.Stories.Find(storyId);
 
-            if(story == null)
+            if (story == null)
             {
-                return RedirectToAction("NotFound", "Error", new { Area = "" });
+                return this.RedirectToAction("NotFound", "Error", new { Area = string.Empty });
             }
 
             var url = new UrlGenerator();
             var encodedStoryId = url.GenerateUrlId(story.Id, story.Title);
 
-            if(encodedStoryId != id)
+            if (encodedStoryId != id)
             {
-                return RedirectToAction("NotFound", "Error", new { Area = "" });
+                return this.RedirectToAction("NotFound", "Error", new { Area = string.Empty });
             }
 
             this.Data.Likes.Add(new Like()
@@ -59,7 +59,7 @@
 
             var likesCount = story.Likes.Count(l => l.Value == true);
             var dislikesCount = story.Likes.Count(l => l.Value == false);
-            var likesPersentage = (likesCount / (likesCount + dislikesCount) * 100);
+            var likesPersentage = likesCount / (likesCount + dislikesCount) * 100;
 
             var likesModel = new StoryLikeViewModel()
             {
@@ -68,7 +68,7 @@
                 LikesPersentage = likesPersentage
             };
 
-            return PartialView("_StoryLikes", likesModel);
+            return this.PartialView("_StoryLikes", likesModel);
         }
     }
 }

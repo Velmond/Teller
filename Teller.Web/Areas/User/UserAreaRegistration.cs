@@ -1,7 +1,7 @@
-﻿using System.Web.Mvc;
-
-namespace Teller.Web.Areas.User
+﻿namespace Teller.Web.Areas.User
 {
+    using System.Web.Mvc;
+
     public class UserAreaRegistration : AreaRegistration
     {
         public override string AreaName
@@ -17,24 +17,22 @@ namespace Teller.Web.Areas.User
             context.MapRoute(
                 name: "User_NoAction",
                 url: "User/{controller}/{id}",
-                namespaces: new string[] { "Teller.Web.Areas.User.Controllers" },
                 defaults: new
                 {
                     controller = "Users",
                     action = "Index"
-                }
-            );
+                },
+                namespaces: new string[] { "Teller.Web.Areas.User.Controllers" });
 
             context.MapRoute(
                 name: "User_default",
                 url: "User/{controller}/{action}/{id}",
-                namespaces: new string[] { "Teller.Web.Areas.User.Controllers" },
                 defaults: new
                 {
                     controller = "Profile",
                     action = "Edit"
-                }
-            );
+                },
+                namespaces: new string[] { "Teller.Web.Areas.User.Controllers" });
         }
     }
 }

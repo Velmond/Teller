@@ -5,40 +5,19 @@
 
     public class ErrorController : Controller
     {
-        public ActionResult Index(/*string message, string stack*/)
+        public ActionResult Index()
         {
-            //var error = new ErrorViewModel()
-            //{
-            //    Message = message,
-            //    StackTrace = stack
-            //};
-
-            //return View(error);
-            return View();
+            return this.View();
         }
 
-        public ActionResult NotFound(/*string message, string stack*/)
+        public ActionResult NotFound()
         {
-            //var error = new ErrorViewModel()
-            //{
-            //    Message = message,
-            //    StackTrace = stack
-            //};
-
-            //return View(error);
-            return View();
+            return this.View();
         }
 
-        public ActionResult ServerError(/*string message, string stack*/)
+        public ActionResult ServerError()
         {
-            //var error = new ErrorViewModel()
-            //{
-            //    Message = message,
-            //    StackTrace = stack
-            //};
-
-            //return View(error);
-            return View();
+            return this.View();
         }
     }
 }

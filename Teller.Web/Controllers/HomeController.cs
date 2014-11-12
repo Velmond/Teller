@@ -20,12 +20,12 @@
         public ActionResult Index()
         {
             var cachedCollections = this.HttpContext.Cache["HomeStories"];
-            if(cachedCollections == null)
+            if (cachedCollections == null)
             {
-                var topHundredEver = GetMostVotedStoriesEver();
-                var topHundredLastWeek = GetMostVotedThisWeek();
-                var topHundredCommentedEver = GetMostCommentedEver();
-                var topHundredCommentedLastWeek = GetMostCommentedLastWeek();
+                var topHundredEver = this.GetMostVotedStoriesEver();
+                var topHundredLastWeek = this.GetMostVotedThisWeek();
+                var topHundredCommentedEver = this.GetMostCommentedEver();
+                var topHundredCommentedLastWeek = this.GetMostCommentedLastWeek();
 
                 cachedCollections = new HomePageViewModel()
                 {
@@ -41,53 +41,27 @@
                     null,
                     DateTime.Now.AddHours(12),
                     Cache.NoSlidingExpiration,
-                    CacheItemPriority.AboveNormal, null);
+                    CacheItemPriority.AboveNormal,
+                    null);
             }
 
             var storiesToReturn = GetItemsToDisplay(cachedCollections);
 
-            return View(storiesToReturn);
+            return this.View(storiesToReturn);
         }
 
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
 
-            return View();
+            return this.View();
         }
 
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
 
-            return View();
-        }
-
-        [NonAction]
-        private IEnumerable<SearchStoryViewModel> GetMostCommentedLastWeek()
-        {
-            var dateLastWeek = DateTime.Now.AddDays(-7);
-
-            var topHundredLastWeek = this.Data.Stories.All()
-                .Where(s => s.DatePublished > dateLastWeek)
-                .OrderByDescending(s => s.Comments.Count())
-                .Select(SearchStoryViewModel.FromStory)
-                .Take(100)
-                .ToList();
-
-            return topHundredLastWeek;
-        }
-
-        [NonAction]
-        private IEnumerable<SearchStoryViewModel> GetMostCommentedEver()
-        {
-            var topHundredEver = this.Data.Stories.All()
-                .OrderByDescending(s => s.Comments.Count())
-                .Select(SearchStoryViewModel.FromStory)
-                .Take(100)
-                .ToList();
-
-            return topHundredEver;
+            return this.View();
         }
 
         [NonAction]
@@ -124,6 +98,33 @@
                 MostCommentedStoriesEver = nineFromTopCommentedEver,
                 MostCommentedStoriesLastWeek = nineFromTopCommentedLastWeek
             };
+        }
+
+        [NonAction]
+        private IEnumerable<SearchStoryViewModel> GetMostCommentedLastWeek()
+        {
+            var dateLastWeek = DateTime.Now.AddDays(-7);
+
+            var topHundredLastWeek = this.Data.Stories.All()
+                .Where(s => s.DatePublished > dateLastWeek)
+                .OrderByDescending(s => s.Comments.Count())
+                .Select(SearchStoryViewModel.FromStory)
+                .Take(100)
+                .ToList();
+
+            return topHundredLastWeek;
+        }
+
+        [NonAction]
+        private IEnumerable<SearchStoryViewModel> GetMostCommentedEver()
+        {
+            var topHundredEver = this.Data.Stories.All()
+                .OrderByDescending(s => s.Comments.Count())
+                .Select(SearchStoryViewModel.FromStory)
+                .Take(100)
+                .ToList();
+
+            return topHundredEver;
         }
 
         [NonAction]

@@ -21,9 +21,9 @@
         {
             var comment = this.Data.Comments.Find(id);
 
-            if(comment == null)
+            if (comment == null)
             {
-                return RedirectToAction("NotFound", "Error", new { Area = "" });
+                return this.RedirectToAction("NotFound", "Error", new { Area = string.Empty });
             }
 
             this.Data.CommentLikes.Add(new CommentLike()
@@ -44,7 +44,7 @@
                 DislikesCount = dislikesCount
             };
 
-            return PartialView("_CommentLikes", likesModel);
+            return this.PartialView("_CommentLikes", likesModel);
         }
     }
 }

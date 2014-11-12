@@ -13,8 +13,8 @@
     using Teller.Web.Areas.Admin.Controllers.Base;
     using Teller.Web.ViewModels.Story;
 
-    //using Model = Teller.Models.AppUser;
-    //using ViewModels = Teller.Web.Areas.Admin.ViewModels.User;
+    ////using Model = Teller.Models.AppUser;
+    ////using ViewModels = Teller.Web.Areas.Admin.ViewModels.User;
 
     public class UsersController : AdminController
     {
@@ -25,23 +25,23 @@
 
         public ActionResult Index()
         {
-            return View();
+            return this.View();
         }
 
-        //protected ActionResult Create([DataSourceRequest]DataSourceRequest request, AppUser model)
-        //{
-        //    var dbmodel = base.Create<AppUser>(model);
-        //    if(dbmodel != null)
-        //    {
-        //        model.Id = dbmodel.Id;
-        //    }
+        ////protected ActionResult Create([DataSourceRequest]DataSourceRequest request, AppUser model)
+        ////{
+        ////    var dbmodel = base.Create<AppUser>(model);
+        ////    if(dbmodel != null)
+        ////    {
+        ////        model.Id = dbmodel.Id;
+        ////    }
 
-        //    return base.GridOperation(model, request);
-        //}
+        ////    return base.GridOperation(model, request);
+        ////}
 
-        //protected override IEnumerable GetData()
-        //{
-        //    return this.Data.Users.All();
-        //}
+        ////protected override IEnumerable GetData()
+        ////{
+        ////    return this.Data.Users.All();
+        ////}
     }
 }

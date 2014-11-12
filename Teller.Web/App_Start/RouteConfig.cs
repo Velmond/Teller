@@ -13,25 +13,16 @@ namespace Teller.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            //routes.MapRoute(
-            //    name: "StaicPages",
-            //    url: "{action}",
-            //    defaults: new
-            //    {
-            //        controller = "Home"
-            //    }
-            //);
-
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                namespaces: new[] { "Teller.Web.Controllers" },
                 defaults: new
                 {
                     controller = "Home",
                     action = "Index",
                     id = UrlParameter.Optional
-                }
+                },
+                namespaces: new[] { "Teller.Web.Controllers" }
             );
         }
     }

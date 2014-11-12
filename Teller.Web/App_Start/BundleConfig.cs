@@ -31,9 +31,6 @@ namespace Teller.Web
 
         private static void RegisterScriptBundles(BundleCollection bundles)
         {
-            //bundles.Add(new ScriptBundle("~/bundles/jquery")
-            //    .Include("~/Scripts/jquery-{version}.js"));
-
             bundles.Add(new ScriptBundle("~/bundles/jquery")
                 .Include("~/Scripts/Kendo/jquery.min.js"));
 

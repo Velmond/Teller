@@ -29,19 +29,19 @@
 
             ViewBag.Username = id;
             ViewBag.AvatarPath = user.AvatarPath;
-            return View(user);
+            return this.View(user);
         }
 
         [Authorize]
         [HttpGet]
         public ActionResult Edit(string id)
         {
-            if(this.User.UserName != id && this.User.Roles.FirstOrDefault() != null)
+            if (this.User.UserName != id && this.User.Roles.FirstOrDefault() != null)
             {
-                return RedirectToAction("Info", new { username = id });
+                return this.RedirectToAction("Info", new { username = id });
             }
 
-            if(this.User.UserInfo == null)
+            if (this.User.UserInfo == null)
             {
                 this.User.UserInfo = new UserInfo();
                 this.User.UserInfo.LinkedProfiles = new LinkedProfiles();
@@ -62,7 +62,7 @@
                 YouTube = this.User.UserInfo.LinkedProfiles.YouTube == null ? string.Empty : this.User.UserInfo.LinkedProfiles.YouTube,
             };
 
-            return View(profile);
+            return this.View(profile);
         }
 
         [Authorize]
@@ -71,29 +71,29 @@
         [ValidateInput(false)]
         public ActionResult Edit(string id, EditUserInfoViewModel profile)
         {
-            if(this.User.UserName != id && this.User.Roles.FirstOrDefault() != null)
+            if (this.User.UserName != id && this.User.Roles.FirstOrDefault() != null)
             {
-                return RedirectToAction("Info", new { username = id });
+                return this.RedirectToAction("Info", new { username = id });
             }
 
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                return RedirectToAction("Edit", profile);
+                return this.RedirectToAction("Edit", profile);
             }
 
-            if(this.User.UserInfo == null)
+            if (this.User.UserInfo == null)
             {
                 this.User.UserInfo = new UserInfo();
                 this.User.UserInfo.LinkedProfiles = new LinkedProfiles();
             }
-            else if(this.User.UserInfo.LinkedProfiles == null)
+            else if (this.User.UserInfo.LinkedProfiles == null)
             {
                 this.User.UserInfo.LinkedProfiles = new LinkedProfiles();
             }
 
             var newPicturePath = this.GetAvatarPath(profile.Picture, this.User.UserName);
 
-            if(profile.Picture != null && newPicturePath != DefaultProfileImage)
+            if (profile.Picture != null && newPicturePath != DefaultProfileImage)
             {
                 this.User.UserInfo.AvatarPath = newPicturePath;
             }
@@ -109,18 +109,18 @@
             this.Data.Users.Update(this.User);
             this.Data.SaveChanges();
 
-            return RedirectToAction("Index", "Info", new { id = profile.Username });
+            return this.RedirectToAction("Index", "Info", new { id = profile.Username });
         }
 
         private string GetAvatarPath(HttpPostedFileBase httpPostedFileBase, string username)
         {
-            if(httpPostedFileBase != null && (httpPostedFileBase.ContentType.StartsWith("image/")))
+            if (httpPostedFileBase != null && httpPostedFileBase.ContentType.StartsWith("image/"))
             {
                 var url = new UrlGenerator();
 
                 string folderPath = string.Format("/Images/UserPictures/{0}", url.GenerateUrlId((new Random()).Next(1, 1001), username));
                 string fullFolderPath = Server.MapPath(folderPath);
-                if(!Directory.Exists(fullFolderPath))
+                if (!Directory.Exists(fullFolderPath))
                 {
                     Directory.CreateDirectory(fullFolderPath);
                 }
@@ -136,13 +136,13 @@
             }
         }
 
-        //private UserViewModel GetUser(string id)
-        //{
-        //    var user = this.Data.Users.All()
-        //        .Where(u => u.UserName == id)
-        //        .Select(UserViewModel.FromUser)
-        //        .FirstOrDefault();
-        //    return user;
-        //}
+        ////private UserViewModel GetUser(string id)
+        ////{
+        ////    var user = this.Data.Users.All()
+        ////        .Where(u => u.UserName == id)
+        ////        .Select(UserViewModel.FromUser)
+        ////        .FirstOrDefault();
+        ////    return user;
+        ////}
     }
 }

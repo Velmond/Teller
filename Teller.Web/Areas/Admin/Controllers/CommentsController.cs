@@ -18,12 +18,12 @@
 
         public ActionResult Index()
         {
-            return View();
+            return this.View();
         }
 
-        //protected override System.Collections.IEnumerable GetData()
-        //{
-        //    return this.Data.Comments.All();
-        //}
+        ////protected override System.Collections.IEnumerable GetData()
+        ////{
+        ////    return this.Data.Comments.All();
+        ////}
     }
 }

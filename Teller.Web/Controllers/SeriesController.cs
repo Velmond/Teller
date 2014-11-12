@@ -20,30 +20,30 @@
 
         public ActionResult Index(string id)
         {
-            if(string.IsNullOrEmpty(id) || string.IsNullOrWhiteSpace(id) || id.IndexOf('-') < 0)
+            if (string.IsNullOrEmpty(id) || string.IsNullOrWhiteSpace(id) || id.IndexOf('-') < 0)
             {
-                return RedirectToAction("Index", "Error", new { Area = "" });
+                return this.RedirectToAction("Index", "Error", new { Area = string.Empty });
             }
 
             int seriesId;
-            if(!int.TryParse(id.Substring(id.LastIndexOf('-') + 1), out seriesId))
+            if (!int.TryParse(id.Substring(id.LastIndexOf('-') + 1), out seriesId))
             {
-                return RedirectToAction("Index", "Error", new { Area = "" });
+                return this.RedirectToAction("Index", "Error", new { Area = string.Empty });
             }
 
             var foundSeries = this.Data.Series.Find(seriesId);
 
-            if(foundSeries == null)
+            if (foundSeries == null)
             {
-                return RedirectToAction("NotFound", "Error", new { Area = "" });
+                return this.RedirectToAction("NotFound", "Error", new { Area = string.Empty });
             }
 
             var url = new UrlGenerator();
             var encodedSeriesId = url.GenerateUrlId(foundSeries.Id, foundSeries.Title);
 
-            if(encodedSeriesId != id)
+            if (encodedSeriesId != id)
             {
-                return RedirectToAction("NotFound", "Error", new { Area = "" });
+                return this.RedirectToAction("NotFound", "Error", new { Area = string.Empty });
             }
 
             var series = new SeriesViewModel()
@@ -58,7 +58,7 @@
                 Stories = new List<StoryViewModel>()
             };
 
-            foreach(var story in foundSeries.Stories)
+            foreach (var story in foundSeries.Stories)
             {
                 series.Stories.Add(new StoryViewModel()
                 {
@@ -71,7 +71,7 @@
                 });
             }
 
-            return View(series);
+            return this.View(series);
         }
 
         [Authorize]
@@ -89,7 +89,7 @@
                     })
             };
 
-            return PartialView("_SeriesCreateFormPartial", model);
+            return this.PartialView("_SeriesCreateFormPartial", model);
         }
     }
 }

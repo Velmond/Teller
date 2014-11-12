@@ -26,7 +26,7 @@
             </li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="@((new Teller.Data.TellerData(new Teller.Data.TellerDbContext())).Users.All().Single(u => u.UserName == User.Identity.Name).UserInfo.AvatarPath)" alt="@(User.Identity.Name)" class="img-responsive img-circle img-thumbnail" style="max-height: 22px;" />
+                    @*<img src="@((new Teller.Data.TellerData(new Teller.Data.TellerDbContext())).Users.All().Single(u => u.UserName == User.Identity.Name).UserInfo.AvatarPath)" alt="@(User.Identity.Name)" class="img-responsive img-circle img-thumbnail" style="max-height: 22px;" />*@
                     @User.Identity.GetUserName()
                     <b class="caret"></b>
                 </a>

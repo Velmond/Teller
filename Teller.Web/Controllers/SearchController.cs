@@ -25,7 +25,7 @@
         {
             IQueryable<SearchStoryViewModel> data = this.HttpContext.Cache[StoriesCachePrefix + pattern] as IQueryable<SearchStoryViewModel>;
 
-            if(data == null)
+            if (data == null)
             {
                 data = this.Data.Stories.All()
                     .Where(s => s.Title.ToLower().IndexOf(pattern) >= 0)
@@ -58,7 +58,7 @@
         {
             IQueryable<SearchSeriesViewModel> data = this.HttpContext.Cache[SeriesCachePrefix + pattern] as IQueryable<SearchSeriesViewModel>;
 
-            if(data == null)
+            if (data == null)
             {
                 data = this.Data.Series.All()
                     .Where(s => s.Title.ToLower().IndexOf(pattern) >= 0)
@@ -82,7 +82,7 @@
         {
             IQueryable<SearchUserViewModel> data = this.HttpContext.Cache[UsersCachePrefix + pattern] as IQueryable<SearchUserViewModel>;
 
-            if(data == null)
+            if (data == null)
             {
                 data = this.Data.Users.All()
                     .Where(u => u.UserName.ToLower().IndexOf(pattern) >= 0)
@@ -105,9 +105,9 @@
         [ValidateInput(false)]
         public ActionResult Index(string pattern, int? page)
         {
-            if(string.IsNullOrEmpty(pattern) || string.IsNullOrWhiteSpace(pattern))
+            if (string.IsNullOrEmpty(pattern) || string.IsNullOrWhiteSpace(pattern))
             {
-                return RedirectToAction("Index", "Home");
+                return this.RedirectToAction("Index", "Home");
             }
 
             var pageNumber = page.GetValueOrDefault(1);
@@ -138,7 +138,7 @@
             var usersPageCount = Math.Ceiling((double)this.GetAllUsers(pattern).Count() / UsersPageSize);
             ViewBag.Pages = Math.Max(storiesPageCount, Math.Max(seriesPageCount, usersPageCount));
 
-            return View(model);
+            return this.View(model);
         }
     }
 }

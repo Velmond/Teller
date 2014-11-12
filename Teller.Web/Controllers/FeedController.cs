@@ -26,10 +26,10 @@
         {
             var pageNumber = page.GetValueOrDefault(1);
             var collections = this.User.SubscribedTo.Select(s => s.Stories);
-            
+
             List<UserFeedStory> stories = new List<UserFeedStory>();
 
-            foreach(var collection in collections)
+            foreach (var collection in collections)
             {
                 stories.AddRange(collection.AsQueryable().Select(UserFeedStory.FromStory));
             }
@@ -41,7 +41,7 @@
 
             var model = data.Skip((pageNumber - 1) * PageSize).Take(PageSize).ToList();
 
-            return View(model);
+            return this.View(model);
         }
 
         [Authorize]
@@ -59,7 +59,7 @@
 
             var model = stories.Skip((pageNumber - 1) * PageSize).Take(PageSize).ToList();
 
-            return View(model);
+            return this.View(model);
         }
 
         [Authorize]
@@ -77,7 +77,7 @@
 
             var model = stories.Skip((pageNumber - 1) * PageSize).Take(PageSize).ToList();
 
-            return View(model);
+            return this.View(model);
         }
 
         private void CacheValues(IEnumerable<UserFeedStory> stories, string cacheKey)
