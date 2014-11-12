@@ -33,7 +33,7 @@
                 return this.RedirectToAction("Index", "Error", new { Area = string.Empty });
             }
 
-            var foundSeries = this.Data.Series.Find(seriesId);
+            var foundSeries = this.Data.Series.GetById(seriesId);
 
             if (foundSeries == null)
             {

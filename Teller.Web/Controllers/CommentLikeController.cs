@@ -19,9 +19,9 @@
 
         [Authorize]
         [HttpPost]
-        public ActionResult Like(int id, bool like)
+        public ActionResult Like(int id, bool likeValue)
         {
-            var comment = this.Data.Comments.Find(id);
+            var comment = this.Data.Comments.GetById(id);
 
             if (comment == null)
             {
@@ -30,7 +30,7 @@
 
             this.Data.CommentLikes.Add(new CommentLike()
             {
-                Value = like,
+                Value = likeValue,
                 AuthorId = this.User.Id,
                 CommentId = comment.Id
             });

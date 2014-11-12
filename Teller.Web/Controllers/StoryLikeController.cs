@@ -33,7 +33,7 @@
                 return this.RedirectToAction("Index", "Error", new { Area = string.Empty });
             }
 
-            var story = this.Data.Stories.Find(storyId);
+            var story = this.Data.Stories.GetById(storyId);
 
             if (story == null)
             {

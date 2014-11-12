@@ -9,13 +9,21 @@
 
     public class TellerData : ITellerData
     {
-        private DbContext context;
+        private ITellerDbContext context;
         private IDictionary<Type, object> repositories;
 
-        public TellerData(DbContext context)
+        public TellerData(ITellerDbContext context)
         {
             this.context = context;
             this.repositories = new Dictionary<Type, object>();
+        }
+
+        public ITellerDbContext Context
+        {
+            get
+            {
+                return this.context;
+            }
         }
 
         public IRepository<AppUser> Users
@@ -61,6 +69,22 @@
         public int SaveChanges()
         {
             return this.context.SaveChanges();
+        }
+
+        public void Dispose()
+        {
+            this.Dispose(true);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (this.context != null)
+                {
+                    this.context.Dispose();
+                }
+            }
         }
 
         private IRepository<T> GetRepository<T>() where T : class

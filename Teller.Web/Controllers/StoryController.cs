@@ -42,7 +42,7 @@
                 return this.RedirectToAction("Index", "Error", new { Area = string.Empty });
             }
 
-            var foundStory = this.Data.Stories.Find(storyId);
+            var foundStory = this.Data.Stories.GetById(storyId);
 
             if (foundStory == null)
             {
@@ -166,7 +166,7 @@
                 return this.RedirectToAction("Index", "Error", new { Area = string.Empty });
             }
 
-            var foundStory = this.Data.Stories.Find(storyId);
+            var foundStory = this.Data.Stories.GetById(storyId);
 
             if (foundStory == null)
             {
@@ -208,7 +208,7 @@
                 return this.RedirectToAction("Index", "Error", new { Area = string.Empty });
             }
 
-            var foundStory = this.Data.Stories.Find(storyId);
+            var foundStory = this.Data.Stories.GetById(storyId);
 
             if (foundStory == null)
             {
@@ -284,7 +284,7 @@
                 return this.RedirectToAction("Index", "Error", new { Area = string.Empty });
             }
 
-            var story = this.Data.Stories.Find(storyId);
+            var story = this.Data.Stories.GetById(storyId);
 
             if (story == null)
             {
@@ -320,7 +320,7 @@
                 return this.RedirectToAction("Index", "Error", new { Area = string.Empty });
             }
 
-            var story = this.Data.Stories.Find(storyId);
+            var story = this.Data.Stories.GetById(storyId);
 
             if (story == null)
             {
@@ -364,7 +364,7 @@
                 return this.RedirectToAction("Index", "Error", new { Area = string.Empty });
             }
 
-            var story = this.Data.Stories.Find(storyId);
+            var story = this.Data.Stories.GetById(storyId);
 
             if (story == null)
             {
@@ -408,7 +408,7 @@
                 return this.RedirectToAction("Index", "Error", new { Area = string.Empty });
             }
 
-            var story = this.Data.Stories.Find(storyId);
+            var story = this.Data.Stories.GetById(storyId);
 
             if (story == null)
             {

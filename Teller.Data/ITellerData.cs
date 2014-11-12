@@ -5,6 +5,8 @@
 
     public interface ITellerData
     {
+        ITellerDbContext Context { get; }
+
         IRepository<AppUser> Users { get; }
 
         IRepository<Comment> Comments { get; }

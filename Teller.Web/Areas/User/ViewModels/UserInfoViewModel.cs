@@ -20,22 +20,22 @@
                     Motto = user.UserInfo != null ? user.UserInfo.Motto : "not entered yet",
                     Description = user.UserInfo != null ? user.UserInfo.Description : "not entered yet",
                     AvatarPath = user.UserInfo != null ? user.UserInfo.AvatarPath : "/Images/UsersPictures/default/user.png",
-                    StoriesCount = user.Stories.Count(),
-                    StoryLikes = user.Stories.Sum(s => s.Likes.Count(l => l.Value == true)),
-                    StoryFavorites = user.Stories.Sum(s => s.FavouritedBy.Count()),
+                    StoriesCount = user.Stories.Any() ? user.Stories.Count() : 0,
+                    StoryLikes = user.Stories.Any() ? user.Stories.Sum(s => s.Likes.Count(l => l.Value == true)) : 0,
+                    StoryFavorites = user.Stories.Any() ? user.Stories.Sum(s => s.FavouritedBy.Count()) : 0,
                     Facebook = user.UserInfo != null ?
                                     (user.UserInfo.LinkedProfiles != null ?
                                        user.UserInfo.LinkedProfiles.Facebook : string.Empty) : string.Empty,
                     GooglePlus = user.UserInfo != null ?
                                     (user.UserInfo.LinkedProfiles != null ?
                                        user.UserInfo.LinkedProfiles.GooglePlus : string.Empty) : string.Empty,
-                    Twitter = user.UserInfo != null ?
+                    Twitter = user.UserInfo.Id != null ?
                                     (user.UserInfo.LinkedProfiles != null ?
                                        user.UserInfo.LinkedProfiles.Twitter : string.Empty) : string.Empty,
-                    YouTube = user.UserInfo != null ?
+                    YouTube = user.UserInfo.Id != null ?
                                     (user.UserInfo.LinkedProfiles != null ?
                                        user.UserInfo.LinkedProfiles.YouTube : string.Empty) : string.Empty,
-                    LinkedIn = user.UserInfo != null ?
+                    LinkedIn = user.UserInfo.Id != null ?
                                     (user.UserInfo.LinkedProfiles != null ?
                                        user.UserInfo.LinkedProfiles.LinkedIn : string.Empty) : string.Empty
                 };

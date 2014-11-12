@@ -28,11 +28,13 @@
             return this.View();
         }
 
-        protected ActionResult ReadData([DataSourceRequest]DataSourceRequest request)
+        public ActionResult ReadData([DataSourceRequest]DataSourceRequest request)
         {
-            var model = this.Data.Users.All().Select(UserInfoViewModel.FromUser);
+            var model = this.Data.Users.All().Select(UserInfoViewModel.FromUser).ToDataSourceResult(request);
 
-            return base.GridOperation(model, request);
+            return this.Json((new[] { model }).ToDataSourceResult(request));
+
+            //return base.GridOperation(model, request);
         }
 
         ////protected ActionResult Create([DataSourceRequest]DataSourceRequest request, AppUser model)

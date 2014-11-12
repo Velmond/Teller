@@ -65,7 +65,7 @@ namespace Teller.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<DbContext>()
+            kernel.Bind<ITellerDbContext>()
                 .To<TellerDbContext>();
 
             kernel.Bind(typeof(IRepository<>))
@@ -73,7 +73,7 @@ namespace Teller.Web.App_Start
 
             kernel.Bind<ITellerData>()
                 .To<TellerData>()
-                .WithConstructorArgument("context", context => context.Kernel.Get<DbContext>());
+                .WithConstructorArgument("context", context => context.Kernel.Get<ITellerDbContext>());
 
             kernel.Bind<ISanitizer>()
                 .To<HtmlSanitizerAdapter>();

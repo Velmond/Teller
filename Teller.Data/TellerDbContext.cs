@@ -9,10 +9,15 @@
     using Teller.Data.Migrations;
     using Teller.Models;
 
-    public class TellerDbContext : IdentityDbContext<AppUser>
+    public class TellerDbContext : IdentityDbContext<AppUser>, ITellerDbContext
     {
         public TellerDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : this("DefaultConnection")
+        {
+        }
+
+        public TellerDbContext(string connectionString)
+            : base(connectionString, throwIfV1Schema: false)
         {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<TellerDbContext, Configuration>());
         }
@@ -30,6 +35,19 @@
         public IDbSet<Series> Series { get; set; }
 
         public IDbSet<Story> Stories { get; set; }
+
+        public DbContext DbContext
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        public new IDbSet<T> Set<T>() where T : class
+        {
+            return base.Set<T>();
+        }
 
         public static TellerDbContext Create()
         {

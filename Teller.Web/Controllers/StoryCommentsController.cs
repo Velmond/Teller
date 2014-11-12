@@ -78,7 +78,7 @@
 
             var commentModel = new CommentViewModel()
             {
-                Author = comment.Author.UserName,
+                Author = this.User.UserName,
                 Content = comment.Content,
                 DislikesCount = 0,
                 LikesCount = 0,
@@ -94,7 +94,7 @@
         [HttpPost]
         public ActionResult Flag(int id)
         {
-            var comment = this.Data.Comments.Find(id);
+            var comment = this.Data.Comments.GetById(id);
 
             if (comment == null)
             {
@@ -111,7 +111,7 @@
         [HttpPost]
         public ActionResult Delete(int id)
         {
-            var comment = this.Data.Comments.Find(id);
+            var comment = this.Data.Comments.GetById(id);
 
             if (comment == null)
             {
@@ -139,7 +139,7 @@
                 return this.RedirectToAction("Index", "Error", new { Area = string.Empty });
             }
 
-            var story = this.Data.Stories.Find(storyId);
+            var story = this.Data.Stories.GetById(storyId);
 
             if (story == null)
             {
