@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
-
-namespace Teller.Web
+﻿namespace Teller.Web
 {
+    using System;
+    using System.Linq;
+    using System.Web.Mvc;
+    using System.Web.Routing;
+
     public class RouteConfig
     {
         public static void RegisterRoutes(RouteCollection routes)
@@ -22,8 +20,7 @@ namespace Teller.Web
                     action = "Index",
                     id = UrlParameter.Optional
                 },
-                namespaces: new[] { "Teller.Web.Controllers" }
-            );
+                namespaces: new[] { "Teller.Web.Controllers" });
         }
     }
 }

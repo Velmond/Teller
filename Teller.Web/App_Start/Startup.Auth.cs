@@ -1,16 +1,16 @@
-﻿using System;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin;
-using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security.Google;
-using Owin;
-using Teller.Data;
-using Teller.Models;
-using Teller.Web.ViewModels;
-
-namespace Teller.Web
+﻿namespace Teller.Web
 {
+    using System;
+
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.Owin;
+    using Microsoft.Owin;
+    using Microsoft.Owin.Security.Cookies;
+    using Owin;
+
+    using Teller.Data;
+    using Teller.Models;
+
     public partial class Startup
     {
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
@@ -47,24 +47,24 @@ namespace Teller.Web
             // This is similar to the RememberMe option when you log in.
             app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
 
-            // Uncomment the following lines to enable logging in with third party login providers
-            //app.UseMicrosoftAccountAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
+            //// Uncomment the following lines to enable logging in with third party login providers
+            ////app.UseMicrosoftAccountAuthentication(
+            ////    clientId: "",
+            ////    clientSecret: "");
 
-            //app.UseTwitterAuthentication(
-            //   consumerKey: "",
-            //   consumerSecret: "");
+            ////app.UseTwitterAuthentication(
+            ////   consumerKey: "",
+            ////   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            ////app.UseFacebookAuthentication(
+            ////   appId: "",
+            ////   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            ////app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            ////{
+            ////    ClientId = "",
+            ////    ClientSecret = ""
+            ////});
         }
     }
 }
