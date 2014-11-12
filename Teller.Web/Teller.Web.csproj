@@ -217,6 +217,7 @@
     <Compile Include="Areas\User\ViewModels\Base\UserViewModel.cs" />
     <Compile Include="Areas\User\ViewModels\EditUserInfoViewModel.cs" />
     <Compile Include="Areas\User\ViewModels\UserInfoViewModel.cs" />
+    <Compile Include="Areas\User\ViewModels\UserSeriesViewModel.cs" />
     <Compile Include="Areas\User\ViewModels\UserStoriesViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -502,6 +503,7 @@
     <Content Include="Areas\User\Views\Story\Index.cshtml" />
     <Content Include="Content\Kendo\images\kendoui.ttf" />
     <Content Include="Content\Kendo\images\kendoui.woff" />
+    <Content Include="Areas\User\Views\Shared\DisplayTemplates\SeriesViewModel.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

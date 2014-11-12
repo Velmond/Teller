@@ -4,6 +4,8 @@
 
     public class UserViewModel
     {
+        public string Id { get; set; }
+
         [Required]
         public string Username { get; set; }
 

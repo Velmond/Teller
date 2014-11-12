@@ -2,10 +2,11 @@
 {
     using System;
     using System.Linq;
+    using System.Linq.Expressions;
 
     public class UserFeedStory
     {
-        public static Func<Teller.Models.Story, UserFeedStory> FromStory
+        public static Expression<Func<Teller.Models.Story, UserFeedStory>> FromStory
         {
             get
             {

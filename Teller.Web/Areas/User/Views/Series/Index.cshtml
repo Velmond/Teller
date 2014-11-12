@@ -1,6 +1,15 @@
-﻿@model Teller.Web.Areas.User.ViewModels.UserInfoViewModel
+﻿@model Teller.Web.Areas.User.ViewModels.UserSeriesViewModel
 @{
-    ViewBag.Title = "User series - " + ViewBag.Username;
+    ViewBag.Title = "Series - " + ViewBag.Username;
+    var pager = new Teller.Web.ViewModels.FeedPagerViewModel()
+    {
+        Area = "User",
+        Action = "Index",
+        Controller = "Series",
+        PagesCount = (int)ViewBag.Pages,
+        Page = (int)ViewBag.Page,
+        Id = ViewBag.Username
+    };
 }
 
 @section profileNavigation {
@@ -17,69 +26,34 @@
 <div class="row">
     <div class="col-sm-offset-1 col-sm-10 well">
         <h2 class="row text-center">
-            <span class="col-sm-offset-1 col-sm-10">@Model.Username's series</span>
+            <span class="col-sm-offset-1 col-sm-5 text-right">@Model.Username's series</span>
         </h2>
         <div class="row text-center">
-            <div class="col-sm-6">
-                <div class="row">
-                    <p class="col-sm-offset-1 col-sm-10">
-                        <span class="glyphicon glyphicon-book"></span>
-                        <strong>@Model.StoriesCount</strong>
-                        <em>stories</em>
-                    </p>
-                </div>
-                <div class="row">
-                    <p class="col-sm-offset-1 col-sm-10">
-                        <span class="glyphicon glyphicon-heart-empty"></span>
-                        <strong>@Model.StoryFavorites</strong>
-                        <em>favorites</em>
-                    </p>
-                </div>
-                <div class="row">
-                    <p class="col-sm-offset-1 col-sm-10">
-                        <span class="glyphicon glyphicon-thumbs-up"></span>
-                        <strong>@Model.StoryLikes</strong>
-                        <em>likes</em>
-                    </p>
-                </div>
-            </div>
-            <div class="col-sm-6 text-center">
-                <div class="row">
-                    <p class="col-sm-offset-1 col-sm-10">
-                        <span class="glyphicon glyphicon-user">
-                            <a href="@Model.Facebook"> Facebook</a>
-                        </span>
-                    </p>
-                </div>
-                <div class="row">
-                    <p class="col-sm-offset-1 col-sm-10">
-                        <span class="glyphicon glyphicon-user">
-                            <a href="@Model.GooglePlus"> GooglePlus</a>
-                        </span>
-                    </p>
-                </div>
-                <div class="row">
-                    <p class="col-sm-offset-1 col-sm-10">
-                        <span class="glyphicon glyphicon-user">
-                            <a href="@Model.Twitter"> Twitter</a>
-                        </span>
-                    </p>
-                </div>
-                <div class="row">
-                    <p class="col-sm-offset-1 col-sm-10">
-                        <span class="glyphicon glyphicon-user">
-                            <a href="@Model.YouTube"> YouTube</a>
-                        </span>
-                    </p>
-                </div>
-                <div class="row">
-                    <p class="col-sm-offset-1 col-sm-10">
-                        <span class="glyphicon glyphicon-user">
-                            <a href="@Model.LinkedIn"> LinkedIn</a>
-                        </span>
-                    </p>
-                </div>
-            </div>
+            @if(Model.Series.Count() == 0)
+            {
+                <h3 class="lead text-center">
+                    No series were found
+                </h3>
+            }
+            else
+            {
+                foreach(var series in Model.Series)
+                {
+                    <div class="col-md-12">
+                        @Html.DisplayFor(m => series)
+                    </div>
+                }
+            }
         </div>
     </div>
+    @if(ViewBag.Pages > 1)
+    {
+        <div class="well-sm">
+            <div class="row">
+                <h3 class="lead">
+                    @Html.Partial("_Pager", pager)
+                </h3>
+            </div>
+        </div>
+    }
 </div>

@@ -11,58 +11,24 @@ namespace Teller.Data.Migrations
 
     internal sealed class Configuration : DbMigrationsConfiguration<TellerDbContext>
     {
+        private static Random rand = new Random();
+
         public Configuration()
         {
             this.AutomaticMigrationsEnabled = true;
             this.AutomaticMigrationDataLossAllowed = true;
         }
 
-        public static Random Rand = new Random();
-
         protected override void Seed(Teller.Data.TellerDbContext context)
         {
             SeedGenres(context);
             SeedUserRoles(context);
-            // SeedStories(context);
-        }
-
-        private void SeedStories(Teller.Data.TellerDbContext context)
-        {
-            if(!context.Stories.Any())
-            {
-                var genres = context.Genres.ToList();
-                var users = new AppUser[] {
-                    new AppUser() { UserName = "1Anonimous1" },
-                    new AppUser() { UserName = "2Anonimous2" },
-                    new AppUser() { UserName = "3Anonimous3" }
-                };
-                context.SaveChanges();
-
-                for(int i = 0 ; i < 100 ; i++)
-                {
-                    var user = users[Rand.Next(0, users.Length)];
-
-                    var story = new Story()
-                    {
-                        Title = GenerateStoryTitle(),
-                        Content = GenerateStoryContent(),
-                        Author = user,
-                        AuthorId = user.Id,
-                        Genre = genres[Rand.Next(0, genres.Count)],
-                        GenreId = genres[Rand.Next(0, genres.Count)].Id,
-                        DatePublished = DateTime.Now.AddDays(Rand.Next(-5, 5)),
-                        PicturePath = ".."
-                    };
-
-                    context.Stories.Add(story);
-                    context.SaveChanges();
-                }
-            }
+            //// SeedStories(context);
         }
 
         private static void SeedUserRoles(Teller.Data.TellerDbContext context)
         {
-            if(!context.Roles.Any())
+            if (!context.Roles.Any())
             {
                 context.Roles.Add(new IdentityRole() { Name = "User" });
                 context.Roles.Add(new IdentityRole() { Name = "Banned" });
@@ -74,7 +40,7 @@ namespace Teller.Data.Migrations
 
         private static void SeedGenres(Teller.Data.TellerDbContext context)
         {
-            if(!context.Genres.Any())
+            if (!context.Genres.Any())
             {
                 context.Genres.Add(new Genre() { Name = "Adventure" });
                 context.Genres.Add(new Genre() { Name = "Airport novel" });
@@ -112,15 +78,51 @@ namespace Teller.Data.Migrations
             }
         }
 
+        private void SeedStories(Teller.Data.TellerDbContext context)
+        {
+            if (!context.Stories.Any())
+            {
+                var genres = context.Genres.ToList();
+                var users = new AppUser[]
+                {
+                    new AppUser() { UserName = "1Anonimous1" },
+                    new AppUser() { UserName = "2Anonimous2" },
+                    new AppUser() { UserName = "3Anonimous3" }
+                };
+
+                context.SaveChanges();
+
+                for (int i = 0; i < 100; i++)
+                {
+                    var user = users[rand.Next(0, users.Length)];
+
+                    var story = new Story()
+                    {
+                        Title = this.GenerateStoryTitle(),
+                        Content = this.GenerateStoryContent(),
+                        Author = user,
+                        AuthorId = user.Id,
+                        Genre = genres[rand.Next(0, genres.Count)],
+                        GenreId = genres[rand.Next(0, genres.Count)].Id,
+                        DatePublished = DateTime.Now.AddDays(rand.Next(-5, 5)),
+                        PicturePath = ".."
+                    };
+
+                    context.Stories.Add(story);
+                    context.SaveChanges();
+                }
+            }
+        }
+
         private string GenerateStoryTitle()
         {
             var allowedSymbols = "qwertyuiopas dfghjklzxcvbnm QWERTYUIOPAS DFGHJKLZXCVBNM 1234567890 !?.,;: ";
-            var titleLength = Rand.Next(2, 100);
+            var titleLength = rand.Next(2, 100);
             var title = new StringBuilder();
 
-            for(int i = 0 ; i < titleLength ; i++)
+            for (int i = 0; i < titleLength; i++)
             {
-                title.Append(allowedSymbols[Rand.Next(0, allowedSymbols.Length)]);
+                title.Append(allowedSymbols[rand.Next(0, allowedSymbols.Length)]);
             }
 
             return title.ToString();
@@ -129,12 +131,12 @@ namespace Teller.Data.Migrations
         private string GenerateStoryContent()
         {
             var allowedSymbols = "qwertyuiopas dfghjklzxcvbnm QWERTYUIOPAS DFGHJKLZXCVBNM 1234567890 !?.,;: ";
-            var contentLength = Rand.Next(100, 5000);
+            var contentLength = rand.Next(100, 5000);
             var content = new StringBuilder();
 
-            for(int i = 0 ; i < contentLength ; i++)
+            for (int i = 0; i < contentLength; i++)
             {
-                content.Append(allowedSymbols[Rand.Next(0, allowedSymbols.Length)]);
+                content.Append(allowedSymbols[rand.Next(0, allowedSymbols.Length)]);
             }
 
             return content.ToString();

@@ -7,7 +7,7 @@
 
     using Teller.Models;
     using Teller.Web.ViewModels.Story;
-
+    
     public class SeriesViewModel
     {
         public static Expression<Func<Series, SeriesViewModel>> FromSeries

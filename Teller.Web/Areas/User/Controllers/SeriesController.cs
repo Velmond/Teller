@@ -1,29 +1,64 @@
 ﻿namespace Teller.Web.Areas.User.Controllers
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Web;
+    using System.Web.Caching;
     using System.Web.Mvc;
+
     using Teller.Data;
     using Teller.Web.Areas.User.ViewModels;
     using Teller.Web.Controllers;
+    using Teller.Web.ViewModels.Series;
 
     public class SeriesController : BaseController
     {
+        private const int PageSize = 10;
+
         public SeriesController(ITellerData data)
             : base(data)
         {
         }
 
-        public ActionResult Index(string id)
+        public ActionResult Index(string id, int? page)
         {
+            var pageNumber = page.GetValueOrDefault(1);
+       
             var user = this.Data.Users.All()
-                .Select(UserInfoViewModel.FromUser)
+                .Select(UserSeriesViewModel.FromUser)
                 .SingleOrDefault(u => u.Username == id);
+            
+            if(user == null)
+            {
+                return RedirectToAction("NotFound", "Error", new { Area = "" });
+            }
+
+            var userSeries = this.HttpContext.Cache["user-profile-series-" + id] as IQueryable<SeriesViewModel>;
+
+            if(userSeries == null)
+            {
+                userSeries = this.Data.Series.All()
+                    .Where(s => s.AuthorId == user.Id)
+                    .Where(s => s.Stories.Count() > 0)
+                    .OrderBy(s => s.Title)
+                    .Select(SeriesViewModel.FromSeries);
+
+                this.HttpContext.Cache.Add(
+                    "user-profile-series-" + id,
+                    userSeries,
+                    null,
+                    DateTime.Now.AddMinutes(15),
+                    Cache.NoSlidingExpiration,
+                    CacheItemPriority.Normal,
+                    null);
+            }
 
             ViewBag.Username = id;
             ViewBag.AvatarPath = user.AvatarPath;
+            ViewBag.Page = pageNumber;
+            ViewBag.Pages = Math.Ceiling((double)userSeries.Count() / PageSize);
+
+            user.Series = userSeries.Skip((pageNumber - 1) * PageSize).Take(PageSize);
+
             return View(user);
         }
     }

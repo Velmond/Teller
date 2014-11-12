@@ -55,7 +55,7 @@
         private void ChangeState(T entity, EntityState state)
         {
             var entry = this.context.Entry(entity);
-            if(entry.State == EntityState.Detached)
+            if (entry.State == EntityState.Detached)
             {
                 this.set.Attach(entity);
             }

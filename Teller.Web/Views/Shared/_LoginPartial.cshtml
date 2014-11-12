@@ -14,13 +14,13 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li>
-                        @Html.RouteLink("Subscriptions", new { Area = "", Controller = "Feed", Action = "Index", id = User.Identity.GetUserName() }, new { })
+                        @Html.RouteLink("Subscriptions", new { Area = "", Controller = "Feed", Action = "Index" }, new { })
                     </li>
                     <li>
-                        @Html.RouteLink("Saved for later", new { Area = "", Controller = "Feed", Action = "ReadLater", id = User.Identity.GetUserName() }, new { })
+                        @Html.RouteLink("Saved for later", new { Area = "", Controller = "Feed", Action = "ReadLater" }, new { })
                     </li>
                     <li>
-                        @Html.RouteLink("Favorites", new { Area = "", Controller = "Feed", Action = "Favorites", id = User.Identity.GetUserName() }, new { })
+                        @Html.RouteLink("Favorites", new { Area = "", Controller = "Feed", Action = "Favorites" }, new { })
                     </li>
                 </ul>
             </li>

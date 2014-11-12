@@ -1,0 +1,23 @@
+﻿@model Teller.Web.ViewModels.Series.SeriesViewModel
+
+@using Teller.Web.Infrastructure
+@{
+    var urlGenerator = new UrlGenerator();
+}
+
+<div>
+    <div class="row">
+        <h4 class="col-sm-6 text-right">
+            <p>
+                <span class="glyphicon glyphicon-book"></span>
+                @Html.ActionLink(Model.Title, "Index", "Story", new { Area = "", id = urlGenerator.GenerateUrlId(Model.Id, Model.Title) }, new { })
+                <small> (@Model.Genre)</small>
+            </p>
+        </h4>
+        <h4 class="col-sm-6 text-center">
+            <span class="col-md-4 text-center glyphicon glyphicon-thumbs-up"> @Model.TotalLikesCount</span>
+            <span class="col-md-4 text-center glyphicon glyphicon-heart-empty"> @Model.TotalFavoritesCount</span>
+            <span class="col-md-4 text-center glyphicon glyphicon-comment"> @Model.TotalViewsCount</span>
+        </h4>
+    </div>
+</div>

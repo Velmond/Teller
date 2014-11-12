@@ -66,9 +66,9 @@
         private IRepository<T> GetRepository<T>() where T : class
         {
             var typeOfRepository = typeof(T);
-            if(!this.repositories.ContainsKey(typeOfRepository))
+            if (!this.repositories.ContainsKey(typeOfRepository))
             {
-                var newRepository = Activator.CreateInstance(typeof(Repository<T>), context);
+                var newRepository = Activator.CreateInstance(typeof(Repository<T>), this.context);
                 this.repositories.Add(typeOfRepository, newRepository);
             }
 

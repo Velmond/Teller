@@ -12,9 +12,9 @@
     public class FeedController : BaseController
     {
         private const int PageSize = 10;
-        //private const string FeedCacheKey = "subscriptions";
-        //private const string FavoritesCacheKey = "favorites";
-        //private const string ReadLaterCacheKey = "read-later";
+        ////private const string FeedCacheKey = "subscriptions";
+        ////private const string FavoritesCacheKey = "favorites";
+        ////private const string ReadLaterCacheKey = "read-later";
 
         public FeedController(ITellerData data)
             : base(data)
@@ -22,7 +22,7 @@
         }
 
         [Authorize]
-        public ActionResult Index(string username, int? page)
+        public ActionResult Index(int? page)
         {
             var pageNumber = page.GetValueOrDefault(1);
             var collections = this.User.SubscribedTo.Select(s => s.Stories);
@@ -31,7 +31,7 @@
 
             foreach(var collection in collections)
             {
-                stories.AddRange(collection.Select(UserFeedStory.FromStory));
+                stories.AddRange(collection.AsQueryable().Select(UserFeedStory.FromStory));
             }
 
             IEnumerable<UserFeedStory> data = stories.OrderByDescending(s => s.DatePublished);
@@ -45,11 +45,12 @@
         }
 
         [Authorize]
-        public ActionResult Favorites(string username, int? page)
+        public ActionResult Favorites(int? page)
         {
             var pageNumber = page.GetValueOrDefault(1);
 
             IEnumerable<UserFeedStory> stories = this.User.Favourites
+                .AsQueryable()
                     .Select(UserFeedStory.FromStory)
                     .OrderByDescending(s => s.DatePublished);
 
@@ -62,11 +63,12 @@
         }
 
         [Authorize]
-        public ActionResult ReadLater(string username, int? page)
+        public ActionResult ReadLater(int? page)
         {
             var pageNumber = page.GetValueOrDefault(1);
 
             IEnumerable<UserFeedStory> stories = this.User.ReadLater
+                .AsQueryable()
                 .Select(UserFeedStory.FromStory)
                 .OrderByDescending(s => s.DatePublished);
 

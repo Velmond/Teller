@@ -45,7 +45,7 @@ namespace Teller.Web
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
         {
             var manager = new ApplicationUserManager(new UserStore<Teller.Models.AppUser>(context.Get<TellerDbContext>()));
-            // Configure validation logic for usernames
+            //// Configure validation logic for usernames
             manager.UserValidator = new UserValidator<AppUser>(manager)
             {
                 AllowOnlyAlphanumericUserNames = false,
@@ -86,6 +86,7 @@ namespace Teller.Web
                 manager.UserTokenProvider =
                     new DataProtectorTokenProvider<AppUser>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
+
             return manager;
         }
     }

@@ -17,14 +17,14 @@
             var resultString = new StringBuilder(uglyString.Length);
             bool isLastCharacterDash = false;
 
-            foreach(var character in uglyString)
+            foreach (var character in uglyString)
             {
-                if(char.IsLetterOrDigit(character))
+                if (char.IsLetterOrDigit(character))
                 {
                     resultString.Append(character);
                     isLastCharacterDash = false;
                 }
-                else if(!isLastCharacterDash)
+                else if (!isLastCharacterDash)
                 {
                     resultString.Append('-');
                     isLastCharacterDash = true;
