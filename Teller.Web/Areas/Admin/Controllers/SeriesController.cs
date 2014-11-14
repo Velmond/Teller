@@ -11,17 +11,16 @@
     using AutoMapper.QueryableExtensions;
     using Kendo.Mvc.UI;
     
-    using Teller.Common;
     using Teller.Data;
     using Teller.Models;
     using Teller.Web.Areas.Admin.Controllers.Base;
-    using Teller.Web.Areas.Admin.ViewModels.Story;
+    using Teller.Web.Areas.Admin.ViewModels.Series;
 
-    public class StoriesController : AdminController
+    public class SeriesController : AdminController
     {
         public const string GenresCacheKey = "admin-genres-cache-key";
 
-        public StoriesController(ITellerData data)
+        public SeriesController(ITellerData data)
             : base(data)
         {
         }
@@ -34,58 +33,34 @@
 
         protected override IEnumerable GetData()
         {
-            Mapper.CreateMap<Story, StoryViewModel>()
+            Mapper.CreateMap<Series, SeriesViewModel>()
                 .ForMember(u => u.Author,
                            v => v.MapFrom(u => u.Author.UserName))
-                .ForMember(u => u.IsFlagged,
-                           v => v.MapFrom(u => u.Flags.Any()))
-                .ForMember(u => u.CommentsCount,
-                           v => v.MapFrom(u => u.Comments.Count()))
-                .ForMember(u => u.LikesCount,
-                           v => v.MapFrom(u => u.Likes.Count()))
-                .ForMember(u => u.Series,
-                           v => v.MapFrom(u => u.Series.Title ?? string.Empty))
+                .ForMember(u => u.StoriesCount,
+                           v => v.MapFrom(u => u.Stories.Any() ? u.Stories.Count() : 0))
                 .ReverseMap();
 
-            var stories = this.Data.Stories.All()
-                .Project<Story>()
-                .To<StoryViewModel>();
+            var series = this.Data.Series.All()
+                .Project<Series>()
+                .To<SeriesViewModel>();
 
-            return stories;
+            return series;
         }
 
         protected override T GetById<T>(object id)
         {
-            return this.Data.Stories.GetById(id) as T;
+            return this.Data.Series.GetById(id) as T;
         }
 
         [HttpPost]
-        public ActionResult Update([DataSourceRequest]DataSourceRequest request, StoryViewModel model)
+        public ActionResult Update([DataSourceRequest]DataSourceRequest request, SeriesViewModel model)
         {
             if (model != null && ModelState.IsValid)
             {
-                var dbModel = this.GetById<Story>(model.Id);
-                if (string.IsNullOrEmpty(model.PicturePath.Trim()))
-                {
-                    model.PicturePath = GlobalConstants.DefaultStoryPicturePath;
-                }
+                var dbModel = this.GetById<Series>(model.Id);
 
                 dbModel.Title = model.Title;
-                dbModel.Content = model.Content;
-                dbModel.PicturePath = model.PicturePath;
                 dbModel.GenreId = model.GenreId;
-
-                if (!model.IsFlagged && dbModel.Flags.Any())
-                {
-                    var flagIds = this.Data.Flags.All()
-                        .Where(f => f.StoryId == model.Id)
-                        .Select(f => f.Id);
-
-                    foreach (var flagId in flagIds)
-                    {
-                        this.Data.Flags.Delete(flagId);
-                    }
-                }
 
                 base.ChangeEntityStateAndSave(dbModel, EntityState.Modified);
             }
@@ -94,11 +69,17 @@
         }
 
         [HttpPost]
-        public ActionResult Destroy([DataSourceRequest]DataSourceRequest request, StoryViewModel model)
+        public ActionResult Destroy([DataSourceRequest]DataSourceRequest request, SeriesViewModel model)
         {
             if (model != null && ModelState.IsValid)
             {
-                this.Data.Stories.Delete(model.Id);
+                var storiesIds = this.Data.Stories.All().Where(s => s.SeriesId == model.Id).Select(s => s.Id);
+                foreach (var storyId in storiesIds)
+                {
+                    this.Data.Stories.GetById(storyId).SeriesId = null;
+                }
+
+                this.Data.Series.Delete(model.Id);
                 this.Data.SaveChanges();
             }
 

@@ -38,12 +38,12 @@
             Mapper.CreateMap<AppUser, UserViewModel>()
                 .ForMember(u => u.AvatarPath,
                            v => v.MapFrom(u => u.UserInfo.AvatarPath))
-                .ForMember(u => u.CommentViolations,
-                           v => v.MapFrom(u => u.UserInfo.CommentViolations))
-                .ForMember(u => u.StoryViolations,
-                           v => v.MapFrom(u => u.UserInfo.StoryViolations))
                 .ForMember(u => u.RoleId,
                            v => v.MapFrom(u => u.Roles.FirstOrDefault().RoleId))
+                .ForMember(u => u.CommentFlags,
+                           v => v.MapFrom(u => u.Comments.Count(c => c.IsFlagged)))
+                .ForMember(u => u.StoryFlags,
+                           v => v.MapFrom(u => u.Stories.Count(s => s.Flags.Any())))
                 .ReverseMap();
 
             var users = this.Data.Users.All()
@@ -69,15 +69,13 @@
                     dbModel.UserInfo = new UserInfo();
                     dbModel.UserInfo.LinkedProfiles = new LinkedProfiles();
                 }
-
-                if (model.AvatarPath == null)
+                
+                if (string.IsNullOrEmpty(model.AvatarPath.Trim()))
                 {
                     model.AvatarPath = GlobalConstants.DefaultUserAvatarPicturePath;
                 }
 
                 dbModel.UserInfo.AvatarPath = model.AvatarPath;
-                dbModel.UserInfo.CommentViolations = model.CommentViolations.GetValueOrDefault(0);
-                dbModel.UserInfo.StoryViolations = model.StoryViolations.GetValueOrDefault(0);
 
                 var roles = dbModel.Roles;
                 roles.Clear();
@@ -122,7 +120,7 @@
                     null);
             }
 
-            return this.HttpContext.Cache[UserRolesCacheKey] as IQueryable<SelectListItem>;
+            return roles as IQueryable<SelectListItem>;
         }
     }
 }

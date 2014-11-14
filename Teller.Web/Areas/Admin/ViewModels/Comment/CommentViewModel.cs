@@ -10,7 +10,7 @@
     using Teller.Models;
     using Teller.Web.Infrastructure.Mapping;
     
-    public class CommentViewModel : IMapFrom<Comment>//, IHaveCustomMappings
+    public class CommentViewModel : IMapFrom<Comment>
     {
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }

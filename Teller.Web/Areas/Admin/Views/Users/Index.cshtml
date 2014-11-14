@@ -19,13 +19,13 @@
         cols.Bound(u => u.RegisteredOn)
             .Width(120)
             .ClientTemplate("#= kendo.toString(RegisteredOn, 'dd.MM.yyyy')#");
-        cols.Bound(u => u.CommentViolations)
+        cols.Bound(u => u.CommentFlags)
             .Width(120);
-        cols.Bound(u => u.StoryViolations)
+        cols.Bound(u => u.StoryFlags)
             .Width(150);
         cols.Bound(u => u.AvatarPath)
-            .Width(250)
-            .ClientTemplate("<a href=#= AvatarPath #>#= AvatarPath #</a>");
+            .Width(120)
+            .ClientTemplate("<a href=#= AvatarPath #>Image</a>");
         cols.ForeignKey(u => u.RoleId, Model, "Value", "Text")
             .Title("Role")
             .Width(120);
@@ -51,6 +51,8 @@
                 m.Field(u => u.Username).Editable(false);
                 m.Field(u => u.Email).Editable(false);
                 m.Field(u => u.RegisteredOn).Editable(false);
+                m.Field(u => u.CommentFlags).Editable(false);
+                m.Field(u => u.StoryFlags).Editable(false);
             })
             .Read(read => read.Action("Read", ControllerName))
             //.Create(create => create.Action("Create", ControllerName))

@@ -25,6 +25,8 @@
 
         IRepository<IdentityRole> Roles { get; }
 
+        IRepository<Flag> Flags { get; }
+
         int SaveChanges();
     }
 }

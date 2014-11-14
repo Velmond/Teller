@@ -1,0 +1,33 @@
+﻿@using Teller.Web.Areas.Admin.ViewModels.Genre
+@{
+    ViewBag.Title = "Administration - Genres";
+    const string ControllerName = "Genres";
+}
+
+@(
+    Html.Kendo()
+        .Grid<GenreViewModel>()
+        .Name("Grid")
+        .Columns(cols =>
+        {
+            cols.Bound(c => c.Name);
+            cols.Command(com => com.Edit())
+                .Title("Edit");
+            cols.Command(com => com.Destroy())
+                .Title("Delete");
+        })
+        .ColumnMenu()
+        .ToolBar(toolbar => toolbar.Create())
+        .Editable(edit => edit.Mode(GridEditMode.InLine))
+        .Pageable(page => page.Refresh(true))
+        .Sortable()
+        .Filterable()
+        .DataSource(data =>
+            data.Ajax()
+                .Model(m => m.Id(u => u.Id))
+                .Read(read => read.Action("Read", ControllerName))
+                .Create(create => create.Action("Create", ControllerName))
+                .Update(update => update.Action("Update", ControllerName))
+                .Destroy(destroy => destroy.Action("Destroy", ControllerName))
+                .PageSize(10))
+)

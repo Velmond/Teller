@@ -1,0 +1,43 @@
+﻿@model IEnumerable<SelectListItem>
+@using Teller.Web.Areas.Admin.ViewModels.Series
+@{
+    ViewBag.Title = "Administration - Series";
+    const string ControllerName = "Series";
+}
+
+@(Html.Kendo()
+    .Grid<SeriesViewModel>()
+    .Name("Grid")
+    .Columns(cols =>
+    {
+        cols.Bound(u => u.Author)
+            .ClientTemplate("<a href=/User/Info/#= Author #>#= Author #</a>");
+        cols.Bound(u => u.Title);
+        cols.Bound(u => u.StoriesCount);
+        cols.ForeignKey(u => u.GenreId, Model, "Value", "Text");
+        cols.Command(com => com.Edit())
+            .Title("Edit");
+        cols.Command(com => com.Destroy())
+            .Title("Delete")
+            .Hidden()
+            .IncludeInMenu(true);
+    })
+    .ColumnMenu()
+    .Editable(edit => edit.Mode(GridEditMode.InLine))
+    .Pageable(page => page.Refresh(true))
+    .Sortable()
+    .Groupable()
+    .Filterable()
+    .DataSource(data =>
+        data.Ajax()
+            .Model(m =>
+            {
+                m.Id(u => u.Id);
+                m.Field(u => u.Author).Editable(false);
+                m.Field(u => u.StoriesCount).Editable(false);
+            })
+            .Read(read => read.Action("Read", ControllerName))
+            .Update(update => update.Action("Update", ControllerName))
+            .Destroy(destroy => destroy.Action("Destroy", ControllerName))
+            .PageSize(10))
+)

@@ -218,9 +218,14 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\Base\AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\CommentsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\GenresController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SeriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\StoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Areas\Admin\ViewModels\Comment\CommentViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\Series\SeriesViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\Story\StoryViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\Genre\GenreViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\User\UserViewModel.cs" />
     <Compile Include="Areas\User\Controllers\InfoController.cs" />
     <Compile Include="Areas\User\Controllers\SeriesController.cs" />
@@ -535,6 +540,8 @@
     <Content Include="Content\Kendo\images\kendoui.woff" />
     <Content Include="Areas\User\Views\Shared\DisplayTemplates\SeriesViewModel.cshtml" />
     <Content Include="Areas\User\Views\Shared\_SubscribeBtn.cshtml" />
+    <Content Include="Areas\Admin\Views\Genres\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Series\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

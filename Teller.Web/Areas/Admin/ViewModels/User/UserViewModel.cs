@@ -24,15 +24,15 @@
         [Display(Name = "Role")]
         public string RoleId { get; set; }
 
-        [Display(Name = "Avatar path")]
+        [Display(Name = "Avatar")]
         public string AvatarPath { get; set; }
 
         [Display(Name = "Comment flags")]
         [Range(0, 100)]
-        public int? CommentViolations { get; set; }
+        public int CommentFlags { get; set; }
 
         [Display(Name = "Story flags")]
         [Range(0, 100)]
-        public byte? StoryViolations { get; set; }
+        public int StoryFlags { get; set; }
     }
 }

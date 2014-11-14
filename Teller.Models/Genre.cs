@@ -16,8 +16,7 @@
         public int Id { get; set; }
 
         [Index(IsUnique = true)]
-        [MaxLength(25)]
-        [MinLength(2)]
+        [StringLength(25, MinimumLength = 2)]
         public string Name { get; set; }
 
         public virtual ICollection<Story> Stories { get; set; }

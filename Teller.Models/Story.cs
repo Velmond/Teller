@@ -19,8 +19,7 @@
         [Key]
         public int Id { get; set; }
 
-        [MaxLength(100)]
-        [MinLength(2)]
+        [StringLength(100, MinimumLength = 2)]
         [Required]
         public string Title { get; set; }
 
