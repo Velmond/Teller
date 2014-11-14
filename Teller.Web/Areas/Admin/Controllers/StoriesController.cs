@@ -1,10 +1,12 @@
 ﻿namespace Teller.Web.Areas.Admin.Controllers
 {
     using System;
-    using System.Collections.Generic;
+    using System.Collections;
     using System.Linq;
-    using System.Web;
     using System.Web.Mvc;
+
+    using AutoMapper;
+    using AutoMapper.QueryableExtensions;
 
     using Teller.Data;
     using Teller.Web.Areas.Admin.Controllers.Base;
@@ -21,9 +23,14 @@
             return this.View();
         }
 
-        ////protected override System.Collections.IEnumerable GetData()
-        ////{
-        ////    return this.Data.Stories.All();
-        ////}
+        protected override IEnumerable GetData()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override T GetById<T>(object id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

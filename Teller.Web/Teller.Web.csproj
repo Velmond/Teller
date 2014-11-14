@@ -217,11 +217,11 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\Base\AdminController.cs" />
-    <Compile Include="Areas\Admin\Controllers\Base\KendoGridAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\CommentsController.cs" />
     <Compile Include="Areas\Admin\Controllers\StoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
-    <Compile Include="Areas\Admin\ViewModels\UserViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\Comment\CommentViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\User\UserViewModel.cs" />
     <Compile Include="Areas\User\Controllers\InfoController.cs" />
     <Compile Include="Areas\User\Controllers\SeriesController.cs" />
     <Compile Include="Areas\User\Controllers\StoryController.cs" />
@@ -1349,6 +1349,8 @@
     <Content Include="Views\Shared\EditorTemplates\TextArea.cshtml" />
     <Content Include="Views\Story\_StoryForm.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DropDownList.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Int32.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Byte.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

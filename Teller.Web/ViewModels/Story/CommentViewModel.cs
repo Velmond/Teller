@@ -5,7 +5,6 @@
     using System.Linq;
 
     using Teller.Models;
-    using Teller.Web.ViewModels.Like;
 
     public class CommentViewModel
     {

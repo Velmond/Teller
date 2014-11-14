@@ -3,6 +3,8 @@
     using System;
     using System.Collections.Generic;
 
+    using Microsoft.AspNet.Identity.EntityFramework;
+    
     using Teller.Data.Repositories;
     using Teller.Models;
 
@@ -28,6 +30,11 @@
         public IRepository<AppUser> Users
         {
             get { return this.GetRepository<AppUser>(); }
+        }
+
+        public IRepository<IdentityRole> Roles
+        {
+            get { return this.GetRepository<IdentityRole>(); }
         }
 
         public IRepository<Comment> Comments

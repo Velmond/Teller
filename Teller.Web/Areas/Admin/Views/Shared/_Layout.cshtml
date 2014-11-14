@@ -9,10 +9,10 @@
 
 <h2 class="lead text-center">Administration</h2>
 
-<div class=" btn-group-justified">
-    @Html.ActionLink("Users", "Index", "Users", new { Area = "Admin" }, new { @class = "btn btn-default" })
-    @Html.ActionLink("Stories", "Index", "Stories", new { Area = "Admin" }, new { @class = "btn btn-default" })
-    @Html.ActionLink("Comments", "Index", "Comments", new { Area = "Admin" }, new { @class = "btn btn-default" })
+<div class="k-toolbar k-grid-toolbar k-grid-top">
+    @Html.ActionLink("Users", "Index", "Users", new { Area = "Admin" }, new { @class = "btn btn-default k-button" })
+    @Html.ActionLink("Stories", "Index", "Stories", new { Area = "Admin" }, new { @class = "btn btn-default k-button" })
+    @Html.ActionLink("Comments", "Index", "Comments", new { Area = "Admin" }, new { @class = "btn btn-default k-button" })
 </div>
 
 @RenderBody()

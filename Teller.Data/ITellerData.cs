@@ -1,5 +1,7 @@
 ﻿namespace Teller.Data
 {
+    using Microsoft.AspNet.Identity.EntityFramework;
+
     using Teller.Data.Repositories;
     using Teller.Models;
 
@@ -20,6 +22,8 @@
         IRepository<Series> Series { get; }
 
         IRepository<Story> Stories { get; }
+
+        IRepository<IdentityRole> Roles { get; }
 
         int SaveChanges();
     }
