@@ -53,9 +53,9 @@
                     null);
             }
 
-            if (this.User != null)
+            if (this.UserProfile != null)
             {
-                ViewBag.IsSubscribedTo = this.User.SubscribedTo.Any(u => u.UserName == id);
+                ViewBag.IsSubscribedTo = this.UserProfile.SubscribedTo.Any(u => u.UserName == id);
             }
 
             ViewBag.Username = id;

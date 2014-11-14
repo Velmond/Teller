@@ -7,13 +7,22 @@
     @Styles.Render("~/Content/Kendo")
 }
 
-@Html.ActionLink("Users", "Index", "Users", new { Area = "Admin" }, new { @class = "btn btn-default" })
-@Html.ActionLink("Stories", "Index", "Stories", new { Area = "Admin" }, new { @class = "btn btn-default" })
-@Html.ActionLink("Comments", "Index", "Comments", new { Area = "Admin" }, new { @class = "btn btn-default" })
+<h2 class="lead text-center">Administration</h2>
+
+<div class=" btn-group-justified">
+    @Html.ActionLink("Users", "Index", "Users", new { Area = "Admin" }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Stories", "Index", "Stories", new { Area = "Admin" }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Comments", "Index", "Comments", new { Area = "Admin" }, new { @class = "btn btn-default" })
+</div>
 
 @RenderBody()
 
 @section scripts{
     @Scripts.Render("~/bundles/Kendo")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            kendo.culture('en-GB');
+        })
+    </script>
     @RenderSection("scripts", required: false)
 }

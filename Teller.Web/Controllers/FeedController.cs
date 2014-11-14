@@ -12,9 +12,9 @@
     public class FeedController : BaseController
     {
         private const int PageSize = 10;
-        ////private const string FeedCacheKey = "subscriptions";
-        ////private const string FavoritesCacheKey = "favorites";
-        ////private const string ReadLaterCacheKey = "read-later";
+        private const string FeedCacheKeyPrefix = "subscriptions-feed-";
+        private const string FavoritesCacheKeyPrefix = "favorites-list-";
+        private const string ReadLaterCacheKeyPrefix = "read-later-list-";
 
         public FeedController(ITellerData data)
             : base(data)
@@ -25,7 +25,7 @@
         public ActionResult Index(int? page)
         {
             var pageNumber = page.GetValueOrDefault(1);
-            var collections = this.User.SubscribedTo.Select(s => s.Stories);
+            var collections = this.UserProfile.SubscribedTo.Select(s => s.Stories);
 
             List<UserFeedStory> stories = new List<UserFeedStory>();
 
@@ -49,7 +49,7 @@
         {
             var pageNumber = page.GetValueOrDefault(1);
 
-            var stories = this.User.Favourites
+            var stories = this.UserProfile.Favourites
                 .AsQueryable()
                     .Select(UserFeedStory.FromStory)
                     .OrderByDescending(s => s.DatePublished);
@@ -67,7 +67,7 @@
         {
             var pageNumber = page.GetValueOrDefault(1);
 
-            IEnumerable<UserFeedStory> stories = this.User.ReadLater
+            IEnumerable<UserFeedStory> stories = this.UserProfile.ReadLater
                 .AsQueryable()
                 .Select(UserFeedStory.FromStory)
                 .OrderByDescending(s => s.DatePublished);

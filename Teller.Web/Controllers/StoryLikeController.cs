@@ -51,7 +51,7 @@
             this.Data.Likes.Add(new Like()
             {
                 Value = like,
-                AuthorId = this.User.Id,
+                AuthorId = this.UserProfile.Id,
                 StoryId = storyId
             });
 

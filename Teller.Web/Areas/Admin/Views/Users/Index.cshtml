@@ -1,39 +1,41 @@
 ﻿@using Kendo.Mvc.UI
 @{
     ViewBag.Title = "Administration - Users";
-    const string ComntrollerName = "Users";
+    const string ControllerName = "Users";
 }
 
-<h2>Administer USERS page</h2>
+@*<h2>Administer USERS page</h2>*@
 
 @(
  Html.Kendo()
-        .Grid<Teller.Web.Areas.User.ViewModels.UserInfoViewModel>()
-        .Name("Grid")
-        .Columns(cols =>
-        {
-            cols.Bound(pr => pr.Id);//.ClientTemplate("<h3>#: Title #</h3>");
-            cols.Bound(pr => pr.Username);
-            cols.Bound(pr => pr.RegisteredOn);
-            cols.Bound(pr => pr.AvatarPath).Hidden();
-            cols.Bound(pr => pr.LinkedIn);
-            //cols.Command(com => com.Edit()).Title("Edit");
-            //cols.Command(com => com.Destroy()).Title("Delete");
-        })
-        .ColumnMenu()// Shows hiddent cols in a dropdown
-        //.Editable(edit => edit.Mode(GridEditMode.PopUp))
-        //.ToolBar(toolbar => { toolbar.Create(); })
-        .Pageable(page => page.Refresh(true))
-        .Sortable()
-        .Groupable()
-        .DataSource(data =>
-        {
-            data.Ajax()
-                .Model(m => m.Id(u => u.Id))
-                .Read(read => read.Action("ReadData", ComntrollerName))
-                //.Create(create => create.Action("Action", ControllerName))
-                //.Update(update => update.Action("Action", ControllerName))
-                //.Destroy(destroy => destroy.Action("Action", ControllerName))
-                .PageSize(10);
-        })
-)
+    .Grid<Teller.Web.Areas.Admin.ViewModels.UserViewModel>()
+    .Name("Grid")
+    .Columns(cols =>
+    {
+        cols.AutoGenerate(true);
+        //cols.ForeignKey(u => u.RoleId, (System.Collections.IEnumerable)ViewData["roles"], "Id", "Name")
+        //        .Title("Category").Width(150);
+        //cols.Bound(pr => pr.Id);//.ClientTemplate("<h3>#: Title #</h3>");
+        //cols.Bound(pr => pr.Username);
+        //cols.Bound(pr => pr.RegisteredOn);
+        //cols.Bound(pr => pr.UserInfo.AvatarPath).Hidden();
+        //cols.Bound(pr => pr.UserInfo.LinkedProfiles.LinkedIn);
+        cols.Command(com => com.Edit()).Title("Edit");
+        cols.Command(com => com.Destroy()).Title("Delete");
+    })
+    .ColumnMenu()// Shows hiddent cols in a dropdown
+    .Pageable(page => page.Refresh(true))
+    .Sortable()
+    .Groupable()
+    .Filterable()
+    .Editable(edit => edit.Mode(GridEditMode.PopUp))
+    .ToolBar(toolbar => toolbar.Create())
+    .DataSource(data =>
+        data
+            .Ajax()
+            .Model(m => m.Id(adv => adv.Id))
+            .Read(read => read.Action("Read", ControllerName))
+            .Create(create => create.Action("Create", ControllerName))
+            .Update(update => update.Action("Update", ControllerName))
+            .Destroy(destroy => destroy.Action("Destroy", ControllerName))
+            .PageSize(5)))

@@ -26,8 +26,8 @@
             bundles.Add(new StyleBundle("~/Content/Kendo")
                 .Include(
                     "~/Content/Kendo/kendo.common.min.css",
-                    ////"~/Content/Kendo/kendo.black.min.css",
-                    "~/Content/Kendo/kendo.bootstrap.min.css"));
+                    "~/Content/Kendo/kendo.common-bootstrap.min.css",
+                    "~/Content/Kendo/kendo.black.min.css"));
         }
 
         private static void RegisterScriptBundles(BundleCollection bundles)

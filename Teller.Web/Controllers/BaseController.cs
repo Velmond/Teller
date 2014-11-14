@@ -1,33 +1,37 @@
 ﻿namespace Teller.Web.Controllers
 {
+    using System;
     using System.Linq;
     using System.Web.Mvc;
+    using System.Web.Routing;
+
+    using Microsoft.AspNet.Identity;
 
     using Teller.Data;
     using Teller.Models;
 
+    [HandleError]
     public abstract class BaseController : Controller
     {
         public BaseController(ITellerData data)
         {
             this.Data = data;
-            this.User = System.Web.HttpContext.Current.Session["user"] as AppUser;
-
-            if (this.User == null)
-            {
-                this.User = this.Data.Users.All()
-                    .FirstOrDefault(u => u.UserName == System.Web.HttpContext.Current.User.Identity.Name);
-                System.Web.HttpContext.Current.Session.Add("user", this.User);
-            }
         }
 
         public ITellerData Data { get; set; }
 
-        public AppUser User { get; set; }
+        public AppUser UserProfile { get; set; }
 
         [NonAction]
-        public void SytemSettings()
+        protected override IAsyncResult BeginExecute(RequestContext requestContext, AsyncCallback callback, object state)
         {
+            var identity = System.Web.HttpContext.Current.User.Identity;
+            if (identity.IsAuthenticated)
+            {
+                this.UserProfile = this.Data.Users.All().SingleOrDefault(u => u.UserName == identity.Name);
+            }
+
+            return base.BeginExecute(requestContext, callback, state);
         }
     }
 }

@@ -31,7 +31,7 @@
             this.Data.CommentLikes.Add(new CommentLike()
             {
                 Value = likeValue,
-                AuthorId = this.User.Id,
+                AuthorId = this.UserProfile.Id,
                 CommentId = comment.Id
             });
 

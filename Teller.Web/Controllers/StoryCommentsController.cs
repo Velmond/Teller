@@ -67,7 +67,7 @@
 
             var comment = new Comment()
             {
-                AuthorId = this.User.Id,
+                AuthorId = this.UserProfile.Id,
                 Content = newComment.CommentContent,
                 StoryId = newComment.StoryId,
                 Published = DateTime.Now
@@ -78,7 +78,7 @@
 
             var commentModel = new CommentViewModel()
             {
-                Author = this.User.UserName,
+                Author = this.UserProfile.UserName,
                 Content = comment.Content,
                 DislikesCount = 0,
                 LikesCount = 0,
@@ -157,7 +157,7 @@
             this.Data.Likes.Add(new Like()
             {
                 Value = like,
-                AuthorId = this.User.Id,
+                AuthorId = this.UserProfile.Id,
                 StoryId = storyId
             });
 

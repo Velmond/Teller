@@ -70,7 +70,7 @@
                 DislikesCount = foundStory.Likes.Count(l => l.Value == false),
                 FavouritedByCount = foundStory.FavouritedBy.Count(),
                 IsFlagged = foundStory.Flags.Any(f => !f.IsResolved),
-                UserHasLiked = this.User != null ? foundStory.Likes.Any(l => l.AuthorId == this.User.Id) : true,
+                UserHasLiked = this.UserProfile != null ? foundStory.Likes.Any(l => l.AuthorId == this.UserProfile.Id) : true,
                 Comments = foundStory.Comments
                     .Select(CommentViewModel.FromComment)
                     .OrderByDescending(c => c.Published)
@@ -124,7 +124,7 @@
                 Story newStory = new Story()
                 {
                     Title = story.Title,
-                    AuthorId = this.User.Id,
+                    AuthorId = this.UserProfile.Id,
                     Content = this.sanitizer.Sanitize(story.Content),
                     DatePublished = DateTime.Now,
                     GenreId = story.GenreId
@@ -341,7 +341,7 @@
                 FlagType = FlagType.ToBeRemoved,
                 IsResolved = false,
                 StoryId = storyId,
-                UserId = this.User.Id
+                UserId = this.UserProfile.Id
             });
 
             this.Data.SaveChanges();
@@ -379,14 +379,14 @@
                 return this.RedirectToAction("NotFound", "Error", new { Area = string.Empty });
             }
 
-            if (this.User.Favourites.Any(s => s == story))
+            if (this.UserProfile.Favourites.Any(s => s == story))
             {
-                this.User.Favourites.Remove(story);
+                this.UserProfile.Favourites.Remove(story);
                 this.Data.SaveChanges();
             }
             else
             {
-                this.User.Favourites.Add(story);
+                this.UserProfile.Favourites.Add(story);
                 this.Data.SaveChanges();
             }
 
@@ -423,14 +423,14 @@
                 return this.RedirectToAction("NotFound", "Error", new { Area = string.Empty });
             }
 
-            if (this.User.ReadLater.Any(s => s == story))
+            if (this.UserProfile.ReadLater.Any(s => s == story))
             {
-                this.User.ReadLater.Remove(story);
+                this.UserProfile.ReadLater.Remove(story);
                 this.Data.SaveChanges();
             }
             else
             {
-                this.User.ReadLater.Add(story);
+                this.UserProfile.ReadLater.Add(story);
                 this.Data.SaveChanges();
             }
 
@@ -455,7 +455,7 @@
             model.SeriesList = new SelectViewModel()
             {
                 List = this.Data.Series.All()
-                    .Where(s => s.AuthorId == this.User.Id)
+                    .Where(s => s.AuthorId == this.UserProfile.Id)
                     .Select(g => new SelectListItem()
                     {
                         Value = g.Id.ToString(),
@@ -481,7 +481,7 @@
                 {
                     Title = story.SeriesName,
                     GenreId = seriesGenreId,
-                    AuthorId = this.User.Id
+                    AuthorId = this.UserProfile.Id
                 };
 
                 this.Data.Series.Add(series);

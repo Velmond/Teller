@@ -29,9 +29,9 @@
                 .Select(UserInfoViewModel.FromUser)
                 .SingleOrDefault(u => u.Username == id);
 
-            if (this.User != null)
+            if (this.UserProfile != null)
             {
-                ViewBag.IsSubscribedTo = this.User.SubscribedTo.Any(u => u.UserName == id);
+                ViewBag.IsSubscribedTo = this.UserProfile.SubscribedTo.Any(u => u.UserName == id);
             }
 
             ViewBag.Username = id;
@@ -43,30 +43,30 @@
         [HttpGet]
         public ActionResult Edit(string id)
         {
-            if (this.User.UserName != id && this.User.Roles.FirstOrDefault() != null)
+            if (this.UserProfile.UserName != id && this.UserProfile.Roles.FirstOrDefault() != null)
             {
                 return this.RedirectToAction("Info", new { username = id });
             }
 
-            if (this.User.UserInfo == null)
+            if (this.UserProfile.UserInfo == null)
             {
-                this.User.UserInfo = new UserInfo();
-                this.User.UserInfo.LinkedProfiles = new LinkedProfiles();
-                this.Data.Users.Update(this.User);
+                this.UserProfile.UserInfo = new UserInfo();
+                this.UserProfile.UserInfo.LinkedProfiles = new LinkedProfiles();
+                this.Data.Users.Update(this.UserProfile);
                 this.Data.SaveChanges();
             }
 
             var profile = new EditUserInfoViewModel()
             {
-                Username = this.User.UserName,
-                AvatarPath = this.User.UserInfo.AvatarPath == null ? string.Empty : this.User.UserInfo.AvatarPath,
-                Motto = this.User.UserInfo.Motto == null ? string.Empty : this.User.UserInfo.Motto,
-                Description = this.User.UserInfo.Description == null ? string.Empty : this.User.UserInfo.Description,
-                Facebook = this.User.UserInfo.LinkedProfiles.Facebook == null ? string.Empty : this.User.UserInfo.LinkedProfiles.Facebook,
-                GooglePlus = this.User.UserInfo.LinkedProfiles.GooglePlus == null ? string.Empty : this.User.UserInfo.LinkedProfiles.GooglePlus,
-                LinkedIn = this.User.UserInfo.LinkedProfiles.LinkedIn == null ? string.Empty : this.User.UserInfo.LinkedProfiles.LinkedIn,
-                Twitter = this.User.UserInfo.LinkedProfiles.Twitter == null ? string.Empty : this.User.UserInfo.LinkedProfiles.Twitter,
-                YouTube = this.User.UserInfo.LinkedProfiles.YouTube == null ? string.Empty : this.User.UserInfo.LinkedProfiles.YouTube,
+                Username = this.UserProfile.UserName,
+                AvatarPath = this.UserProfile.UserInfo.AvatarPath == null ? string.Empty : this.UserProfile.UserInfo.AvatarPath,
+                Motto = this.UserProfile.UserInfo.Motto == null ? string.Empty : this.UserProfile.UserInfo.Motto,
+                Description = this.UserProfile.UserInfo.Description == null ? string.Empty : this.UserProfile.UserInfo.Description,
+                Facebook = this.UserProfile.UserInfo.LinkedProfiles.Facebook == null ? string.Empty : this.UserProfile.UserInfo.LinkedProfiles.Facebook,
+                GooglePlus = this.UserProfile.UserInfo.LinkedProfiles.GooglePlus == null ? string.Empty : this.UserProfile.UserInfo.LinkedProfiles.GooglePlus,
+                LinkedIn = this.UserProfile.UserInfo.LinkedProfiles.LinkedIn == null ? string.Empty : this.UserProfile.UserInfo.LinkedProfiles.LinkedIn,
+                Twitter = this.UserProfile.UserInfo.LinkedProfiles.Twitter == null ? string.Empty : this.UserProfile.UserInfo.LinkedProfiles.Twitter,
+                YouTube = this.UserProfile.UserInfo.LinkedProfiles.YouTube == null ? string.Empty : this.UserProfile.UserInfo.LinkedProfiles.YouTube,
             };
 
             return this.View(profile);
@@ -78,7 +78,7 @@
         [ValidateInput(false)]
         public ActionResult Edit(string id, EditUserInfoViewModel profile)
         {
-            if (this.User.UserName != id)
+            if (this.UserProfile.UserName != id)
             {
                 return this.RedirectToAction("Info", new { username = id });
             }
@@ -88,32 +88,32 @@
                 return this.RedirectToAction("Edit", profile);
             }
 
-            if (this.User.UserInfo == null)
+            if (this.UserProfile.UserInfo == null)
             {
-                this.User.UserInfo = new UserInfo();
-                this.User.UserInfo.LinkedProfiles = new LinkedProfiles();
+                this.UserProfile.UserInfo = new UserInfo();
+                this.UserProfile.UserInfo.LinkedProfiles = new LinkedProfiles();
             }
-            else if (this.User.UserInfo.LinkedProfiles == null)
+            else if (this.UserProfile.UserInfo.LinkedProfiles == null)
             {
-                this.User.UserInfo.LinkedProfiles = new LinkedProfiles();
+                this.UserProfile.UserInfo.LinkedProfiles = new LinkedProfiles();
             }
 
-            var newPicturePath = this.GetAvatarPath(profile.Picture, this.User.UserName);
+            var newPicturePath = this.GetAvatarPath(profile.Picture, this.UserProfile.UserName);
 
             if (profile.Picture != null && newPicturePath != GlobalConstants.DefaultUserAvatarPicturePath)
             {
-                this.User.UserInfo.AvatarPath = newPicturePath;
+                this.UserProfile.UserInfo.AvatarPath = newPicturePath;
             }
 
-            this.User.UserInfo.Description = profile.Description;
-            this.User.UserInfo.Motto = profile.Motto;
-            this.User.UserInfo.LinkedProfiles.Facebook = profile.Facebook;
-            this.User.UserInfo.LinkedProfiles.GooglePlus = profile.GooglePlus;
-            this.User.UserInfo.LinkedProfiles.LinkedIn = profile.LinkedIn;
-            this.User.UserInfo.LinkedProfiles.Twitter = profile.Twitter;
-            this.User.UserInfo.LinkedProfiles.YouTube = profile.YouTube;
+            this.UserProfile.UserInfo.Description = profile.Description;
+            this.UserProfile.UserInfo.Motto = profile.Motto;
+            this.UserProfile.UserInfo.LinkedProfiles.Facebook = profile.Facebook;
+            this.UserProfile.UserInfo.LinkedProfiles.GooglePlus = profile.GooglePlus;
+            this.UserProfile.UserInfo.LinkedProfiles.LinkedIn = profile.LinkedIn;
+            this.UserProfile.UserInfo.LinkedProfiles.Twitter = profile.Twitter;
+            this.UserProfile.UserInfo.LinkedProfiles.YouTube = profile.YouTube;
 
-            this.Data.Users.Update(this.User);
+            this.Data.Users.Update(this.UserProfile);
             this.Data.SaveChanges();
 
             return this.RedirectToAction("Index", "Info", new { id = profile.Username });
@@ -131,7 +131,7 @@
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            this.User.SubscribedTo.Add(user);
+            this.UserProfile.SubscribedTo.Add(user);
             this.Data.SaveChanges();
 
             return PartialView(SubscribeBtnPartialName, new SubscribeButtonViewModel { Username = user.UserName, IsSubscribed = true });
@@ -149,7 +149,7 @@
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            this.User.SubscribedTo.Remove(user);
+            this.UserProfile.SubscribedTo.Remove(user);
             this.Data.SaveChanges();
 
             return PartialView(SubscribeBtnPartialName, new SubscribeButtonViewModel { Username = user.UserName, IsSubscribed = false });

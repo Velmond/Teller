@@ -17,51 +17,57 @@
         {
         }
 
+        protected abstract IEnumerable GetData();
+
+        protected abstract T GetById<T>(object id) where T : class;
+
         [HttpPost]
         public ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
-            var data = this.GetData()
-                .ToDataSourceResult(request);
+            var data = this.GetData().ToDataSourceResult(request);
 
             return this.Json(data);
         }
-
-        ////protected virtual object Update(object model, object id)
-        ////{
-        ////    if(model != null && ModelState.IsValid)
-        ////    {
-        ////        var dbmodel = this.GetById(id);
-        ////        //Mapper.Map(model, dbmodel);
-        ////        this.Data.SaveChanges();
-        ////    }
-        ////}
-
-        protected abstract IEnumerable GetData();
-
-        protected abstract object GetById(object id);
 
         [NonAction]
         protected virtual T Create<T>(object model) where T : class
         {
             if (model != null && ModelState.IsValid)
             {
-                ////var model = Mapper.Map<T>(model);
-                ////var entry = this.Data.Context.Entry(model);
-                ////entry.State = EntityState.Added;
-                this.Data.SaveChanges();
-                ////return model;
+                //var dbModel = Mapper.Map<T>(model);
+                //this.ChangeEntityStateAndSave(dbModel, EntityState.Added);
+                //return dbModel;
             }
 
             return null;
         }
 
-        protected JsonResult GridOperation<T>(T model, [DataSourceRequest]DataSourceRequest request)
+        [NonAction]
+        protected virtual void Update<TModel, TViewModel>(TViewModel model, object id)
+            //where TModel : AuditInfo
+            //where TViewModel : AdministrationViewModel
         {
-            return this.Json((new[] { model }).ToDataSourceResult(request, this.ModelState));
+            if (model != null && ModelState.IsValid)
+            {
+                //var dbModel = this.GetById<TModel>(id);
+                //Mapper.Map<TViewModel, TModel>(model, dbModel);
+                //this.ChangeEntityStateAndSave(dbModel, EntityState.Modified);
+                //model.ModifiedOn = dbModel.ModifiedOn;
+            }
         }
 
-        private void ChangeEntityState(object model, EntityState state)
+        [NonAction]
+        protected JsonResult GridOperation<T>(T model, [DataSourceRequest]DataSourceRequest request)
         {
+            return Json(new[] { model }.ToDataSourceResult(request, ModelState));
+        }
+
+        [NonAction]
+        private void ChangeEntityStateAndSave(object dbModel, EntityState state)
+        {
+            var entry = this.Data.Context.Entry(dbModel);
+            entry.State = state;
+            this.Data.SaveChanges();
         }
     }
 }

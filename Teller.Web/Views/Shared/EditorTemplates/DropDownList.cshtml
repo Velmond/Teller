@@ -1,0 +1,6 @@
+﻿@model int?
+
+<div class="col-sm-10">
+    @Html.DropDownListFor(m => Model, (IEnumerable<SelectListItem>)ViewBag.Collection, "-- Select --", new { @class = "form-control", style = "max-width: 100%" })
+    @Html.ValidationMessageFor(m => Model, null, new { @class = "help-inline text-danger" })
+</div>
