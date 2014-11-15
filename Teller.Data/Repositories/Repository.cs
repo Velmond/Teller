@@ -66,18 +66,6 @@
             return this.Context.SaveChanges();
         }
 
-        private void ChangeState(T entity, EntityState state)
-        {
-            var entry = this.Context.Entry(entity);
-            if (entry.State == EntityState.Detached)
-            {
-                this.DbSet.Attach(entity);
-            }
-
-            entry.State = state;
-        }
-
-
         public virtual void Detach(T entity)
         {
             DbEntityEntry entry = this.Context.Entry(entity);
@@ -153,6 +141,17 @@
                                 prop.SetValue(entry.Entity, value);
                             }
                         });
+        }
+
+        private void ChangeState(T entity, EntityState state)
+        {
+            var entry = this.Context.Entry(entity);
+            if (entry.State == EntityState.Detached)
+            {
+                this.DbSet.Attach(entity);
+            }
+
+            entry.State = state;
         }
 
         private int GetPrimaryKey(DbEntityEntry entry)

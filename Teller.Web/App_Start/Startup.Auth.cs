@@ -1,4 +1,4 @@
-﻿namespace Teller.Web
+﻿namespace Teller.Web.App_Start
 {
     using System;
 
@@ -10,6 +10,7 @@
 
     using Teller.Data;
     using Teller.Models;
+    using Teller.Web.App_Start.IdentityConfig;
 
     public partial class Startup
     {

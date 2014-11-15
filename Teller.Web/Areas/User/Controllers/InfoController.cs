@@ -8,11 +8,11 @@
     using System.Web.Mvc;
 
     using Teller.Common;
-    using Teller.Data;
+    using Teller.Data.UnitsOfWork;
     using Teller.Models;
     using Teller.Web.Areas.User.ViewModels;
-    using Teller.Web.Controllers;
-    using Teller.Web.Infrastructure;
+    using Teller.Web.Controllers.Base;
+    using Teller.Web.Infrastructure.UrlGeneratotrs;
 
     public class InfoController : BaseController
     {
@@ -56,7 +56,7 @@
                 this.Data.SaveChanges();
             }
 
-            var profile = new EditUserInfoViewModel()
+            var profile = new EditInfoViewModel()
             {
                 Username = this.UserProfile.UserName,
                 AvatarPath = this.UserProfile.UserInfo.AvatarPath == null ? string.Empty : this.UserProfile.UserInfo.AvatarPath,
@@ -76,7 +76,7 @@
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Edit(string id, EditUserInfoViewModel profile)
+        public ActionResult Edit(string id, EditInfoViewModel profile)
         {
             if (this.UserProfile.UserName != id)
             {
@@ -134,7 +134,7 @@
             this.UserProfile.SubscribedTo.Add(user);
             this.Data.SaveChanges();
 
-            return PartialView(SubscribeBtnPartialName, new SubscribeButtonViewModel { Username = user.UserName, IsSubscribed = true });
+            return this.PartialView(SubscribeBtnPartialName, new SubscribeButtonViewModel { Username = user.UserName, IsSubscribed = true });
         }
 
         [Authorize]
@@ -152,7 +152,7 @@
             this.UserProfile.SubscribedTo.Remove(user);
             this.Data.SaveChanges();
 
-            return PartialView(SubscribeBtnPartialName, new SubscribeButtonViewModel { Username = user.UserName, IsSubscribed = false });
+            return this.PartialView(SubscribeBtnPartialName, new SubscribeButtonViewModel { Username = user.UserName, IsSubscribed = false });
         }
 
         private string GetAvatarPath(HttpPostedFileBase httpPostedFileBase, string username)

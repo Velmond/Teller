@@ -1,10 +1,9 @@
-﻿using Microsoft.Owin;
-using Owin;
+﻿[assembly: Microsoft.Owin.OwinStartupAttribute(typeof(Teller.Web.App_Start.Startup))]
 
-[assembly: OwinStartupAttribute(typeof(Teller.Web.Startup))]
-
-namespace Teller.Web
+namespace Teller.Web.App_Start
 {
+    using Owin;
+
     public partial class Startup
     {
         public void Configuration(IAppBuilder app)

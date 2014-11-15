@@ -1,4 +1,4 @@
-﻿namespace Teller.Web
+﻿namespace Teller.Web.App_Start
 {
     using System;
     using System.Linq;
@@ -20,7 +20,14 @@
                     action = "Index",
                     id = UrlParameter.Optional
                 },
-                namespaces: new[] { "Teller.Web.Controllers" });
+                namespaces: new[]
+                {
+                    "Teller.Web.Controllers.Account",
+                    "Teller.Web.Controllers.Home",
+                    "Teller.Web.Controllers.Search",
+                    "Teller.Web.Controllers.Series",
+                    "Teller.Web.Controllers.Story"
+                });
         }
     }
 }

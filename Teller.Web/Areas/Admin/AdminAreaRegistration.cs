@@ -22,7 +22,15 @@
                     action = "Index",
                     id = UrlParameter.Optional
                 },
-                namespaces: new string[] { "Teller.Web.Areas.Admin.Controllers" });
+                namespaces: new string[]
+                {
+                    "Teller.Web.Areas.Admin.Controllers.Comments",
+                    "Teller.Web.Areas.Admin.Controllers.Flags",
+                    "Teller.Web.Areas.Admin.Controllers.Genres",
+                    "Teller.Web.Areas.Admin.Controllers.Series",
+                    "Teller.Web.Areas.Admin.Controllers.Stories",
+                    "Teller.Web.Areas.Admin.Controllers.Users"
+                });
         }
     }
 }

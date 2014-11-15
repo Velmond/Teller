@@ -1,4 +1,4 @@
-﻿namespace Teller.Web
+﻿namespace Teller.Web.App_Start
 {
     using System.Web.Optimization;
 

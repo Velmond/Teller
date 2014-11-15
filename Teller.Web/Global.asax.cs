@@ -7,6 +7,7 @@
     using System.Web.Optimization;
     using System.Web.Routing;
 
+    using Teller.Web.App_Start;
     using Teller.Web.Infrastructure.Mapping;
 
     public class MvcApplication : HttpApplication

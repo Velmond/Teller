@@ -1,7 +1,9 @@
 ﻿@model Teller.Web.ViewModels.Story.StoryCompleteViewModel
+@using Teller.Common
+@using Teller.Web.Infrastructure.UrlGeneratotrs
 @{
     ViewBag.Title = "Story";
-    var url = new Teller.Web.Infrastructure.UrlGenerator();
+    var url = new UrlGenerator();
 }
 
 <div class="container">
@@ -10,26 +12,24 @@
             <div class="jumbotron">
                 <h2 class="lead">
                     @Model.Title
-                    @if(!Model.IsFlagged && User.Identity.IsAuthenticated && Model.Author != User.Identity.Name)
-                    {
-                        <small class="pull-right">
+                    <small class="btn-group pull-right">
+                        @if (!Model.IsFlagged && User.Identity.IsAuthenticated && Model.Author != User.Identity.Name)
+                        {
                             @Ajax.ActionLink(" ", "Flag", "Story",
                                 new { Area = "", id = url.GenerateUrlId(Model.Id, Model.Title) },
                                 new AjaxOptions() { HttpMethod = "Post" },
                                 new { @class = "glyphicon glyphicon-flag btn btn-sm btn-default flag-story-btn" })
-                        </small>
-                    }
-                    else if(Model.Author == User.Identity.Name)
-                    {
-                        <small class="pull-right">
-                            @Html.ActionLink(" ", "Edit", "Story",
+                        }
+                        @if (User.Identity.IsAuthenticated && (Model.Author == User.Identity.Name || User.IsInRole(GlobalConstants.AdministratorRoleName)))
+                        {
+                                @Html.ActionLink(" ", "Edit", "Story",
                                 new { Area = "", id = url.GenerateUrlId(Model.Id, Model.Title) },
                                 new { @class = "glyphicon glyphicon-edit btn btn-sm btn-default" })
-                            @Html.ActionLink(" ", "Delete", "Story",
+                                @Html.ActionLink(" ", "Delete", "Story",
                                 new { Area = "", id = url.GenerateUrlId(Model.Id, Model.Title) },
                                 new { @class = "glyphicon glyphicon-remove btn btn-sm btn-default" })
-                        </small>
-                    }
+                        }
+                    </small>
                 </h2>
             </div>
 
@@ -41,11 +41,11 @@
                 </div>
             </div>
 
-            @if(Model.Comments.Count() > 0 || User.Identity.IsAuthenticated)
+            @if (Model.Comments.Count() > 0 || (User.Identity.IsAuthenticated && !User.IsInRole(GlobalConstants.RestrictedRoleName)))
             {
                 <div class="well">
                     <div class="row">
-                        @if(User.Identity.IsAuthenticated)
+                        @if (User.Identity.IsAuthenticated && !User.IsInRole(GlobalConstants.RestrictedRoleName))
                         {
                             var postComment = new Teller.Web.Models.PostComment() { StoryId = Model.Id, CommentContent = "" };
                             @Html.Partial("_StoryCommentForm", postComment)
@@ -53,7 +53,7 @@
                     </div>
 
                     <div id="comments-container" class="row">
-                        @foreach(var comment in Model.Comments)
+                        @foreach (var comment in Model.Comments)
                         {
                             @Html.Partial("_CommentPartial", comment)
                         }
@@ -88,7 +88,7 @@
                     <div class="col-sm-12">
                         <p>
                             <strong>Series: </strong>
-                            @if(Model.Series != null)
+                            @if (Model.Series != null)
                             {
                                 <em>@Html.RouteLink(Model.Series.Title, new { Area = "", Controller = "Series", Action = "Index", id = url.GenerateUrlId(Model.Series.Id, Model.Series.Title) })</em>
                             }
@@ -123,7 +123,7 @@
                 <div id="likes-container">
                     <div class="row">
                         <p>
-                            @if(User.Identity.IsAuthenticated && !Model.UserHasLiked && Model.Author != User.Identity.Name)
+                            @if (User.Identity.IsAuthenticated && !Model.UserHasLiked && Model.Author != User.Identity.Name)
                             {
                                 <div class="col-sm-6">
                                     @Ajax.ActionLink(" ", "Like",
@@ -154,7 +154,7 @@
                     @Html.Partial("_StoryLikes", likes)
                 </div>
                 <div class="row">
-                    @if(User.Identity.IsAuthenticated && Model.Author != User.Identity.Name)
+                    @if (User.Identity.IsAuthenticated && Model.Author != User.Identity.Name)
                     {
                         <div class="col-sm-12">
                             @Ajax.ActionLink(" Favorite", "Favorite",
@@ -190,6 +190,10 @@
         }
 
         function removeComment(id) {
+            $(id).remove();
+        }
+        
+        function removeLikeButtons(id) {
             $(id).remove();
         }
     </script>

@@ -4,17 +4,14 @@
     using System.Linq;
     using System.Web.Caching;
     using System.Web.Mvc;
-
-    using Teller.Data;
+    using Teller.Data.UnitsOfWork;
     using Teller.Web.Areas.User.ViewModels;
-    using Teller.Web.Controllers;
+    using Teller.Web.Controllers.Base;
+    using Teller.Web.Helpers;
     using Teller.Web.ViewModels.Series;
 
     public class SeriesController : BaseController
     {
-        private const int PageSize = 10;
-        private const string SeriesCacheKeyPrefix = "user-profile-series-";
-
         public SeriesController(ITellerData data)
             : base(data)
         {
@@ -33,7 +30,7 @@
                 return this.RedirectToAction("NotFound", "Error", new { Area = string.Empty });
             }
 
-            var userSeries = this.HttpContext.Cache[SeriesCacheKeyPrefix + id] as IQueryable<SeriesViewModel>;
+            var userSeries = this.HttpContext.Cache[ProjectConstants.UserSeriesCacheKeyPrefix + id] as IQueryable<SeriesViewModel>;
 
             if (userSeries == null)
             {
@@ -44,7 +41,7 @@
                     .Select(SeriesViewModel.FromSeries);
 
                 this.HttpContext.Cache.Add(
-                    SeriesCacheKeyPrefix + id,
+                    ProjectConstants.UserSeriesCacheKeyPrefix + id,
                     userSeries,
                     null,
                     DateTime.Now.AddMinutes(15),
@@ -61,9 +58,9 @@
             ViewBag.Username = id;
             ViewBag.AvatarPath = user.AvatarPath;
             ViewBag.Page = pageNumber;
-            ViewBag.Pages = Math.Ceiling((double)userSeries.Count() / PageSize);
+            ViewBag.Pages = Math.Ceiling((double)userSeries.Count() / ProjectConstants.UserProfilePageSize);
 
-            user.Series = userSeries.Skip((pageNumber - 1) * PageSize).Take(PageSize);
+            user.Series = userSeries.Skip((pageNumber - 1) * ProjectConstants.UserProfilePageSize).Take(ProjectConstants.UserProfilePageSize);
 
             return this.View(user);
         }

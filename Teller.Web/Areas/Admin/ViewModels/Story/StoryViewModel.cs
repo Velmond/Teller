@@ -6,8 +6,8 @@
     using System.Linq;
     using System.Web.Mvc;
 
-    using Teller.Web.Infrastructure.Mapping;
     using Teller.Models;
+    using Teller.Web.Infrastructure.Mapping;
 
     public class StoryViewModel : IMapFrom<Story>
     {

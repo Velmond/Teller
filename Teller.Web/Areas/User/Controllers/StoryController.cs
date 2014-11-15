@@ -4,17 +4,14 @@
     using System.Linq;
     using System.Web.Caching;
     using System.Web.Mvc;
-
-    using Teller.Data;
+    using Teller.Data.UnitsOfWork;
     using Teller.Web.Areas.User.ViewModels;
-    using Teller.Web.Controllers;
-    using Teller.Web.ViewModels;
+    using Teller.Web.Controllers.Base;
+    using Teller.Web.Helpers;
+    using Teller.Web.ViewModels.Story;
 
     public class StoryController : BaseController
     {
-        private const int PageSize = 10;
-        private const string StoriesCacheKeyPrefix = "user-profile-stories-";
-
         public StoryController(ITellerData data)
             : base(data)
         {
@@ -25,7 +22,7 @@
             var pageNumber = page.GetValueOrDefault(1);
 
             var user = this.Data.Users.All()
-                .Select(UserStoriesViewModel.FromUser)
+                .Select(StoriesViewModel.FromUser)
                 .SingleOrDefault(u => u.Username == id);
 
             if (user == null)
@@ -33,7 +30,7 @@
                 return this.RedirectToAction("NotFound", "Error", new { Area = string.Empty });
             }
 
-            var userStories = this.HttpContext.Cache[StoriesCacheKeyPrefix + id] as IQueryable<UserFeedStory>;
+            var userStories = this.HttpContext.Cache[ProjectConstants.UserStoriesCacheKeyPrefix + id] as IQueryable<UserFeedStory>;
 
             if (userStories == null)
             {
@@ -43,7 +40,7 @@
                     .Select(UserFeedStory.FromStory);
 
                 this.HttpContext.Cache.Add(
-                    StoriesCacheKeyPrefix + id,
+                    ProjectConstants.UserStoriesCacheKeyPrefix + id,
                     userStories,
                     null,
                     DateTime.Now.AddMinutes(15),
@@ -60,9 +57,9 @@
             ViewBag.Username = id;
             ViewBag.AvatarPath = user.AvatarPath;
             ViewBag.Page = pageNumber;
-            ViewBag.Pages = Math.Ceiling((double)userStories.Count() / PageSize);
+            ViewBag.Pages = Math.Ceiling((double)userStories.Count() / ProjectConstants.UserProfilePageSize);
 
-            user.Stories = userStories.Skip((pageNumber - 1) * PageSize).Take(PageSize);
+            user.Stories = userStories.Skip((pageNumber - 1) * ProjectConstants.UserProfilePageSize).Take(ProjectConstants.UserProfilePageSize);
 
             return this.View(user);
         }

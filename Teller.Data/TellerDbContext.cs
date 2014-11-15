@@ -22,19 +22,19 @@
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<TellerDbContext, Configuration>());
         }
 
-        public IDbSet<Comment> Comments { get; set; }
+        public virtual IDbSet<Comment> Comments { get; set; }
 
-        public IDbSet<CommentLike> CommentLikes { get; set; }
+        public virtual IDbSet<CommentLike> CommentLikes { get; set; }
 
-        public IDbSet<Flag> Flags { get; set; }
+        public virtual IDbSet<Flag> Flags { get; set; }
 
-        public IDbSet<Genre> Genres { get; set; }
+        public virtual IDbSet<Genre> Genres { get; set; }
 
-        public IDbSet<Like> Likes { get; set; }
+        public virtual IDbSet<Like> Likes { get; set; }
 
-        public IDbSet<Series> Series { get; set; }
+        public virtual IDbSet<Series> Series { get; set; }
 
-        public IDbSet<Story> Stories { get; set; }
+        public virtual IDbSet<Story> Stories { get; set; }
 
         public DbContext DbContext
         {
@@ -44,14 +44,14 @@
             }
         }
 
-        public new IDbSet<T> Set<T>() where T : class
-        {
-            return base.Set<T>();
-        }
-
         public static TellerDbContext Create()
         {
             return new TellerDbContext();
+        }
+
+        public new IDbSet<T> Set<T>() where T : class
+        {
+            return base.Set<T>();
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

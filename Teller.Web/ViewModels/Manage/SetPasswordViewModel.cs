@@ -1,4 +1,4 @@
-﻿namespace Teller.Web.ViewModels
+﻿namespace Teller.Web.ViewModels.Manage
 {
     using System.ComponentModel.DataAnnotations;
 

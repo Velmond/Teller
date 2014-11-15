@@ -1,4 +1,4 @@
-﻿namespace Teller.Web
+﻿namespace Teller.Web.App_Start.IdentityConfig
 {
     using System;
     using System.Linq;

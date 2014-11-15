@@ -1,11 +1,11 @@
-﻿namespace Teller.Web.ViewModels
+﻿namespace Teller.Web.ViewModels.Account
 {
     using System.ComponentModel.DataAnnotations;
 
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Userame")]
+        [Display(Name = "Username")]
         public string Userame { get; set; }
 
         [Required]

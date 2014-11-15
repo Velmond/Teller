@@ -4,16 +4,17 @@
 namespace Teller.Web.App_Start
 {
     using System;
-    using System.Data.Entity;
     using System.Web;
+
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
     using Ninject.Web.Common;
 
     using Teller.Data;
     using Teller.Data.Repositories;
-    using Teller.Web.Infrastructure;
-    using Teller.Web.Infrastructure.Contracts;
+    using Teller.Data.UnitsOfWork;
+    using Teller.Web.Infrastructure.Sanitizers;
+    using Teller.Web.Infrastructure.UrlGeneratotrs;
 
     public static class NinjectWebCommon 
     {
@@ -77,6 +78,9 @@ namespace Teller.Web.App_Start
 
             kernel.Bind<ISanitizer>()
                 .To<HtmlSanitizerAdapter>();
+
+            kernel.Bind<IUrlGenerator>()
+                .To<UrlGenerator>();
         }        
     }
 }

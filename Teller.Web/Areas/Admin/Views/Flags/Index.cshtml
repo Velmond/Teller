@@ -1,0 +1,39 @@
+﻿@using Teller.Web.Areas.Admin.ViewModels.Flag
+@{
+    ViewBag.Title = "Administration - Flags";
+    const string ControllerName = "Flags";
+}
+
+@(Html.Kendo()
+    .Grid<FlagViewModel>()
+    .Name("Grid")
+    .Columns(cols =>
+    {
+        cols.Bound(u => u.Author)
+            .ClientTemplate("<a href=/User/Info/#= Author #>#= Author #</a>");
+        cols.Bound(u => u.DateFlagged)
+            .ClientTemplate("#= kendo.toString(DateFlagged, 'dd.MM.yyyy')#");
+        cols.Bound(u => u.IsResolved);
+        cols.Bound(u => u.Story);
+        cols.Command(com => com.Edit())
+            .Title("Edit");
+    })
+    .ColumnMenu()
+    .Editable(edit => edit.Mode(GridEditMode.InLine))
+    .Pageable(page => page.Refresh(true))
+    .Sortable()
+    .Groupable()
+    .Filterable()
+    .DataSource(data =>
+        data.Ajax()
+            .Model(m =>
+            {
+                m.Id(u => u.Id);
+                m.Field(u => u.Author).Editable(false);
+                m.Field(u => u.Story).Editable(false);
+                m.Field(u => u.DateFlagged).Editable(false);
+            })
+            .Read(read => read.Action("Read", ControllerName))
+            .Update(update => update.Action("Update", ControllerName))
+            .PageSize(10))
+)

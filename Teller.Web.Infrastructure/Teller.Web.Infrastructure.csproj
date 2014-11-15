@@ -51,14 +51,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HtmlSanitizerAdapter.cs" />
-    <Compile Include="Contracts\ISanitizer.cs" />
-    <Compile Include="Contracts\IUrlGenerator.cs" />
+    <Compile Include="Sanitizers\HtmlSanitizerAdapter.cs" />
+    <Compile Include="Sanitizers\ISanitizer.cs" />
+    <Compile Include="UrlGenerators\IUrlGenerator.cs" />
     <Compile Include="Mapping\AutoMapperConfig.cs" />
     <Compile Include="Mapping\IHaveCustomMappings.cs" />
     <Compile Include="Mapping\IMapFrom.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UrlGenerator.cs" />
+    <Compile Include="UrlGenerators\UrlGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

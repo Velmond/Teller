@@ -8,41 +8,64 @@
                     @Model.Content
                 </div>
                 <div class="col-sm-2 pull-right">
-                    @if(User.Identity.IsAuthenticated && Model.Author != User.Identity.Name &&
+                    @if (User.Identity.IsAuthenticated && Model.Author != User.Identity.Name &&
                         !Model.AllLikes.Any(l => l.Author == User.Identity.Name))
                     {
-                        <div class="row clearfix">
+                        <div class="row clearfix" id="like-button-container-@Model.Author-@Model.Id">
                             <div class="pull-right">
                                 @Ajax.ActionLink(" ", "Like",
-                                    new { Area = "", Controller = "CommentLike", id = Model.Id, like = false },
-                                    new AjaxOptions() { HttpMethod = "Post", InsertionMode = InsertionMode.Replace, UpdateTargetId = Model.Author + "-" + Model.Id + "-likes-container" },
+                                    new { Area = "", Controller = "CommentLike", id = Model.Id, likeValue = false },
+                                     new AjaxOptions()
+                                     {
+                                         HttpMethod = "Post",
+                                         InsertionMode = InsertionMode.Replace,
+                                         UpdateTargetId = Model.Author + "-" + Model.Id + "-likes-container",
+                                         OnComplete = "removeLikeButtons('#like-button-container-" + Model.Author + "-" + Model.Id + "')"
+                                     },
                                     new { @class = "glyphicon glyphicon-thumbs-down btn btn-sm btn-default" })
                                 @Ajax.ActionLink(" ", "Like",
-                                    new { Area = "", Controller = "CommentLike", id = Model.Id, like = true },
-                                    new AjaxOptions() { HttpMethod = "Post", InsertionMode = InsertionMode.Replace, UpdateTargetId = Model.Author + "-" + Model.Id + "-likes-container" },
+                                    new { Area = "", Controller = "CommentLike", id = Model.Id, likeValue = true },
+                                     new AjaxOptions()
+                                     {
+                                         HttpMethod = "Post",
+                                         InsertionMode = InsertionMode.Replace,
+                                         UpdateTargetId = Model.Author + "-" + Model.Id + "-likes-container",
+                                         OnComplete = "removeLikeButtons('#like-button-container-" + Model.Author + "-" + Model.Id + "')"
+                                     },
                                     new { @class = "glyphicon glyphicon-thumbs-up btn btn-sm btn-default" })
                             </div>
                         </div>
                         <p></p>
                     }
-                    @if(!Model.IsFlagged && User.Identity.IsAuthenticated && User.Identity.Name != Model.Author)
+                    @if (!Model.IsFlagged && User.Identity.IsAuthenticated && User.Identity.Name != Model.Author)
                     {
                         <div class="row">
-                            <div class="pull-right" id="flag-button-container">
+                            <div class="pull-right" id="flag-button-container-@Model.Author-@Model.Id">
                                 @Ajax.ActionLink(" ", "Flag",
                                     new { Area = "", Controller = "StoryComments", id = Model.Id },
-                                    new AjaxOptions() { HttpMethod = "Post", InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = "flag-button-container" },
+                                    new AjaxOptions()
+                                    {
+                                        HttpMethod = "Post",
+                                        InsertionMode = InsertionMode.ReplaceWith,
+                                        UpdateTargetId = "flag-button-container-" + Model.Author + "-" + Model.Id
+                                    },
                                     new { @class = "glyphicon glyphicon-flag btn btn-sm btn-default" })
                             </div>
                         </div>
                     }
-                    else if(User.Identity.Name == Model.Author)
+                    else if (User.Identity.Name == Model.Author)
                     {
                         <div class="row">
-                            <div class="pull-right" id="delete-button-container">
+                            <div class="pull-right" id="delete-button-container-@Model.Author-@Model.Id">
                                 @Ajax.ActionLink(" ", "Delete",
                                     new { Area = "", Controller = "StoryComments", id = Model.Id },
-                                    new AjaxOptions() { HttpMethod = "Post", InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = Model.Author + "-" + Model.Id + "-comment", OnComplete = "removeComment('#" + Model.Author + "-" + Model.Id + "-comment" + "')" },
+                                    new AjaxOptions()
+                                    {
+                                        HttpMethod = "Post",
+                                        InsertionMode = InsertionMode.ReplaceWith,
+                                        UpdateTargetId = Model.Author + "-" + Model.Id + "-comment",
+                                        OnComplete = "removeComment('#" + Model.Author + "-" + Model.Id + "-comment" + "')"
+                                    },
                                     new { @class = "glyphicon glyphicon-remove btn btn-sm btn-default delete-comment-btn", alt = "Remove comment" })
                             </div>
                         </div>
@@ -52,18 +75,17 @@
         </div>
         <div class="row">
             <div class="col-sm-6">
-                <div id="@(Model.Author)-@(Model.Id)-likes-container">
-                    <div class="pull-left col-sm-12">
-                        @{
-                            var likes = new Teller.Web.ViewModels.Like.LikeViewModel()
-                            {
-                                LikesCount = Model.LikesCount,
-                                DislikesCount = Model.DislikesCount
-                            };
-                        }
-
+                <div class="pull-left col-sm-12">
+                    @{
+                        var likes = new Teller.Web.ViewModels.Like.LikeViewModel()
+                        {
+                            LikesCount = Model.LikesCount,
+                            DislikesCount = Model.DislikesCount
+                        };
+                    }
+                    <span id="@(Model.Author)-@(Model.Id)-likes-container">
                         @Html.Partial("_CommentLikes", likes)
-                    </div>
+                    </span>
                 </div>
             </div>
             <div class="col-sm-3 text-center">

@@ -4,8 +4,6 @@
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Web.Mvc;
-
-    ////using AutoMapper;
     
     using Teller.Models;
     using Teller.Web.Infrastructure.Mapping;

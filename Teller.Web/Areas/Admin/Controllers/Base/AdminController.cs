@@ -8,8 +8,8 @@
     using Kendo.Mvc.UI;
     
     using Teller.Common;
-    using Teller.Data;
-    using Teller.Web.Controllers;
+    using Teller.Data.UnitsOfWork;
+    using Teller.Web.Controllers.Base;
 
     [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     public abstract class AdminController : BaseController
@@ -19,10 +19,6 @@
         {
         }
 
-        protected abstract IEnumerable GetData();
-
-        protected abstract T GetById<T>(object id) where T : class;
-
         [HttpPost]
         public ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
@@ -31,10 +27,14 @@
             return this.Json(data);
         }
 
+        protected abstract IEnumerable GetData();
+
+        protected abstract T GetById<T>(object id) where T : class;
+
         [NonAction]
         protected JsonResult GridOperation<T>(T model, [DataSourceRequest]DataSourceRequest request)
         {
-            return Json(new[] { model }.ToDataSourceResult(request, ModelState));
+            return this.Json(new[] { model }.ToDataSourceResult(request, this.ModelState));
         }
 
         [NonAction]
