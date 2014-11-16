@@ -2,8 +2,8 @@
 {
     using System;
     using System.Linq;
+    using System.Web;
     using System.Web.Mvc;
-
     using Teller.Data.UnitsOfWork;
     using Teller.Models;
     using Teller.Web.Controllers.Base;
@@ -32,38 +32,12 @@
         {
             if (string.IsNullOrEmpty(newComment.CommentContent))
             {
-                ModelState.AddModelError("CommentContent", ContentIsRequiredMsg);
-
-                return this.PartialView(
-                    CommentPartialName,
-                    new CommentViewModel()
-                    {
-                        Author = " ",
-                        Content = ContentTooShortOrTooLongMsg,
-                        DislikesCount = 0,
-                        LikesCount = 0,
-                        Published = DateTime.Now,
-                        IsFlagged = true,
-                        Id = 0
-                    });
+                throw new HttpException(400, "Comment content is required.");
             }
 
             if (newComment.CommentContent.Length < 2 || newComment.CommentContent.Length > 1000)
             {
-                ModelState.AddModelError("CommentContent", ContentTooShortOrTooLongMsg);
-
-                return this.PartialView(
-                    CommentPartialName,
-                    new CommentViewModel()
-                    {
-                        Author = " ",
-                        Content = ContentTooShortOrTooLongMsg,
-                        DislikesCount = 0,
-                        LikesCount = 0,
-                        Published = DateTime.Now,
-                        IsFlagged = true,
-                        Id = 0
-                    });
+                throw new HttpException(400, "Comment content must be between 2 and 1000 characters long.");
             }
 
             var comment = new Comment()
@@ -99,7 +73,7 @@
 
             if (comment == null)
             {
-                return this.RedirectToAction("Index", "Error", new { Area = string.Empty });
+                throw new HttpException(400, "Comment could not be found in the database.");
             }
 
             comment.IsFlagged = true;
@@ -116,7 +90,7 @@
 
             if (comment == null)
             {
-                return this.RedirectToAction("Index", "Error", new { Area = string.Empty });
+                throw new HttpException(400, "Comment could not be found in the database.");
             }
 
             this.Data.Comments.Delete(comment);
@@ -131,20 +105,20 @@
         {
             if (string.IsNullOrEmpty(id) || string.IsNullOrWhiteSpace(id) || id.IndexOf('-') < 0)
             {
-                return this.RedirectToAction("Index", "Error", new { Area = string.Empty });
+                throw new HttpException(400, "Invalid story identifier.");
             }
 
             int storyId;
             if (!int.TryParse(id.Substring(id.LastIndexOf('-') + 1), out storyId))
             {
-                return this.RedirectToAction("Index", "Error", new { Area = string.Empty });
+                throw new HttpException(400, "Invalid story identifier.");
             }
 
             var story = this.Data.Stories.GetById(storyId);
 
             if (story == null)
             {
-                return this.RedirectToAction("NotFound", "Error", new { Area = string.Empty });
+                throw new HttpException(404, "Invalid story identifier.");
             }
 
             var url = new UrlGenerator();
@@ -152,14 +126,13 @@
 
             if (encodedStoryId != id)
             {
-                return this.RedirectToAction("NotFound", "Error", new { Area = string.Empty });
+                throw new HttpException(404, "Story could not be found.");
             }
 
-            this.Data.Likes.Add(new Like()
+            story.Likes.Add(new Like
             {
                 Value = like,
-                AuthorId = this.UserProfile.Id,
-                StoryId = storyId
+                AuthorId = this.UserProfile.Id
             });
 
             this.Data.SaveChanges();

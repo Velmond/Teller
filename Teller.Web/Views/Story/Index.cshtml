@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-sm-9">
             <div class="jumbotron">
-                <h2 class="lead">
+                <h2 class="lead" style="overflow-wrap: break-word;">
                     @Model.Title
                     <small class="btn-group pull-right">
                         @if (!Model.IsFlagged && User.Identity.IsAuthenticated && Model.Author != User.Identity.Name)
@@ -22,10 +22,10 @@
                         }
                         @if (User.Identity.IsAuthenticated && (Model.Author == User.Identity.Name || User.IsInRole(GlobalConstants.AdministratorRoleName)))
                         {
-                                @Html.ActionLink(" ", "Edit", "Story",
+                            @Html.ActionLink(" ", "Edit", "Story",
                                 new { Area = "", id = url.GenerateUrlId(Model.Id, Model.Title) },
                                 new { @class = "glyphicon glyphicon-edit btn btn-sm btn-default" })
-                                @Html.ActionLink(" ", "Delete", "Story",
+                            @Html.ActionLink(" ", "Delete", "Story",
                                 new { Area = "", id = url.GenerateUrlId(Model.Id, Model.Title) },
                                 new { @class = "glyphicon glyphicon-remove btn btn-sm btn-default" })
                         }
@@ -35,7 +35,7 @@
 
             <div class="well">
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-12" style="overflow-wrap: break-word;">
                         <p>@Html.Raw(Model.Content)</p>
                     </div>
                 </div>
@@ -78,14 +78,14 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-12" style="overflow-wrap: break-word;">
                         <p>
                             <strong>Author:</strong> <em>@Html.RouteLink(Model.Author, new { Area = "User", Controller = "Story", Action = "Index", id = Model.Author })</em>
                         </p>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-12" style="overflow-wrap: break-word;">
                         <p>
                             <strong>Series: </strong>
                             @if (Model.Series != null)

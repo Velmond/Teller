@@ -9,11 +9,11 @@
         <img src="@Model.PicturePath" alt="@Model.Title" class="img-responsive img-circle img-thumbnail" style="max-width: 100px" />
     </div>
     <div class="col-sm-10">
-            <h4>
-                @Html.ActionLink(Model.Title, "Index", "Story", new { Area = "", id = urlGenerator.GenerateUrlId(Model.Id, Model.Title) }, new { })
-                <small> (@Model.Genre)</small>
-            </h4>
-            <p>@Html.Raw(Model.Content)</p>
+        <h4 style="overflow-wrap: break-word;">
+            @Html.ActionLink(Model.Title, "Index", "Story", new { Area = "", id = urlGenerator.GenerateUrlId(Model.Id, Model.Title) }, new { })
+            <small> (@Model.Genre)</small>
+        </h4>
+        <p style="overflow-wrap: break-word;">@Html.Raw(Model.Content)</p>
         <div>
             <p class="">
                 <span class="col-sm-1 text-center glyphicon glyphicon-thumbs-down"> @Model.DislikesCount</span>
@@ -22,7 +22,7 @@
                 <span class="col-sm-1 text-center glyphicon glyphicon-user"> @Model.ViewsCount</span>
             </p>
             <p class="pull-right">
-                <small>@Html.DisplayFor(m => Model.DatePublished) | @Html.ActionLink(Model.Author, "Index", "Info", new { Area = "User", id = Model.Author }, new { })</small>
+                <small>@Html.DisplayFor(m => Model.DatePublished) |<br />@Html.ActionLink(Model.Author, "Index", "Info", new { Area = "User", id = Model.Author }, new { })</small>
             </p>
         </div>
     </div>

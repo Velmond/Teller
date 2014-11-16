@@ -31,10 +31,6 @@
             .Width(120);
         cols.Command(com => com.Edit())
             .Title("Edit");
-        cols.Command(com => com.Destroy())
-            .Title("Delete")
-            .Hidden()
-            .IncludeInMenu(true);
     })
     .ColumnMenu()
     .Editable(edit => edit.Mode(GridEditMode.InLine))
@@ -47,16 +43,14 @@
             .Model(m =>
             {
                 m.Id(u => u.Id);
-                m.Field(u => u.RoleId);
-                m.Field(u => u.Username).Editable(false);
-                m.Field(u => u.Email).Editable(false);
-                m.Field(u => u.RegisteredOn).Editable(false);
-                m.Field(u => u.CommentFlags).Editable(false);
-                m.Field(u => u.StoryFlags).Editable(false);
+                //m.Field(u => u.RoleId);
+                //m.Field(u => u.Username).Editable(false);
+                //m.Field(u => u.Email).Editable(false);
+                //m.Field(u => u.RegisteredOn).Editable(false);
+                //m.Field(u => u.CommentFlags).Editable(false);
+                //m.Field(u => u.StoryFlags).Editable(false);
             })
             .Read(read => read.Action("Read", ControllerName))
-            //.Create(create => create.Action("Create", ControllerName))
             .Update(update => update.Action("Update", ControllerName))
-            .Destroy(destroy => destroy.Action("Destroy", ControllerName))
             .PageSize(10))
 )

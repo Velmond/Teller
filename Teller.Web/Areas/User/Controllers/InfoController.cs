@@ -1,26 +1,28 @@
 ﻿namespace Teller.Web.Areas.User.Controllers
 {
     using System;
-    using System.IO;
-    using System.Linq;
-    using System.Net;
-    using System.Web;
-    using System.Web.Mvc;
-
-    using Teller.Common;
-    using Teller.Data.UnitsOfWork;
-    using Teller.Models;
-    using Teller.Web.Areas.User.ViewModels;
-    using Teller.Web.Controllers.Base;
-    using Teller.Web.Infrastructure.UrlGeneratotrs;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
+using Teller.Common;
+using Teller.Data.UnitsOfWork;
+using Teller.Models;
+using Teller.Web.Areas.User.ViewModels;
+using Teller.Web.Controllers.Base;
+using Teller.Web.Infrastructure.Sanitizers;
+using Teller.Web.Infrastructure.UrlGeneratotrs;
 
     public class InfoController : BaseController
     {
         private const string SubscribeBtnPartialName = "_SubscribeBtn";
+        private ISanitizer sanitizer;
 
-        public InfoController(ITellerData data)
+        public InfoController(ITellerData data, ISanitizer sanitizer)
             : base(data)
         {
+            this.sanitizer = sanitizer;
         }
 
         public ActionResult Index(string id)
@@ -83,6 +85,12 @@
                 return this.RedirectToAction("Info", new { username = id });
             }
 
+            if (profile.Description.Length < 2 || profile.Description.Length > 1000)
+            {
+                ModelState.AddModelError(profile.Description, "Content must be between 2 and 1000 characters long");
+                return this.RedirectToAction("Edit", profile);
+            }
+
             if (!ModelState.IsValid)
             {
                 return this.RedirectToAction("Edit", profile);
@@ -105,7 +113,7 @@
                 this.UserProfile.UserInfo.AvatarPath = newPicturePath;
             }
 
-            this.UserProfile.UserInfo.Description = profile.Description;
+            this.UserProfile.UserInfo.Description = this.sanitizer.Sanitize(profile.Description);
             this.UserProfile.UserInfo.Motto = profile.Motto;
             this.UserProfile.UserInfo.LinkedProfiles.Facebook = profile.Facebook;
             this.UserProfile.UserInfo.LinkedProfiles.GooglePlus = profile.GooglePlus;

@@ -3,22 +3,24 @@
     using System;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
-    using System.Web.Mvc;
     
     using Teller.Models;
     using Teller.Web.Infrastructure.Mapping;
 
     public class UserViewModel : IMapFrom<AppUser>
     {
-        [HiddenInput(DisplayValue = false)]
+        [ScaffoldColumn(false)]
         public string Id { get; set; }
 
+        [Editable(false)]
         public string Username { get; set; }
 
         [Display(Name = "E-mail")]
+        [Editable(false)]
         public string Email { get; set; }
 
         [Display(Name = "Registered")]
+        [Editable(false)]
         public DateTime RegisteredOn { get; set; }
 
         [Display(Name = "Role")]
@@ -29,10 +31,12 @@
 
         [Display(Name = "Comment flags")]
         [Range(0, 100)]
-        public int CommentFlags { get; set; }
+        [Editable(false)]
+        public byte? CommentFlags { get; set; }
 
         [Display(Name = "Story flags")]
         [Range(0, 100)]
-        public int StoryFlags { get; set; }
+        [Editable(false)]
+        public byte? StoryFlags { get; set; }
     }
 }

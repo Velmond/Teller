@@ -6,7 +6,7 @@
     using System.Linq;
     using System.Linq.Expressions;
     using System.Web;
-
+    using System.Web.Mvc;
     using Teller.Models;
     using Teller.Web.Areas.User.ViewModels.Base;
 
@@ -38,10 +38,11 @@
         [StringLength(100, MinimumLength = 2, ErrorMessage = "Motto must be between 2 and 100 characters long.")]
         public string Motto { get; set; }
 
+        [AllowHtml]
         [Required]
-        [DataType("TextArea")]
+        [DataType("tinymce_full")]
         [StringLength(1000, MinimumLength = 2, ErrorMessage = "Description must be between 2 and 1000 characters long.")]
-        [UIHint("TextArea")]
+        [UIHint("tinymce_full")]
         public string Description { get; set; }
 
         [RegularExpression(@"(?:(?:http|https):\/\/)?(?:www.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?", ErrorMessage = "Invalid Facebook profile url")]

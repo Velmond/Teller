@@ -4,25 +4,47 @@
 }
 
 <div class="jumbotron">
-    <h1>Teller <small>Tell a story</small></h1>
+    <h1 class="row">
+        <span class="col-md-10 text-right right-border">
+            <span class="clearfix">
+                <small>Read a story</small>
+            </span>
+            <span class="clearfix">
+                <small>Tell a story</small>
+            </span>
+        </span>
+        <span class="col-md-2 text-left">Teller</span>
+    </h1>
 </div>
 
-<div class="well">
-    <h4 class="lead">Most commented stories this week</h4>
-    @Html.Partial("_StorySummaryPartial", Model.MostCommentedStoriesLastWeek)
+<div class="row">
+    <div class="col-sm-offset-1 col-sm-10">
+        <div class="well">
+            <h4 class="lead">Most commented stories this week</h4>
+            @Html.Partial("_StorySummaryPartial", Model.MostCommentedStoriesLastWeek)
+        </div>
+
+        <div class="well">
+            <h4 class="lead">Most voted on stories this week</h4>
+            @Html.Partial("_StorySummaryPartial", Model.MostVotedStoriesLastWeek)
+        </div>
+
+        <div class="well">
+            <h4 class="lead">Most commented stories ever</h4>
+            @Html.Partial("_StorySummaryPartial", Model.MostCommentedStoriesEver)
+        </div>
+
+        <div class="well">
+            <h4 class="lead">Most voted on stories ever</h4>
+            @Html.Partial("_StorySummaryPartial", Model.MostVotedStoriesEver)
+        </div>
+    </div>
 </div>
 
-<div class="well">
-    <h4 class="lead">Most voted on stories this week</h4>
-    @Html.Partial("_StorySummaryPartial", Model.MostVotedStoriesLastWeek)
-</div>
-
-<div class="well">
-    <h4 class="lead">Most commented stories ever</h4>
-    @Html.Partial("_StorySummaryPartial", Model.MostCommentedStoriesEver)
-</div>
-
-<div class="well">
-    <h4 class="lead">Most voted on stories ever</h4>
-    @Html.Partial("_StorySummaryPartial", Model.MostVotedStoriesEver)
-</div>
+@section styles{
+    <style type="text/css">
+        .right-border {
+            border-right: 1px solid #999;
+        }
+    </style>
+}

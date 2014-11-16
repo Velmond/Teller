@@ -5,7 +5,7 @@
 }
 
 <div>
-    <h4>
+    <h4 style="overflow-wrap: break-word;">
         @Html.ActionLink(Model.Title, "Index", "Series", new { Area = "", id = urlGenerator.GenerateUrlId(Model.Id, Model.Title) }, new { })
         <br />
         <small> (@Model.Genre)</small>

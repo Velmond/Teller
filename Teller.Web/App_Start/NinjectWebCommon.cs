@@ -5,11 +5,10 @@ namespace Teller.Web.App_Start
 {
     using System;
     using System.Web;
-
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
     using Ninject.Web.Common;
-
+    using Teller.Common.DataGenerators;
     using Teller.Data;
     using Teller.Data.Repositories;
     using Teller.Data.UnitsOfWork;
@@ -81,6 +80,9 @@ namespace Teller.Web.App_Start
 
             kernel.Bind<IUrlGenerator>()
                 .To<UrlGenerator>();
+
+            kernel.Bind<IRandomGenerator>()
+                .To<RandomGenerator>();
         }        
     }
 }

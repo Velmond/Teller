@@ -20,8 +20,9 @@
 
         public string AvatarPath { get; set; }
 
+        // was byte
         [Required]
-        public byte StoryViolations { get; set; }
+        public int StoryViolations { get; set; }
 
         [Required]
         public int CommentViolations { get; set; }

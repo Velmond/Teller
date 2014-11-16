@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using System.Web;
     using System.Web.Mvc;
 
     using Teller.Data.UnitsOfWork;
@@ -26,25 +27,29 @@
 
             if (comment == null)
             {
-                return this.RedirectToAction("NotFound", "Error", new { Area = string.Empty });
+                throw new HttpException(400, "Story not foud in database.");
+                ////return this.RedirectToAction("NotFound", "Error", new { Area = string.Empty });
             }
 
-            this.Data.CommentLikes.Add(new CommentLike()
+            comment.Likes.Add(new CommentLike
             {
                 Value = likeValue,
-                AuthorId = this.UserProfile.Id,
-                CommentId = comment.Id
+                AuthorId = this.UserProfile.Id
             });
+
+            //this.Data.CommentLikes.Add(new CommentLike()
+            //{
+            //    Value = likeValue,
+            //    AuthorId = this.UserProfile.Id,
+            //    CommentId = comment.Id
+            //});
 
             this.Data.SaveChanges();
 
-            var likesCount = comment.Likes.Count(l => l.Value == true);
-            var dislikesCount = comment.Likes.Count(l => l.Value == false);
-
             var likesModel = new LikeViewModel()
             {
-                LikesCount = likesCount,
-                DislikesCount = dislikesCount
+                LikesCount = comment.Likes.Count(l => l.Value == true),
+                DislikesCount = comment.Likes.Count(l => l.Value == false)
             };
 
             return this.PartialView(CommentLikesPertialName, likesModel);

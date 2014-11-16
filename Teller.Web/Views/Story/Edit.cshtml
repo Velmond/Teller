@@ -5,68 +5,72 @@
     ViewBag.Title = "Edit your story";
 }
 
-<h2>@ViewBag.Title.</h2>
-
 @*@Html.Partial("_StoryForm", new Teller.Web.ViewModels.StoryFormViewModel() { Action = "Edit", Controller = "Story", Model = Model, PageSubTitle = string.Format("Edit \"{0}\"", @Model.Title) })*@
 
-@using(Html.BeginForm("Edit", "Story", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
-    {
-        @Html.AntiForgeryToken()
-        <h4>Edit "@Model.Title"</h4>
-        <hr />
-        <div class="form-group">
-            @Html.LabelFor(m => m.Title, new { @class = "col-sm-2 control-label" })
-            <div class="col-sm-10">
-                @Html.EditorFor(m => m.Title)
-                @Html.ValidationMessageFor(model => model.Title, null, new { @class = "help-inline text-danger" })
+<div class="row">
+    <div class="col-sm-offset-1 col-sm-10">
+        <h2>@ViewBag.Title.</h2>
+
+        @using (Html.BeginForm("Edit", "Story", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <h4>Edit "@Model.Title"</h4>
+            <hr />
+            <div class="form-group">
+                @Html.LabelFor(m => m.Title, new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-10">
+                    @Html.EditorFor(m => m.Title)
+                    @Html.ValidationMessageFor(model => model.Title, null, new { @class = "help-inline text-danger" })
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Content, new { @class = "col-sm-2 control-label" })
-            <div class="col-sm-10">
-                @Html.EditorFor(m => m.Content)
-                @Html.ValidationMessageFor(model => model.Content, null, new { @class = "help-inline text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.Content, new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-10">
+                    @Html.EditorFor(m => m.Content)
+                    @Html.ValidationMessageFor(model => model.Content, null, new { @class = "help-inline text-danger" })
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.GenreId, new { @class = "col-sm-2 control-label" })
-            <div class="col-sm-10">
-                @Html.DropDownListFor(m => m.GenreId, Model.GenresList.List, "-- Select Genre --", new { @class = "form-control", style = "max-width: 100%" })
-                @Html.ValidationMessageFor(model => model.GenreId, null, new { @class = "help-inline text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.GenreId, new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(m => m.GenreId, Model.GenresList.List, "-- Select Genre --", new { @class = "form-control", style = "max-width: 100%" })
+                    @Html.ValidationMessageFor(model => model.GenreId, null, new { @class = "help-inline text-danger" })
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.PicturePath, new { @class = "col-sm-2 control-label" })
-            <div class="col-sm-10">
-                @Html.TextBoxFor(m => m.Picture, new { @class = "form-control", type = "file", style = "max-width: 100%" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.PicturePath, new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.Picture, new { @class = "form-control", type = "file", style = "max-width: 100%" })
+                </div>
             </div>
-        </div>
-        <div id="create-series-form" class="form-group">
-            @Html.LabelFor(m => m.SeriesId, new { @class = "col-sm-2 control-label" })
-            <div class="col-sm-10">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="input-group">
-                            @Html.DropDownListFor(m => m.SeriesId, Model.SeriesList.List, "-- Select Series --", new { @class = "form-control", style = "max-width: 100%" })
-                            <span class="input-group-btn">
-                                @Ajax.ActionLink("Add to new series", "Create", "Series",
+            <div id="create-series-form" class="form-group">
+                @Html.LabelFor(m => m.SeriesId, new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                @Html.DropDownListFor(m => m.SeriesId, Model.SeriesList.List, "-- Select Series --", new { @class = "form-control", style = "max-width: 100%" })
+                                <span class="input-group-btn">
+                                    @Ajax.ActionLink("Add to new series", "Create", "Series",
                                     new { Area = "" },
                                     new AjaxOptions() { HttpMethod = "Get", UpdateTargetId = "create-series-form", InsertionMode = InsertionMode.ReplaceWith },
                                     new { @class = "btn btn-default btn-block" })
-                            </span>
+                                </span>
+                            </div>
+                            @Html.ValidationMessageFor(m => m.SeriesGenreId, null, new { @class = "help-inline text-danger" })
+                            @Html.ValidationMessageFor(m => m.SeriesName, null, new { @class = "help-inline text-danger" })
                         </div>
-                        @Html.ValidationMessageFor(m => m.SeriesGenreId, null, new { @class = "help-inline text-danger" })
-                        @Html.ValidationMessageFor(m => m.SeriesName, null, new { @class = "help-inline text-danger" })
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                @Html.Submit(new { @class = "btn btn-default btn-block", style = "max-width: 100%", value = "Edit Story" })
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    @Html.Submit(new { @class = "btn btn-default btn-block", style = "max-width: 100%", value = "Edit Story" })
+                </div>
             </div>
-        </div>
-    }
+        }
+    </div>
+</div>
 
     @section scripts {
         <script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.js"></script>

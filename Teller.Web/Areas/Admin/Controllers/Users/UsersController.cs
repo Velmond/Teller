@@ -18,7 +18,7 @@
     using Teller.Web.Areas.Admin.Controllers.Base;
     using Teller.Web.Areas.Admin.ViewModels.User;
     using Teller.Web.Helpers;
-
+    
     public class UsersController : AdminController
     {
         public UsersController(ITellerData data)
@@ -57,18 +57,6 @@
                 dbModel.Roles.Add(new IdentityUserRole() { RoleId = model.RoleId });
 
                 this.ChangeEntityStateAndSave(dbModel, EntityState.Modified);
-            }
-
-            return this.GridOperation(model, request);
-        }
-
-        [HttpPost]
-        public ActionResult Destroy([DataSourceRequest]DataSourceRequest request, UserViewModel model)
-        {
-            if (model != null && ModelState.IsValid)
-            {
-                this.Data.Users.Delete(model.Id);
-                this.Data.SaveChanges();
             }
 
             return this.GridOperation(model, request);

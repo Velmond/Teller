@@ -1,10 +1,8 @@
 ﻿@model Teller.Web.ViewModels.Search.SearchUserViewModel
 
 <div class="text-center">
-    @*<div class="col-sm-2">
-        <img src="@Model.AvatarPath" alt="@Model.Username" />
-    </div>*@
-    <h4>
+    <img src="@Model.AvatarPath" alt="@Model.Username" style="max-width: 40px" class="img-responsive img-thumbnail img-circle" />
+    <h4 style="overflow-wrap: break-word;">
         @Html.ActionLink(Model.Username, "Index", "Info", new { Area = "User", id = Model.Username }, new { })
     </h4>
 </div>
