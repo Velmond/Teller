@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Web.Caching;
     using System.Web.Mvc;
+
     using Teller.Data.UnitsOfWork;
     using Teller.Web.Controllers.Base;
     using Teller.Web.Helpers;
@@ -33,10 +34,10 @@
             IEnumerable<UserFeedStory> data = stories.OrderByDescending(s => s.DatePublished);
 
             ViewBag.Page = pageNumber;
-            ViewBag.Pages = Math.Ceiling((double)data.Count() / ProjectConstants.StoriesPerFeedPage);
+            ViewBag.Pages = Math.Ceiling((double)data.Count() / Constants.StoriesPerFeedPage);
 
-            var model = data.Skip((pageNumber - 1) * ProjectConstants.StoriesPerFeedPage)
-                .Take(ProjectConstants.StoriesPerFeedPage)
+            var model = data.Skip((pageNumber - 1) * Constants.StoriesPerFeedPage)
+                .Take(Constants.StoriesPerFeedPage)
                 .ToList();
 
             return this.View(model);
@@ -53,10 +54,10 @@
                     .OrderByDescending(s => s.DatePublished);
 
             ViewBag.Page = pageNumber;
-            ViewBag.Pages = Math.Ceiling((double)stories.Count() / ProjectConstants.StoriesPerFeedPage);
+            ViewBag.Pages = Math.Ceiling((double)stories.Count() / Constants.StoriesPerFeedPage);
 
-            var model = stories.Skip((pageNumber - 1) * ProjectConstants.StoriesPerFeedPage)
-                .Take(ProjectConstants.StoriesPerFeedPage)
+            var model = stories.Skip((pageNumber - 1) * Constants.StoriesPerFeedPage)
+                .Take(Constants.StoriesPerFeedPage)
                 .ToList();
 
             return this.View(model);
@@ -73,10 +74,10 @@
                 .OrderByDescending(s => s.DatePublished);
 
             ViewBag.Page = pageNumber;
-            ViewBag.Pages = Math.Ceiling((double)stories.Count() / ProjectConstants.StoriesPerFeedPage);
+            ViewBag.Pages = Math.Ceiling((double)stories.Count() / Constants.StoriesPerFeedPage);
 
-            var model = stories.Skip((pageNumber - 1) * ProjectConstants.StoriesPerFeedPage)
-                .Take(ProjectConstants.StoriesPerFeedPage)
+            var model = stories.Skip((pageNumber - 1) * Constants.StoriesPerFeedPage)
+                .Take(Constants.StoriesPerFeedPage)
                 .ToList();
 
             return this.View(model);

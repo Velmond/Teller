@@ -7,7 +7,7 @@
     using Teller.Data.UnitsOfWork;
     using Teller.Models;
     using Teller.Web.Controllers.Base;
-    using Teller.Web.Infrastructure.UrlGeneratotrs;
+    using Teller.Web.Infrastructure.UrlGenerators;
     using Teller.Web.ViewModels.Like;
 
     public class StoryLikeController : BaseController

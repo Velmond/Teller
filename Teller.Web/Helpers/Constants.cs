@@ -1,6 +1,6 @@
 ﻿namespace Teller.Web.Helpers
 {
-    public static class ProjectConstants
+    public static class Constants
     {
         public const int SeriesPerSearchPage = 6;
         public const int UsersPerSearchPage = 8;

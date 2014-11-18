@@ -1,23 +1,25 @@
 ﻿namespace Teller.Web.Areas.User.Controllers
 {
     using System;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using Teller.Common;
-using Teller.Data.UnitsOfWork;
-using Teller.Models;
-using Teller.Web.Areas.User.ViewModels;
-using Teller.Web.Controllers.Base;
-using Teller.Web.Infrastructure.Sanitizers;
-using Teller.Web.Infrastructure.UrlGeneratotrs;
+    using System.IO;
+    using System.Linq;
+    using System.Net;
+    using System.Web;
+    using System.Web.Mvc;
+
+    using Teller.Common;
+    using Teller.Data.UnitsOfWork;
+    using Teller.Models;
+    using Teller.Web.Areas.User.ViewModels;
+    using Teller.Web.Areas.User.ViewModels.Info;
+    using Teller.Web.Controllers.Base;
+    using Teller.Web.Infrastructure.Sanitizers;
+    using Teller.Web.Infrastructure.UrlGenerators;
 
     public class InfoController : BaseController
     {
         private const string SubscribeBtnPartialName = "_SubscribeBtn";
-        private ISanitizer sanitizer;
+        private readonly ISanitizer sanitizer;
 
         public InfoController(ITellerData data, ISanitizer sanitizer)
             : base(data)

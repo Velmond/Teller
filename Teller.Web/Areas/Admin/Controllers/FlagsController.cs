@@ -1,4 +1,4 @@
-﻿namespace Teller.Web.Areas.Admin.Controllers.Flags
+﻿namespace Teller.Web.Areas.Admin.Controllers
 {
     using System;
     using System.Collections;

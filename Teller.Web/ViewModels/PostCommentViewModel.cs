@@ -1,8 +1,8 @@
-﻿namespace Teller.Web.Models
+﻿namespace Teller.Web.ViewModels
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class PostComment
+    public class PostCommentViewModel
     {
         [DataType(DataType.MultilineText)]
         [Required(ErrorMessage = "Message content is required to post a message... Duh o.O")]

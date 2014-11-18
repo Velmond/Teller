@@ -13,7 +13,7 @@ namespace Teller.Data.Migrations
 
     internal sealed class Configuration : DbMigrationsConfiguration<TellerDbContext>
     {
-        private IRandomGenerator random;
+        private readonly IRandomGenerator random;
         private UserManager<AppUser> userManager;
 
         public Configuration()
@@ -94,7 +94,7 @@ namespace Teller.Data.Migrations
                 {
                     Email = email,
                     UserName = username,
-                    RegisteredOn = random.RandomDate(DateTime.Now.AddDays(-15), DateTime.Now.AddDays(-5))
+                    RegisteredOn = this.random.RandomDate(DateTime.Now.AddDays(-15), DateTime.Now.AddDays(-5))
                 };
 
                 this.userManager.Create(user, "qweqwe");
@@ -117,7 +117,7 @@ namespace Teller.Data.Migrations
             {
                 Email = "admin@admin.com",
                 UserName = "Administrator",
-                RegisteredOn = random.RandomDate(DateTime.Now.AddDays(-15), DateTime.Now.AddDays(-5))
+                RegisteredOn = this.random.RandomDate(DateTime.Now.AddDays(-15), DateTime.Now.AddDays(-5))
             };
 
             this.userManager.Create(adminUser, "qweqwe");
@@ -152,13 +152,13 @@ namespace Teller.Data.Migrations
 
                     var story = new Story()
                     {
-                        Title = random.RandomString(5, 99),
-                        Content = random.RandomString(100, 2000),
+                        Title = this.random.RandomString(5, 99),
+                        Content = this.random.RandomString(100, 2000),
                         AuthorId = userId,
-                        GenreId = genresIds[random.RandomNumber(0, genresIds.Count - 1)],
-                        DatePublished = random.RandomDate(DateTime.Now.AddDays(-5), DateTime.Now.AddDays(5)),
+                        GenreId = genresIds[this.random.RandomNumber(0, genresIds.Count - 1)],
+                        DatePublished = this.random.RandomDate(DateTime.Now.AddDays(-5), DateTime.Now.AddDays(5)),
                         PicturePath = GlobalConstants.DefaultStoryPicturePath,
-                        ViewsCount = random.RandomNumber(0, 1000)
+                        ViewsCount = this.random.RandomNumber(0, 1000)
                     };
 
                     if (userSeriesIds.Count == 0)
@@ -167,7 +167,7 @@ namespace Teller.Data.Migrations
                     }
                     else
                     {
-                        story.SeriesId = userSeriesIds[random.RandomNumber(0, userSeriesIds.Count - 1)];
+                        story.SeriesId = userSeriesIds[this.random.RandomNumber(0, userSeriesIds.Count - 1)];
                     }
 
                     context.Stories.Add(story);
@@ -190,9 +190,9 @@ namespace Teller.Data.Migrations
             {
                 var series = new Series()
                 {
-                    Title = random.RandomString(10, 50),
+                    Title = this.random.RandomString(10, 50),
                     AuthorId = userId,
-                    GenreId = genresIds[random.RandomNumber(0, genresIds.Count - 1)]
+                    GenreId = genresIds[this.random.RandomNumber(0, genresIds.Count - 1)]
                 };
 
                 context.Series.Add(series);
@@ -213,7 +213,7 @@ namespace Teller.Data.Migrations
                 var like = new Like()
                 {
                     AuthorId = userId,
-                    Value = (this.random.RandomNumber(0, 100) % 4 == 0 ? true : false),
+                    Value = this.random.RandomNumber(0, 100) % 4 == 0 ? true : false,
                     StoryId = stortId
                 };
 
@@ -235,7 +235,7 @@ namespace Teller.Data.Migrations
                 {
                     AuthorId = userIds[this.random.RandomNumber(0, userIds.Count - 1)],
                     Content = this.random.RandomString(100, 600),
-                    IsFlagged = (this.random.RandomNumber(0, 100) % 4 == 0 ? true : false),
+                    IsFlagged = this.random.RandomNumber(0, 100) % 4 == 0 ? true : false,
                     Published = this.random.RandomDate(DateTime.Now.AddDays(-5), DateTime.Now.AddDays(5)),
                     StoryId = storyId
                 };
@@ -258,7 +258,7 @@ namespace Teller.Data.Migrations
                 var commentLike = new CommentLike()
                 {
                     AuthorId = userId,
-                    Value = (this.random.RandomNumber(0, 100) % 4 == 0 ? true : false),
+                    Value = this.random.RandomNumber(0, 100) % 4 == 0 ? true : false,
                     CommentId = commentId
                 };
 
@@ -268,61 +268,5 @@ namespace Teller.Data.Migrations
 
             context.SaveChanges();
         }
-
-        ////private void SeedStoriesWithComments(TellerDbContext context)
-        ////{
-        ////    if (!context.Stories.Any())
-        ////    {
-        ////        var genres = context.Genres.ToList();
-        ////        var users = new AppUser[]
-        ////        {
-        ////            new AppUser() { UserName = "1Anonimous1" },
-        ////            new AppUser() { UserName = "2Anonimous2" },
-        ////            new AppUser() { UserName = "3Anonimous3" }
-        ////        };
-        ////        context.SaveChanges();
-        ////        for (int i = 0; i < 100; i++)
-        ////        {
-        ////            var user = users[this.random.RandomNumber(0, users.Length - 1)];
-        ////            var story = new Story()
-        ////            {
-        ////                Title = this.GenerateStoryTitle(),
-        ////                Content = this.GenerateStoryContent(),
-        ////                Author = user,
-        ////                AuthorId = user.Id,
-        ////                Genre = genres[this.random.RandomNumber(0, genres.Count - 1)],
-        ////                GenreId = genres[this.random.RandomNumber(0, genres.Count - 1)].Id,
-        ////                DatePublished = this.random.RandomDate(DateTime.Now.AddDays(-5), DateTime.Now.AddDays(5)),
-        ////                PicturePath = GlobalConstants.DefaultStoryPicturePath
-        ////            };
-        ////            context.Stories.Add(story);
-        ////            context.SaveChanges();
-        ////        }
-        ////    }
-        ////}
-
-        ////private string GenerateStoryTitle()
-        ////{
-        ////    var allowedSymbols = "qwertyuiopas dfghjklzxcvbnm QWERTYUIOPAS DFGHJKLZXCVBNM 1234567890 !?.,;: ";
-        ////    var titleLength = this.random.RandomNumber(2, 100);
-        ////    var title = new StringBuilder();
-        ////    for (int i = 0; i < titleLength; i++)
-        ////    {
-        ////        title.Append(allowedSymbols[this.random.RandomNumber(0, allowedSymbols.Length)]);
-        ////    }
-        ////    return title.ToString();
-        ////}
-
-        ////private string GenerateStoryContent()
-        ////{
-        ////    var allowedSymbols = "qwertyuiopas dfghjklzxcvbnm QWERTYUIOPAS DFGHJKLZXCVBNM 1234567890 !?.,;: ";
-        ////    var contentLength = this.random.RandomNumber(100, 5000);
-        ////    var content = new StringBuilder();
-        ////    for (int i = 0; i < contentLength; i++)
-        ////    {
-        ////        content.Append(allowedSymbols[this.random.RandomNumber(0, allowedSymbols.Length)]);
-        ////    }
-        ////    return content.ToString();
-        ////}
     }
 }

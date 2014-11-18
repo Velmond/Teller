@@ -11,6 +11,15 @@
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            var namespaces = new[]
+                {
+                    "Teller.Web.Controllers.Account",
+                    "Teller.Web.Controllers.Home",
+                    "Teller.Web.Controllers.Search",
+                    "Teller.Web.Controllers.Series",
+                    "Teller.Web.Controllers.Story"
+                };
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
@@ -20,14 +29,7 @@
                     action = "Index",
                     id = UrlParameter.Optional
                 },
-                namespaces: new[]
-                {
-                    "Teller.Web.Controllers.Account",
-                    "Teller.Web.Controllers.Home",
-                    "Teller.Web.Controllers.Search",
-                    "Teller.Web.Controllers.Series",
-                    "Teller.Web.Controllers.Story"
-                });
+                namespaces: namespaces);
         }
     }
 }

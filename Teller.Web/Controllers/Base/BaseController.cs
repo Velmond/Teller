@@ -24,11 +24,6 @@
         protected override IAsyncResult BeginExecute(RequestContext requestContext, AsyncCallback callback, object state)
         {
             this.UserProfile = this.Data.Users.All().FirstOrDefault(u => u.UserName == requestContext.HttpContext.User.Identity.Name);
-            //var identity = System.Web.HttpContext.Current.User.Identity;
-            //if (identity.IsAuthenticated)
-            //{
-            //    this.UserProfile = this.Data.Users.All().SingleOrDefault(u => u.UserName == identity.Name);
-            //}
 
             return base.BeginExecute(requestContext, callback, state);
         }

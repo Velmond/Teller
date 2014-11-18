@@ -1,4 +1,4 @@
-﻿namespace Teller.Web.Areas.Admin.Controllers.Stories
+﻿namespace Teller.Web.Areas.Admin.Controllers
 {
     using System;
     using System.Collections;
@@ -102,7 +102,7 @@
         [ChildActionOnly]
         private IQueryable<SelectListItem> GetGenres()
         {
-            var genres = this.HttpContext.Cache[ProjectConstants.GenresCacheKey];
+            var genres = this.HttpContext.Cache[Constants.GenresCacheKey];
 
             if (genres == null)
             {
@@ -110,7 +110,7 @@
                     .Select(g => new SelectListItem() { Text = g.Name, Value = g.Id.ToString() });
 
                 this.HttpContext.Cache.Add(
-                    ProjectConstants.GenresCacheKey,
+                    Constants.GenresCacheKey,
                     genres,
                     null,
                     DateTime.Now.AddDays(1),

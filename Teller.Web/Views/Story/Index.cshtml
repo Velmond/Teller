@@ -1,6 +1,7 @@
 ﻿@model Teller.Web.ViewModels.Story.StoryCompleteViewModel
 @using Teller.Common
-@using Teller.Web.Infrastructure.UrlGeneratotrs
+@using Teller.Web.ViewModels
+@using Teller.Web.Infrastructure.UrlGenerators
 @{
     ViewBag.Title = "Story";
     var url = new UrlGenerator();
@@ -47,7 +48,7 @@
                     <div class="row">
                         @if (User.Identity.IsAuthenticated && !User.IsInRole(GlobalConstants.RestrictedRoleName))
                         {
-                            var postComment = new Teller.Web.Models.PostComment() { StoryId = Model.Id, CommentContent = "" };
+                            var postComment = new PostCommentViewModel() { StoryId = Model.Id, CommentContent = "" };
                             @Html.Partial("_StoryCommentForm", postComment)
                         }
                     </div>

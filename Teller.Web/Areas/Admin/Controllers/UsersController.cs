@@ -1,4 +1,4 @@
-﻿namespace Teller.Web.Areas.Admin.Controllers.Users
+﻿namespace Teller.Web.Areas.Admin.Controllers
 {
     using System;
     using System.Collections;
@@ -86,7 +86,7 @@
         [ChildActionOnly]
         private IQueryable<SelectListItem> GetRoles()
         {
-            var roles = this.HttpContext.Cache[ProjectConstants.UserRolesCacheKey];
+            var roles = this.HttpContext.Cache[Constants.UserRolesCacheKey];
 
             if (roles == null)
             {
@@ -94,7 +94,7 @@
                     .Select(r => new SelectListItem() { Text = r.Name, Value = r.Id });
 
                 this.HttpContext.Cache.Add(
-                    ProjectConstants.UserRolesCacheKey,
+                    Constants.UserRolesCacheKey,
                     roles,
                     null,
                     DateTime.Now.AddDays(1),

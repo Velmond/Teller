@@ -4,18 +4,19 @@
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
+    
     using Teller.Data.UnitsOfWork;
     using Teller.Models;
     using Teller.Web.Controllers.Base;
-    using Teller.Web.Infrastructure.UrlGeneratotrs;
-    using Teller.Web.Models;
+    using Teller.Web.Infrastructure.UrlGenerators;
+    using Teller.Web.ViewModels;
     using Teller.Web.ViewModels.Like;
     using Teller.Web.ViewModels.Story;
 
     public class StoryCommentsController : BaseController
     {
-        private const string ContentIsRequiredMsg = "Message content is required to post a message... Duh o.O";
-        private const string ContentTooShortOrTooLongMsg = "Comment must be between 2 and 1000 characters long.";
+        ////private const string ContentIsRequiredMsg = "Message content is required to post a message... Duh o.O";
+        ////private const string ContentTooShortOrTooLongMsg = "Comment must be between 2 and 1000 characters long.";
         private const string CommentPartialName = "_CommentPartial";
         private const string StoryLikesPartialName = "_StoryLikes";
 
@@ -28,7 +29,7 @@
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Post(PostComment newComment)
+        public ActionResult Post(PostCommentViewModel newComment)
         {
             if (string.IsNullOrEmpty(newComment.CommentContent))
             {

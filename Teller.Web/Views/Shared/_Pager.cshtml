@@ -1,4 +1,4 @@
-﻿@model Teller.Web.Models.FeedPager
+﻿@model Teller.Web.ViewModels.Pager.FeedPagerViewModel
 @{
     int startPage = 1;
     int endPage = Model.PagesCount;
@@ -19,6 +19,7 @@
         endPage = Model.Page + 2;
     }
 
+    startPage = Math.Max(1, startPage);
     endPage = Math.Min(endPage, Model.PagesCount);
 }
 

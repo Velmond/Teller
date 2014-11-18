@@ -27,8 +27,7 @@
 
             if (comment == null)
             {
-                throw new HttpException(400, "Story not foud in database.");
-                ////return this.RedirectToAction("NotFound", "Error", new { Area = string.Empty });
+                throw new HttpException(400, "Story not found in database.");
             }
 
             comment.Likes.Add(new CommentLike
@@ -36,13 +35,6 @@
                 Value = likeValue,
                 AuthorId = this.UserProfile.Id
             });
-
-            //this.Data.CommentLikes.Add(new CommentLike()
-            //{
-            //    Value = likeValue,
-            //    AuthorId = this.UserProfile.Id,
-            //    CommentId = comment.Id
-            //});
 
             this.Data.SaveChanges();
 

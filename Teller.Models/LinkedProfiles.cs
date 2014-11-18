@@ -1,7 +1,5 @@
 ﻿namespace Teller.Models
 {
-    using System.ComponentModel.DataAnnotations.Schema;
-
     public class LinkedProfiles
     {
         public int Id { get; set; }

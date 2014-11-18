@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Teller.Web.ViewModels.Story.UserFeedStory>
 @{
     ViewBag.Title = "Favorite stories";
-    var pager = new Teller.Web.Models.FeedPager()
+    var pager = new Teller.Web.ViewModels.Pager.FeedPagerViewModel()
     {
         Area = "",
         Action = "Favorites",

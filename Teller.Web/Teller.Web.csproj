@@ -217,12 +217,12 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\Base\AdminController.cs" />
-    <Compile Include="Areas\Admin\Controllers\Flags\FlagsController.cs" />
-    <Compile Include="Areas\Admin\Controllers\Comments\CommentsController.cs" />
-    <Compile Include="Areas\Admin\Controllers\Genres\GenresController.cs" />
-    <Compile Include="Areas\Admin\Controllers\Series\SeriesController.cs" />
-    <Compile Include="Areas\Admin\Controllers\Stories\StoriesController.cs" />
-    <Compile Include="Areas\Admin\Controllers\Users\UsersController.cs" />
+    <Compile Include="Areas\Admin\Controllers\FlagsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CommentsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\GenresController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SeriesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\StoriesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Areas\Admin\ViewModels\Flag\FlagViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\Comment\CommentViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\Series\SeriesViewModel.cs" />
@@ -237,8 +237,8 @@
     <Compile Include="Areas\User\ViewModels\Info\EditInfoViewModel.cs" />
     <Compile Include="Areas\User\ViewModels\SubscribeButtonViewModel.cs" />
     <Compile Include="Areas\User\ViewModels\Info\UserInfoViewModel.cs" />
-    <Compile Include="Areas\User\ViewModels\Stories\SeriesViewModel.cs" />
-    <Compile Include="Areas\User\ViewModels\Series\StoriesViewModel.cs" />
+    <Compile Include="Areas\User\ViewModels\Series\UserSeriesViewModel.cs" />
+    <Compile Include="Areas\User\ViewModels\Stories\StoriesViewModel.cs" />
     <Compile Include="Controllers\Account\AccountController.cs" />
     <Compile Include="Controllers\Base\BaseController.cs" />
     <Compile Include="Controllers\Story\CommentLikeController.cs" />
@@ -256,8 +256,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HtmlExtensions.cs" />
-    <Compile Include="Helpers\ProjectConstants.cs" />
-    <Compile Include="Models\PostComment.cs" />
+    <Compile Include="Helpers\Constants.cs" />
+    <Compile Include="ViewModels\PostCommentViewModel.cs" />
     <Compile Include="App_Start\ViewEnginesConfig.cs" />
     <Compile Include="ViewModels\Account\ResetPasswordViewModel.cs" />
     <Compile Include="ViewModels\Account\ExternalLoginConfirmationViewModel.cs" />
@@ -277,15 +277,15 @@
     <Compile Include="ViewModels\Manage\SetPasswordViewModel.cs" />
     <Compile Include="ViewModels\Manage\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\Manage\VerifyPhoneNumberViewModel.cs" />
-    <Compile Include="Models\SearchPager.cs" />
-    <Compile Include="Models\FeedPager.cs" />
+    <Compile Include="ViewModels\Pager\SearchPagerViewModel.cs" />
+    <Compile Include="ViewModels\Pager\FeedPagerViewModel.cs" />
     <Compile Include="ViewModels\Home\HomePageViewModel.cs" />
     <Compile Include="ViewModels\CommentLikeViewModel.cs" />
     <Compile Include="ViewModels\Like\LikeViewModel.cs" />
     <Compile Include="ViewModels\Like\StoryLikeViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Models\Pager.cs" />
+    <Compile Include="ViewModels\Pager\PagerViewModel.cs" />
     <Compile Include="ViewModels\Search\SearchSeriesViewModel.cs" />
     <Compile Include="ViewModels\Search\SearchStoryViewModel.cs" />
     <Compile Include="ViewModels\Search\SearchUserViewModel.cs" />
@@ -1362,6 +1362,7 @@
     <Content Include="Views\Shared\EditorTemplates\DropDownList.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Int32.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Byte.cshtml" />
+    <Content Include="Views\Shared\_LoggedInPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

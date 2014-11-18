@@ -14,10 +14,17 @@
             @ViewBag.Username
             @if (User.Identity.IsAuthenticated && ViewBag.Username != User.Identity.Name)
             {
-                @Html.Partial("_SubscribeBtn", new SubscribeButtonViewModel() { Username = ViewBag.Username, IsSubscribed = (bool)isSubscribed })
+                @Html.Partial("_SubscribeBtn", new SubscribeButtonViewModel() { Username = ViewBag.Username, IsSubscribed = isSubscribed })
             }
         </h2>
-        <img src="@ViewBag.AvatarPath" alt="@ViewBag.Username" class="col-sm-3 pull-right img-responsive img-thumbnail img-circle" />
+        @if (!string.IsNullOrEmpty(ViewBag.AvatarPath))
+        {
+            <img src="@ViewBag.AvatarPath" alt="@ViewBag.Username" class="col-sm-3 pull-right img-responsive img-thumbnail img-circle" />
+        }
+        else
+        {
+            <img src="@Teller.Common.GlobalConstants.DefaultUserAvatarPicturePath" alt="@ViewBag.Username" class="col-sm-3 pull-right img-responsive img-thumbnail img-circle" />
+        }
     </div>
     <div class="row">
         @RenderSection("profileNavigation", required: true)

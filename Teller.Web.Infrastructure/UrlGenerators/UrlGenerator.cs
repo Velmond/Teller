@@ -1,4 +1,4 @@
-﻿namespace Teller.Web.Infrastructure.UrlGeneratotrs
+﻿namespace Teller.Web.Infrastructure.UrlGenerators
 {
     using System;
     using System.Text;
@@ -12,7 +12,7 @@
 
         private string ToUrl(string uglyString)
         {
-            var url = string.Join("-", uglyString.ToLower().Substring(0, Math.Min(20, uglyString.Length)).Split(new char[] { ' ', '.', '-', ',', ':', ';', '?', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '+', '=', '[', ']', '{', '}', '<', '>', '\\', '/', '|', '\'', '"' }, StringSplitOptions.RemoveEmptyEntries));
+            ////var url = string.Join("-", uglyString.ToLower().Substring(0, Math.Min(20, uglyString.Length)).Split(new char[] { ' ', '.', '-', ',', ':', ';', '?', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '+', '=', '[', ']', '{', '}', '<', '>', '\\', '/', '|', '\'', '"' }, StringSplitOptions.RemoveEmptyEntries));
 
             var resultString = new StringBuilder(uglyString.Length);
             bool isLastCharacterDash = false;

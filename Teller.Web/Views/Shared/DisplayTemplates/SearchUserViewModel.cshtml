@@ -1,7 +1,17 @@
 ﻿@model Teller.Web.ViewModels.Search.SearchUserViewModel
+@{
+    if (!string.IsNullOrEmpty(Model.AvatarPath))
+    {
+        ViewBag.AvatarPath = Model.AvatarPath;
+    }
+    else
+    {
+        ViewBag.AvatarPath = Teller.Common.GlobalConstants.DefaultUserAvatarPicturePath;
+    }
+}
 
 <div class="text-center">
-    <img src="@Model.AvatarPath" alt="@Model.Username" style="max-width: 40px" class="img-responsive img-thumbnail img-circle" />
+    <img src="@ViewBag.AvatarPath" alt="@Model.Username" style="max-width: 40px" class="img-responsive img-thumbnail img-circle" />
     <h4 style="overflow-wrap: break-word;">
         @Html.ActionLink(Model.Username, "Index", "Info", new { Area = "User", id = Model.Username }, new { })
     </h4>

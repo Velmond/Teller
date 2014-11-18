@@ -1,7 +1,7 @@
-﻿@model Teller.Web.Areas.User.ViewModels.StoriesViewModel
+﻿@model Teller.Web.Areas.User.ViewModels.Stories.StoriesViewModel
 @{
     ViewBag.Title = "Stories - " + ViewBag.Username;
-    var pager = new Teller.Web.Models.FeedPager()
+    var pager = new Teller.Web.ViewModels.Pager.FeedPagerViewModel()
     {
         Area = "User",
         Action = "Index",

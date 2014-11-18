@@ -5,11 +5,14 @@
     using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
+
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
+    
     using Teller.Common;
     using Teller.Data;
+    using Teller.Data.UnitsOfWork;
     using Teller.Models;
     using Teller.Web.App_Start.IdentityConfig;
     using Teller.Web.ViewModels.Account;
@@ -19,15 +22,23 @@
     {
         private ApplicationUserManager userManager;
         private ApplicationSignInManager signInManager;
+        private ITellerData data;
 
-        public AccountController()
+        public AccountController(ITellerData data)
         {
+            this.data = data;
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             this.UserManager = userManager;
             this.SignInManager = signInManager;
+        }
+
+        public ITellerData Data
+        {
+            get { return this.data; }
+            set { this.data = value; }
         }
 
         public ApplicationUserManager UserManager
@@ -193,8 +204,11 @@
 
                 if (result.Succeeded)
                 {
+                    ////var currentUser = this.UserManager.FindByName(user.UserName);
+                    ////var roleResult = this.UserManager.AddToRole(currentUser.Id, GlobalConstants.DefaultUserRoleName);
+                    
                     await this.SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
+                    
                     return this.RedirectToAction("Index", "Home");
                 }
 

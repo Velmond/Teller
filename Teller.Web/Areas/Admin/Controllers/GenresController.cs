@@ -1,4 +1,4 @@
-﻿namespace Teller.Web.Areas.Admin.Controllers.Genres
+﻿namespace Teller.Web.Areas.Admin.Controllers
 {
     using System;
     using System.Collections;

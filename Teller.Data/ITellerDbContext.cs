@@ -4,8 +4,6 @@
     using System.Data.Entity.Infrastructure;
     using System.Linq;
 
-    using Microsoft.AspNet.Identity.EntityFramework;
-    
     using Teller.Models;
 
     public interface ITellerDbContext

@@ -1,4 +1,4 @@
-﻿@model Teller.Web.Areas.User.ViewModels.UserInfoViewModel
+﻿@model Teller.Web.Areas.User.ViewModels.Info.UserInfoViewModel
 @{
     ViewBag.Title = "Profile - " + Model.Username;
 }
@@ -67,55 +67,70 @@
                 </div>
             </p>
         </div>
-        <div class="row">
-            <p>
-                <div class="col-sm-3 text-right">Facebook:</div>
-                <div class="col-sm-9 text-left">
-                    <span class="glyphicon glyphicon-user">
-                        <a href="@Model.Facebook"> Facebook</a>
-                    </span>
-                </div>
-            </p>
-        </div>
-        <div class="row">
-            <p>
-                <div class="col-sm-3 text-right">GooglePlus:</div>
-                <div class="col-sm-9 text-left">
-                    <span class="glyphicon glyphicon-user">
-                        <a href="@Model.GooglePlus"> GooglePlus</a>
-                    </span>
-                </div>
-            </p>
-        </div>
-        <div class="row">
-            <p>
-                <div class="col-sm-3 text-right">Twitter:</div>
-                <div class="col-sm-9 text-left">
-                    <span class="glyphicon glyphicon-user">
-                        <a href="@Model.Twitter"> Twitter</a>
-                    </span>
-                </div>
-            </p>
-        </div>
-        <div class="row">
-            <p>
-                <div class="col-sm-3 text-right">YouTube:</div>
-                <div class="col-sm-9 text-left">
-                    <span class="glyphicon glyphicon-user">
-                        <a href="@Model.YouTube"> YouTube</a>
-                    </span>
-                </div>
-            </p>
-        </div>
-        <div class="row">
-            <p>
-                <div class="col-sm-3 text-right">LinkedIn:</div>
-                <div class="col-sm-9 text-left">
-                    <span class="glyphicon glyphicon-user">
-                        <a href="@Model.LinkedIn"> LinkedIn</a>
-                    </span>
-                </div>
-            </p>
-        </div>
+        @if (!string.IsNullOrEmpty(Model.Facebook))
+        {
+            <div class="row">
+                <p>
+                    <div class="col-sm-3 text-right">Facebook:</div>
+                    <div class="col-sm-9 text-left">
+                        <span class="glyphicon glyphicon-user">
+                            <a href="@Model.Facebook"> Facebook</a>
+                        </span>
+                    </div>
+                </p>
+            </div>
+        }
+        @if (!string.IsNullOrEmpty(Model.GooglePlus))
+        {
+            <div class="row">
+                <p>
+                    <div class="col-sm-3 text-right">GooglePlus:</div>
+                    <div class="col-sm-9 text-left">
+                        <span class="glyphicon glyphicon-user">
+                            <a href="@Model.GooglePlus"> GooglePlus</a>
+                        </span>
+                    </div>
+                </p>
+            </div>
+        }
+        @if (!string.IsNullOrEmpty(Model.Twitter))
+        {
+            <div class="row">
+                <p>
+                    <div class="col-sm-3 text-right">Twitter:</div>
+                    <div class="col-sm-9 text-left">
+                        <span class="glyphicon glyphicon-user">
+                            <a href="@Model.Twitter"> Twitter</a>
+                        </span>
+                    </div>
+                </p>
+            </div>
+        }
+        @if (!string.IsNullOrEmpty(Model.YouTube))
+        {
+            <div class="row">
+                <p>
+                    <div class="col-sm-3 text-right">YouTube:</div>
+                    <div class="col-sm-9 text-left">
+                        <span class="glyphicon glyphicon-user">
+                            <a href="@Model.YouTube"> YouTube</a>
+                        </span>
+                    </div>
+                </p>
+            </div>
+        }
+        @if (!string.IsNullOrEmpty(Model.LinkedIn))
+        {
+            <div class="row">
+                <p>
+                    <div class="col-sm-3 text-right">LinkedIn:</div>
+                    <div class="col-sm-9 text-left">
+                        <span class="glyphicon glyphicon-user">
+                            <a href="@Model.LinkedIn"> LinkedIn</a>
+                        </span>
+                    </div>
+                </p>
+            </div>
+        }
     </div>
 </div>

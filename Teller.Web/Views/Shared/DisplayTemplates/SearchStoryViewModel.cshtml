@@ -1,12 +1,12 @@
 ﻿@model Teller.Web.ViewModels.Search.SearchStoryViewModel
-@using Teller.Web.Infrastructure.UrlGeneratotrs
+@using Teller.Web.Infrastructure.UrlGenerators
 @{
     var urlGenerator = new UrlGenerator();
 }
 
 <div class="row">
     <div class="col-sm-4">
-        <img src="@Model.PicturePath" alt="@Model.Title" class="img-responsive img-circle img-thumbnail" style="max-width: 100px"/>
+        <img src="@Model.PicturePath" alt="@Model.Title" class="img-responsive img-thumbnail" style="max-width: 100px"/>
     </div>
     <div class="col-sm-8">
         <h4 style="overflow-wrap: break-word;">

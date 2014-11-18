@@ -1,4 +1,4 @@
-﻿namespace Teller.Web.Areas.User.ViewModels
+﻿namespace Teller.Web.Areas.User.ViewModels.Info
 {
     using System;
     using System.ComponentModel;
@@ -7,6 +7,7 @@
     using System.Linq.Expressions;
     using System.Web;
     using System.Web.Mvc;
+
     using Teller.Models;
     using Teller.Web.Areas.User.ViewModels.Base;
 

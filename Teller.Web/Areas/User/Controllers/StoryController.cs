@@ -4,8 +4,9 @@
     using System.Linq;
     using System.Web.Caching;
     using System.Web.Mvc;
+
     using Teller.Data.UnitsOfWork;
-    using Teller.Web.Areas.User.ViewModels;
+    using Teller.Web.Areas.User.ViewModels.Stories;
     using Teller.Web.Controllers.Base;
     using Teller.Web.Helpers;
     using Teller.Web.ViewModels.Story;
@@ -30,7 +31,7 @@
                 return this.RedirectToAction("NotFound", "Error", new { Area = string.Empty });
             }
 
-            var userStories = this.HttpContext.Cache[ProjectConstants.UserStoriesCacheKeyPrefix + id] as IQueryable<UserFeedStory>;
+            var userStories = this.HttpContext.Cache[Constants.UserStoriesCacheKeyPrefix + id] as IQueryable<UserFeedStory>;
 
             if (userStories == null)
             {
@@ -40,7 +41,7 @@
                     .Select(UserFeedStory.FromStory);
 
                 this.HttpContext.Cache.Add(
-                    ProjectConstants.UserStoriesCacheKeyPrefix + id,
+                    Constants.UserStoriesCacheKeyPrefix + id,
                     userStories,
                     null,
                     DateTime.Now.AddMinutes(15),
@@ -57,9 +58,9 @@
             ViewBag.Username = id;
             ViewBag.AvatarPath = user.AvatarPath;
             ViewBag.Page = pageNumber;
-            ViewBag.Pages = Math.Ceiling((double)userStories.Count() / ProjectConstants.UserProfilePageSize);
+            ViewBag.Pages = Math.Ceiling((double)userStories.Count() / Constants.UserProfilePageSize);
 
-            user.Stories = userStories.Skip((pageNumber - 1) * ProjectConstants.UserProfilePageSize).Take(ProjectConstants.UserProfilePageSize);
+            user.Stories = userStories.Skip((pageNumber - 1) * Constants.UserProfilePageSize).Take(Constants.UserProfilePageSize);
 
             return this.View(user);
         }

@@ -1,4 +1,4 @@
-﻿namespace Teller.Web.Areas.User.ViewModels
+﻿namespace Teller.Web.Areas.User.ViewModels.Stories
 {
     using System;
     using System.Collections.Generic;

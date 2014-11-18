@@ -21,7 +21,7 @@
 
         public ActionResult Index()
         {
-            var cachedCollections = this.HttpContext.Cache[ProjectConstants.HomeStoriesCacheName];
+            var cachedCollections = this.HttpContext.Cache[Constants.HomeStoriesCacheName];
             if (cachedCollections == null)
             {
                 var topHundredEver = this.GetMostVotedStoriesEver();
@@ -38,7 +38,7 @@
                 };
 
                 this.HttpContext.Cache.Add(
-                    ProjectConstants.HomeStoriesCacheName,
+                    Constants.HomeStoriesCacheName,
                     cachedCollections,
                     null,
                     DateTime.Now.AddHours(12),

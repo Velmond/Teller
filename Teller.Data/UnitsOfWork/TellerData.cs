@@ -10,8 +10,8 @@
 
     public class TellerData : ITellerData
     {
-        private ITellerDbContext context;
-        private IDictionary<Type, object> repositories;
+        private readonly ITellerDbContext context;
+        private readonly IDictionary<Type, object> repositories;
 
         public TellerData(ITellerDbContext context)
         {
