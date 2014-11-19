@@ -159,7 +159,6 @@ ClientBin/
 *.publishsettings
 node_modules/
 **/[Ii]mages/**/*
-**/Teller.Web/[Ll]ibraries/**/*
 
 # RIA/Silverlight projects
 Generated_Code/
