@@ -1,4 +1,4 @@
-﻿namespace Teller.Web.Infrastructure.Mapping
+﻿namespace Teller.Web.App_Start
 {
     using System;
     using System.Collections.Generic;
@@ -6,6 +6,8 @@
     using System.Reflection;
 
     using AutoMapper;
+
+    using Teller.Web.Infrastructure.Mapping;
 
     public static class AutoMapperConfig
     {

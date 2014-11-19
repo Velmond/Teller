@@ -54,7 +54,6 @@
     <Compile Include="Sanitizers\HtmlSanitizerAdapter.cs" />
     <Compile Include="Sanitizers\ISanitizer.cs" />
     <Compile Include="UrlGenerators\IUrlGenerator.cs" />
-    <Compile Include="Mapping\AutoMapperConfig.cs" />
     <Compile Include="Mapping\IHaveCustomMappings.cs" />
     <Compile Include="Mapping\IMapFrom.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

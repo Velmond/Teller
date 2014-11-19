@@ -43,6 +43,7 @@
             return this.View(model);
         }
 
+        [NonAction]
         private IEnumerable<SearchStoryViewModel> GetPageStories(string pattern, int pageNumber)
         {
             var data = this.HttpContext.Cache[Constants.SearchStoriesCachePrefix + pattern + pageNumber.ToString()] as IEnumerable<SearchStoryViewModel>;
@@ -79,6 +80,7 @@
             return data;
         }
 
+        [NonAction]
         private IEnumerable<SearchSeriesViewModel> GetPageSeries(string pattern, int pageNumber)
         {
             var data = this.HttpContext.Cache[Constants.SearchSeriesCachePrefix + pattern + pageNumber.ToString()] as IEnumerable<SearchSeriesViewModel>;
@@ -106,6 +108,7 @@
             return data;
         }
 
+        [NonAction]
         private IEnumerable<SearchUserViewModel> GetPageUsers(string pattern, int pageNumber)
         {
             var data = this.HttpContext.Cache[Constants.SearchUsersCachePrefix + pattern + pageNumber.ToString()] as IEnumerable<SearchUserViewModel>;
@@ -133,6 +136,7 @@
             return data;
         }
 
+        [NonAction]
         private int GetPagesCount(string pattern)
         {
             int pages;
@@ -163,6 +167,7 @@
             return pages;
         }
 
+        [NonAction]
         private int GetAllUsersCount(string pattern)
         {
             var count = this.Data.Stories.All()
@@ -185,6 +190,7 @@
             return count;
         }
 
+        [NonAction]
         private int GetAllStoriesCount(string pattern)
         {
             var count = this.Data.Users.All()

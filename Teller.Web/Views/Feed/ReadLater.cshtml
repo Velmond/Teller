@@ -20,7 +20,7 @@
                     <span class="pull-left">
                         Saved for later
                     </span>
-                    @if(ViewBag.Pages > 1)
+                    @if (ViewBag.Pages > 1)
                     {
                         @Html.Partial("_Pager", pager)
                     }
@@ -32,7 +32,9 @@
             <div class="well">
                 @Html.Partial("_FeedStories", Model)
             </div>
-        </div>        @if(ViewBag.Pages > 1)
+        </div>
+
+        @if (ViewBag.Pages > 1)
         {
             <div class="well-sm">
                 <div class="row">
@@ -44,4 +46,3 @@
         }
     </div>
 </div>
-

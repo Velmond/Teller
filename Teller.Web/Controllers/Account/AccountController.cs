@@ -208,8 +208,8 @@
                     ////var roleResult = this.UserManager.AddToRole(currentUser.Id, GlobalConstants.DefaultUserRoleName);
                     
                     await this.SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                    
-                    return this.RedirectToAction("Index", "Home");
+
+                    return this.RedirectToAction("Edit", "Info", new { Area = "User", id = user.Id });
                 }
 
                 this.AddErrors(result);

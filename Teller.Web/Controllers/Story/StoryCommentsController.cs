@@ -15,8 +15,6 @@
 
     public class StoryCommentsController : BaseController
     {
-        ////private const string ContentIsRequiredMsg = "Message content is required to post a message... Duh o.O";
-        ////private const string ContentTooShortOrTooLongMsg = "Comment must be between 2 and 1000 characters long.";
         private const string CommentPartialName = "_CommentPartial";
         private const string StoryLikesPartialName = "_StoryLikes";
 

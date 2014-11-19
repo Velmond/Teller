@@ -83,6 +83,7 @@
             return this.View(model);
         }
 
+        [NonAction]
         private void CacheValues(IEnumerable<UserFeedStory> stories, string cacheKey)
         {
             this.HttpContext.Cache.Add(

@@ -22,19 +22,7 @@
                 @Html.ActionLink("Teller", "Index", "Home", new { Area = string.Empty }, new { @class = "navbar-brand" })
             </div>
             <div class="row">
-                <div class="col-sm-4">
-                    <div class="navbar-collapse collapse navbar-responsive-collapse">
-                        @using (Html.BeginForm("Index", "Search", new { Area = string.Empty }, FormMethod.Post, new { @class = "navbar-form" }))
-                        {
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-                                    @Html.TextBox("pattern", string.Empty, new { @class = "form-control", placeholder = "Search..." })
-                                </div>
-                            </div>
-                        }
-                    </div>
-                </div>
+                @Html.Partial("_SearchFromPartial")
 
                 @Html.Partial("_LoginPartial")
 
@@ -42,7 +30,6 @@
                 {
                     @Html.Partial("_LoggedInPartial")
                 }
-
             </div>
         </div>
     </div>

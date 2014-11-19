@@ -1,0 +1,13 @@
+﻿<div class="col-sm-4">
+    <div class="navbar-collapse collapse navbar-responsive-collapse">
+        @using (Html.BeginForm("Index", "Search", new { Area = string.Empty }, FormMethod.Post, new { @class = "navbar-form" }))
+        {
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+                    @Html.TextBox("pattern", string.Empty, new { @class = "form-control", placeholder = "Search..." })
+                </div>
+            </div>
+        }
+    </div>
+</div>
