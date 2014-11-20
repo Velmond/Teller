@@ -28,8 +28,8 @@ namespace Teller.Data.Migrations
             this.userManager = new UserManager<AppUser>(new UserStore<AppUser>(context));
             this.SeedGenres(context);
             this.SeedRoles(context);
-            this.SeedUsers(context);
-            this.SeedStories(context);
+            //this.SeedUsers(context);
+            //this.SeedStories(context);
         }
 
         private void SeedRoles(TellerDbContext context)
