@@ -28,7 +28,7 @@ namespace Teller.Data.Migrations
             this.userManager = new UserManager<AppUser>(new UserStore<AppUser>(context));
             this.SeedGenres(context);
             this.SeedRoles(context);
-            //this.SeedUsers(context);
+            this.SeedUsers(context);
             //this.SeedStories(context);
         }
 
@@ -85,38 +85,32 @@ namespace Teller.Data.Migrations
                 return;
             }
 
-            for (int i = 0; i < 10; i++)
-            {
-                var username = this.random.RandomString(6, 16);
-                var email = string.Format("{0}@{1}.{2}", username, this.random.RandomString(3, 5), this.random.RandomString(2, 3));
-
-                var user = new AppUser
-                {
-                    Email = email,
-                    UserName = username,
-                    RegisteredOn = this.random.RandomDate(DateTime.Now.AddDays(-15), DateTime.Now.AddDays(-5))
-                };
-
-                this.userManager.Create(user, "qweqwe");
-
-                user.UserInfo = new UserInfo()
-                {
-                    AvatarPath = GlobalConstants.DefaultUserAvatarPicturePath,
-                    Motto = this.random.RandomString(10, 100),
-                    Description = this.random.RandomString(100, 1000)
-                };
-
-                user.UserInfo.LinkedProfiles = new LinkedProfiles();
-
-                context.SaveChanges();
-
-                this.userManager.AddToRole(user.Id, GlobalConstants.DefaultUserRoleName);
-            }
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    var username = this.random.RandomString(6, 16);
+            //    var email = string.Format("{0}@{1}.{2}", username, this.random.RandomString(3, 5), this.random.RandomString(2, 3));
+            //    var user = new AppUser
+            //    {
+            //        Email = email,
+            //        UserName = username,
+            //        RegisteredOn = this.random.RandomDate(DateTime.Now.AddDays(-15), DateTime.Now.AddDays(-5))
+            //    };
+            //    this.userManager.Create(user, "qweqwe");
+            //    user.UserInfo = new UserInfo()
+            //    {
+            //        AvatarPath = GlobalConstants.DefaultUserAvatarPicturePath,
+            //        Motto = this.random.RandomString(10, 100),
+            //        Description = this.random.RandomString(100, 1000)
+            //    };
+            //    user.UserInfo.LinkedProfiles = new LinkedProfiles();
+            //    context.SaveChanges();
+            //    this.userManager.AddToRole(user.Id, GlobalConstants.DefaultUserRoleName);
+            //}
 
             var adminUser = new AppUser
             {
-                Email = "admin@admin.com",
-                UserName = "Administrator",
+                Email = "velmond@abv.bg",
+                UserName = "teller",
                 RegisteredOn = this.random.RandomDate(DateTime.Now.AddDays(-15), DateTime.Now.AddDays(-5))
             };
 
